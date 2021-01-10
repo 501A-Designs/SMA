@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMA</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+    <!-- firebase auth -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+    <!-- Cloud Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
+    rel="stylesheet"
+    />
+    <link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="mobile.css">
+    <script src="app.js" defer></script>
+    <script src="functions.js" defer></script>
+    <script src="create.js" defer></script>
+
+  </head>
+  <body>
+    <!-- Loading and loading text -->
+    <section class="loadObject">
+      <div></div>
+    </section>
+    <script>
+      window.addEventListener("load", function () {
+        const loader = document.querySelector(".loadObject");
+        loader.className += "hidden";
+      });
+    </script>
+
+    <!-- Version alert pop up -->
+    <section id="versionNotify">
+      <button onclick="eraseVersionNotify()">✕</button>
+      <a href="about.html#version">SMA v<span class="smaVersion"></span> にアップデートされました！</a>
+      <p id="erasedDate"></p>
+    </section>
+    
+    <!-- 
+    <section id="whenSignedOut">
+      <button
+      id="btnLogin"
+      class="standardButton"
+      style="background-color: var(--green)"
+    >
+      ログイン
+    </button>
+    </section>
+
+    <section id="whenSignedIn">
+      <div id="userDetails"></div>
+      <button
+        id="btnLogout"
+        class="standardButton"
+        style="background-color: var(--red)">
+        ログアウト
+      </button>
+    </section> -->
+
+    <section id="loginPopUp">
+        <button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>
+        <h2 style="margin: var(--containerGap)">👥 ログインについて：</h2>
+        ログインは、管理者に送られるメールパスワードを使用し、ご利用のグーグルアカウントですることができます。パスワードを入力する際正しいか確認してください。確認した上、まだ入れないようであれば、SMA Information Pageにある［ログインリクエスト］のボタンを押すことでアカウント作成の依頼を送信することが可能となります。ご理解ご協力の方よろしくおねがいします。<br /><br />
+        <div id="loginContainer">
+            <div id="submitDiv">
+              <!-- <button class="standardButton" style="background-color: var(--blue)">
+                + アカウント作成
+              </button> -->
+              <input id="txtPassword" type="password" placeholder="パスワードを入力" />
+              <button
+                id="btnLogin"
+                class="standardButton"
+                style="background-color: var(--green)"
+              >
+                ログイン
+              </button>
+            </div>
+        </div>
+    </section>
+    <!-- <section id="whenSignedIn" hidden="true">
+        <div id="userDetails"></div>
+        <button
+        id="btnLogout"
+        class="standardButton"
+        style="background-color: var(--red)"
+      >
+        ログアウト
+      </button>
+    </section> -->
+
+    <section  class="header">
+      <img src="SMA-Logo.png" class="smaLogo" alt="No Logo">
+      <div class="mobileErase">
+        <h1 style="margin-bottom: -1px;">SMA</h1>
+        <p style="margin: 0px; font-size: 20px; color: grey">Share My Activity</p>
+      </div>
+    </section>
+
+    <section style="display: flex; align-items: center;">
+      <h2>Activity Timeline</h2>
+      <!-- TAGS  -->
+      <section id="filter">
+        <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
+        <button class="tagButton" id="casFilter" style="background-color: var(--purple);">CAS Activities</button>
+        <button class="tagButton" id="saaFilter" style="background-color: var(--orange);">S&A Activities</button>
+        <!-- <button class="tagButton">LO1</button>
+        <button class="tagButton">LO2</button>
+        <button class="tagButton">LO3</button>
+        <button class="tagButton">LO4</button>
+        <button class="tagButton">LO5</button>
+        <button class="tagButton">LO6</button>
+        <button class="tagButton">LO7</button>  -->
+      </section>
+    </section>    
+
+    <!-- <p id="cautionNote">
+      ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、アカウントログイン・活動の投稿等はできないです。ご了承ください。
+    </p> -->
+
+<!-- Snake -->
+<section id="snakeG" style="display: none;
+                  margin: none;
+                  width: 50%;
+                  height: auto;
+                  border-radius: 20px;
+                  padding: 20px;
+                  background-color: white;
+                  opacity: 90%;
+                  max-height: none;
+                  box-shadow: 5px 5px 20px #636363;
+                  z-index: 2;
+                  position: fixed;
+                  top: calc(25% - 70px);
+                  right: calc(25% - 25px);">
+    <canvas id="gc" width="400" height="400" style="border-radius: 10px; float: right; margin-left: 10px;"></canvas>
+    <h2>Snake Easter Egg</h2>
+    <p style="margin-right: 10px;">Rules are simple, use "W","A","S","D" to move around. When you want to hide the game play, press the [Exit] button below. Once this command is executed your game will be running in the background, so once you press the snake button again, your game should still be running. Anyways, hope you have a little fun with this easter egg :)
+      <br>
+      <br>
+      P.S : This game has not been created by SMA creator.
+      <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser history.
+    </p>
+    <button class="closeLoginPopUp" style="float: right;" onclick="eraseSnake()">Exit</button>
+  <script>
+    window.onload=function() {
+        canv=document.getElementById("gc");
+        ctx=canv.getContext("2d");
+        document.addEventListener("keydown",keyPush);
+        setInterval(game,1000/15);    
+    }
+
+    px=py=10;
+    gs=tc=20;
+    ax=ay=15;
+    xv=yv=0;
+    trail=[];
+    tail = 5;
+
+    function game() {
+        px+=xv;
+        py+=yv;
+        if(px<0) {
+            px= tc-1;
+        }
+        if(px>tc-1) {
+            px= 0;
+        }
+        if(py<0) {
+            py= tc-1;
+        }
+        if(py>tc-1) {
+            py= 0;
+        }
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,canv.width,canv.height);
+        ctx.fillStyle="lime";
+        for(var i=0;i<trail.length;i++) {
+            ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+            if(trail[i].x==px && trail[i].y==py) {  
+              tail = 5;
+            }
+        }
+        trail.push({x:px,y:py});
+        while(trail.length>tail) {
+        trail.shift();
+        }
+        if(ax==px && ay==py) {
+            tail++;
+            ax=Math.floor(Math.random()*tc);
+            ay=Math.floor(Math.random()*tc);
+        }
+        ctx.fillStyle="red";
+        ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+    }
+    
+    function keyPush(evt) {
+        switch(evt.keyCode) {
+            case 65:
+                xv=-1;yv=0;
+                break;
+            case 87:
+                xv=0;yv=-1;
+                break;
+            case 68:
+                xv=1;yv=0;
+                break;
+            case 83:
+                xv=0;yv=1;
+                break;
+
+            //Link to more keyCodes: https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+        }
+    }
+  </script>
+</section>
+
+<!-- 2048 -->
+<!-- <section id="2048G" style="display: block;
+                  margin: none;
+                  width: 50%;
+                  height: auto;
+                  border-radius: 20px;
+                  padding: 20px;
+                  background-color: white;
+                  opacity: 90%;
+                  max-height: none;
+                  box-shadow: 5px 5px 20px #636363;
+                  z-index: 2;
+                  position: fixed;
+                  top: calc(25% - 25px);
+                  right: calc(25% - 25px);">
+</section> -->
+
+<!-- Other possible ones to implement : https://www.ansoriweb.com/2020/03/javascript-game.html -->
+
+    <section id="postButtons" hidden="true">
+      <br>
+      <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <button
+          class="standardButton"
+          style="background-color: var(--green);"
+          onclick="blockDisplay(1)"
+        >
+          <!-- + 活動記事を追加 -->
+          + 記事追加
+        </button>
+        <button class="standardButton" style="background-color: var(--red);" onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
+          - 活動記事の消去をリクエスト
+        </button>
+        <button class="standardButton" style="background-color: var(--darkBlue); color: white;" onclick="window.location.reload();">🔃 ページを更新</button>
+      </div>
+    </section>
+<!---->
+    <div id="gridContainer">
+      <section class="gridObject">
+        <section id="createPost" hidden="true"> 
+          <!-- add this above (in section tag)  id="createPost" hidden="true" -->
+          <button class="closeLoginPopUp" onclick="blockDisplay()">✕ 閉じる</button>
+            <h2 style="margin-top: var(--containerGap);">🔧 新しい活動：</h2>
+            新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
+            のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。<br /><br /><hr><br>
+            <form>
+            活動種類を選んでください：
+              <input type="radio" name="activityType" id="casLabel" value="CAS">CAS活動</input>
+              <input type="radio" name="activityType" id="saaLabel" value="S&A">S&A活動</input>
+            </form>
+            <!-- 
+            <br>
+            <form id="loForm">
+              主要なラーニングアウトカム（LO）を一つ選んでください：<br>
+              <input type="radio" name="loType" id="lo1" value="LO1">1：自らの長所と成長すべき点を認識する。</input><br>
+              <input type="radio" name="loType" id="lo2" value="LO2">2：課題に挑戦し、その過程で新しいスキルを習得している。</input><br>
+              <input type="radio" name="loType" id="lo3" value="LO3">3：自らCASを計画し開始することができる。</input><br>
+              <input type="radio" name="loType" id="lo4" value="LO4">4：CAS活動を継続し、やり遂げる粘り強さを示す。</input><br>
+              <input type="radio" name="loType" id="lo5" value="LO5">5：自らのスキルを活かし、また他者と共に活動する意義を認識する。</input><br>
+              <input type="radio" name="loType" id="lo6" value="LO6">6：グローバルな問題に取り組む。</input><br>
+              <input type="radio" name="loType" id="lo7" value="LO7">7：選択と行動の倫理を認識し、考察する。</input>
+            </form> -->
+            <br>
+            <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
+            <input id="postAuthor" type="text" placeholder="記事の著者" />
+            <input id="postDate" type="date" /><br /><br />
+            <textarea
+            id="postContent"
+              name="bruh"
+              cols="30"
+              rows="8"
+              placeholder="記事内容"
+              style="width: 85%; resize: none;"
+            ></textarea>
+            <br />
+            <p>以下は必須項目ではありません（リンクを加えたい人の為）：</p>
+            <div>
+            <input type="text" id="postLinkName" placeholder="リンク名">
+            <input type="url" id="postLink" style="margin-left:5px; width: 40%;" placeholder="URLリンク">
+            </div>
+            <!-- <button class="standardButton" style="margin-left:5px; background-color: var(--grey2);">+ リンクを加える</button> -->
+            <br />
+<!-- Still working on this feature,,,, -->
+            <!-- <p></p> -->
+            <br />
+            <input id="publishPost" type="submit" value="✔　記事完了" class="standardButton" style="background-color: var(--green);"></input>
+        </section>  
+        <!-- <div>
+          <small>Month/Date/Year</small>
+          <h3>Hello World</h3>
+          <h5>Author</h5>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem
+            inventore ipsum eius facilis hic accusamus pariatur fugit doloribus
+            cumque dignissimos illum impedit ea perspiciatis eveniet
+            reprehenderit, consectetur, omnis quam! Labore.
+          </p>
+        </div>
+        <div>
+          <small>Month/Date/Year</small>
+          <h3>Hello World</h3>
+          <small>Author</small>
+          <p>
+          voluptate mollitia dignissimos cupiditate recusandae tempore quo ab, necessitatibus, facilis error repellat dolores nemo eius? Distinctio delectus omnis, commodi nesciunt beatae sit vitae aut ipsam optio consequuntur officiis ad atque facilis odit earum mollitia neque sunt consectetur nihil a ipsa vel iusto quod eos. Est accusantium distinctio sunt tenetur sint quibusdam voluptatibus ratione? Perspiciatis dolores nostrum dolorem sint?
+          </p>
+        </div>
+
+        <h4 style="text-align: center; color: black">・・・<br>投稿はここ以下無いです</h4> -->
+      </section>
+
+      <section class="sidebarBoxes">
+        <!-- <section>
+          <div class="buttonsContainer">
+            <button class="standardButton" style="background-color: var(--grey2)" onclick="">
+              ← 新規の投稿
+            </button>
+            <button class="standardButton" style="background-color: var(--grey2)" onclick="">
+              過去の投稿 →
+            </button>
+          </div>
+        </section> -->
+
+        <section class="desktopErase">
+          <hr class="largeHr">
+          <h2>プロフィール<br>・他の機能</h2>
+          <!-- LOGIN SECTION GOES HERE -->
+          </section>
+          <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
+            <h3>ログインされていません</h3>
+            <div class="buttonsContainer">
+              <button class="standardButton" style="background-color: var(--green)" onclick="popUpFunction(1)">
+                ログイン
+              </button>
+            </div>
+          </div>
+          
+          <section style="text-align: center" class="sidebarBox" id="whenSignedIn" hidden="true">
+            <!-- <h3>ログイン済みです</h3> -->
+            <div id="userDetails"></div>
+            <div class="buttonsContainer">
+              <!--Logout button | hidden by default-->
+              <button id="btnLogout" class="standardButton" style="background-color: var(--red);">
+                ログアウト
+              </button>
+            </div>
+          </section>
+
+        <!-- OTHERS CONTAINER -->
+        <section id="addFeature" hidden="true">
+          <br>
+          <div  class="buttonsContainer">
+            <button class="standardButton" style="background-color: var(--orange)" onclick="window.location.href='https://forms.gle/cMwf16UFR9ZwxvoZ9';">+ 機能のリクエスト</button>
+            <button class="standardButton" style="background-color: var(--purple)" onclick="window.location.href='https://forms.gle/CoFtiqqxxKxRFKkKA';">🐝 バグ告知</button>
+          </div>
+        </section>
+
+        <details class="sidebarBox">
+          <summary>7つの Learning Outcome</summary>
+          <div class="load-wave">
+            <ol id="loENG" style="display: none;">
+              <li>Identify your own strengths and develop areas for personal growth.
+              </li>
+              <li>Demonstrate challenges have been undertaken, developing new skills in the process.
+              </li>
+              <li>Demonstrate how to initate and plan a CAS experience.
+              </li>
+              <li>Show commitment to and perseverance in CAS experience.
+              </li>
+              <li>Demonstrate the skills and recognize the benfits of working collaboratively.
+              </li>
+              <li>Demonstrate engagement with issues of global significance.
+              </li>
+              <li>Recognize and consider the ethics of choices and actions.
+              </li>
+            </ol>
+            <ol id="loJPN">
+              <li>自らの長所と成長すべき点を認識する。</li>
+              <li>課題に挑戦し、その過程で新しいスキルを習得している。</li>
+              <li>自らCASを計画し開始することができる。</li>
+              <li>CAS活動を継続し、やり遂げる粘り強さを示す。</li>
+              <li>自らのスキルを活かし、また他者と共に活動する意義を認識する。</li>
+              <li>グローバルな問題に取り組む。</li>
+              <li>選択と行動の倫理を認識し、考察する。</li>
+            </ol>
+            <button id="langButton" onclick="langFunction()">Translate to English</button>
+          </div>
+        </details>
+
+        <details class="sidebarBox" open>
+          <summary>関連ウェブサイト</summary>
+          <div  class="load-wave">
+            <br>
+            <section id="additionalSites">
+            <button
+              id="kngedjp"
+              onclick="window.location.href='http://kng.ed.jp';"
+            >
+              🏫　開智日本橋学園
+            </button>
+            <button
+              id="glcdlc"
+              onclick="window.location.href='http://glcdlc.com';"
+            >
+              🌐　GLC・DLC
+            </button>
+            <!-- <button
+              id="ibmanabu"
+              onclick="window.location.href='https://www.ibmanabu.com/';"
+            >
+              🗣　IB学ぶ
+            </button> -->
+            <button
+              id="learngeo"
+              onclick="window.location.href='https://www.learngeowith.me/';"
+            >
+              🏔　LearnGeoWithMe
+            </button>
+            </section>
+          </div>
+        </details>
+
+        <!-- DARK MODE BUTTON -->
+        <section class="sidebarBox">
+          <h4 style="margin-top: 0px;">色モード変更</h4>
+          <div class="buttonsContainer">
+            <button onclick="LtoD()" id="DtoL">🌄 朝モード</button>
+            <button onclick="DtoL()" id="LtoD">🌃 夜モード</button>
+          </div>         
+        </section>
+
+        <!-- OTHERS CONTAINER -->
+        <section class="sidebarBox">
+          <h4 style="margin-top: 0px;">Share My Activity</h4>
+          <section id="additionalSites">
+            <button onclick="window.location.href='about.html#about';">SMAについて</button>
+            <button onclick="window.location.href='about.html#howto';">SMAの使用法</button>
+          </section>
+        </section>
+
+        <!-- OTHERS CONTAINER -->
+        <!-- <section id="addFeature" hidden="true">
+          <div  class="buttonsContainer">
+            <button class="standardButton" style="background-color: var(--orange)" onclick="window.location.href='something.com';">+ 機能の編集リクエスト</button>
+          </div>
+        </section> -->
+
+        <h5 style="text-align: center; color: black">
+          SMA バージョン <span class="smaVersion"></span><br><span id="loadEaster">・・・</span><br>
+          <script>
+            document.getElementById("loadEaster").addEventListener("click", ()=> {
+              document.getElementById("initiateSnake").style.display="block";
+              document.getElementById("initiateSnake").addEventListener("click", ()=> {
+                document.getElementById("snakeG").style.display="block";
+              });
+              // document.getElementById("initiate2048").addEventListener("click", () => {
+              //   document.getElementById("2048G").style.display = "block";
+              // });
+            });
+            // Hiding Command
+            eraseSnake =()=>{
+              document.getElementById("snakeG").style.display="none"
+            }
+          </script>
+          <a style="color: black" href="http://y-com.jp">Developed by 501A</a>
+          <br>
+          IP Written by Y.Y
+        </h5>
+        <button class="easterButton" id="initiateSnake">🐍 Snake</button>
+        <!-- <button class="easterButton" id="initiate2048">🔢 2048</button> -->
+      </section>
+
+      <!--PAGINATION BUTTON
+        <section class="buttonsContainer">
+        <button class="standardButton" style="background-color: lightblue;">🔃 もっと表示</button>
+      </section> -->
+    </div>
+  </body>
+</html>

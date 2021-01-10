@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="desktop.css" />
+    <link rel="stylesheet" href="mobile.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
+      rel="stylesheet"
+    />
+    <script src="functions.js" defer></script>
+    <link rel="shortcut icon" href="SMA-Logo.png"/>
+    <title>About SMA</title>
+  </head>
+  <body>
+<br>
+  <button class="standardButton" style="background-color: var(--orange);" onclick="window.history.back();">← 戻る</button>
+<br> 
+<br>
+<h1>SMA Information Page</h1>
+<br>
+  <section id="gridContainer">
+    <section class="tableOfContents">
+      <h2>コンテンツ：</h2>
+      <ul>
+        <li><a href="#about">SMAについて</a></li>
+        <li><a href="#howto">使用法</a></li>
+        <li><a href="#tos">利用規約</a></li>
+        <li><a href="#version">バージョン情報</a></li>
+      </ul>
+    </section>
+    <section class="sidebarBox">
+      <h4 style="margin-top: 0px;">色モード変更</h4>
+      <div class="buttonsContainer">
+        <button onclick="LtoD()" id="DtoL">🌄 朝モード</button>
+        <button onclick="DtoL()" id="LtoD">🌃 夜モード</button>
+      </div>
+      <h4>SMA関連</h4>
+      <div class="buttonsContainer">
+        <button class="standardButton" style="background-color: var(--purple)"
+          onclick="window.location.href='https://forms.gle/CoFtiqqxxKxRFKkKA';">🐝 バグ告知</button>
+        <button onclick="window.location.href='https://forms.gle/wjFLajivJ9Qc4AhQ6';" class="standardButton" style="background-color: var(--blue)">
+          🙏 ログインリクエスト
+        </button>
+      </div>
+    </section>
+  </section>
+    <!-- <p class="cautionNoteResponsive">
+      ！！ 注意 ！！<br />本ページでは［夜モード］を使用することができません。ご了承ください。
+    </p> -->
+    <br>
+    <a id="about"></a>
+    <h2><symbol class="emojiHolder">📖</symbol> SMAについて：</h2>
+    <p>
+      SMAはShare My Activityの略であり、見本となるCASやS&Aの活動の共有をする場としての役割を果たし、CAS Projectの一貫として作成されたものです。なお、開智日本橋学園のもとで運営されているウェブアプリです。 <br>
+    </p>
+    <br>
+    <a id="howto"></a>
+    <h2><symbol class="emojiHolder">🛠️</symbol> 使用法：</h2>
+    <h3>閲覧のみの方</h3>
+    <p>
+      <li>関連サイトがページの右端のリンクをクリックすることでアクセスできます
+      </li>
+      <li>色モード変更のボタンをクリックすることで<span class="inlineDummyBtn" style="background-color: var(--grey2);">🌃 夜モード</span>と<span class="inlineDummyBtn" style="background-color: var(--grey2);">🌄 朝モード</span>の切り替えができます</li>
+    </p>
+    <br>
+    <h3>ログイン方法</h3>
+    <ol>
+      <li><span class="inlineDummyBtn" style="background-color: var(--green);">ログイン</span>のボタンをクリックするとポップアップウィンドウが表示されます
+      </li>
+      <li>その際に、ウィンドウにある<span class="inlineDummyBtn" style="background-color: var(--green);">ログイン</span>ボタンをもう一度クリックしてください（ログインは自身のGoogle Accountを使用します）
+      </li>
+      <li>ログインが成功したら「ログイン済みです！」とアカウント名が載っているウィンドウが表示されます。
+      </li>
+    </ol>
+    <br>
+    <h3>ログイン済みの方</h3>
+    <p>
+      <li><span class="inlineDummyBtn" style="background-color: var(--green);">+ 活動記事を追加</span>をクリックすることでスレッドに投稿できます。
+      </li>
+      <li><span class="inlineDummyBtn" style="background-color: var(--red);">- 活動記事の消去をリクエスト</span>をクリックすることで投稿を削除するリクエストを送れます
+      </li>
+      <li>投稿はすぐに表示されません。<span class="inlineDummyBtn" style="background-color: var(--darkBlue); color: white;">🔃 ページを更新</span>をクリックしてページを更新してください。
+      </li>
+      <li>ページの右端のログアウトボタンの下に<span class="inlineDummyBtn" style="background-color: var(--orange);">+ 機能をリクエスト</span>と書いてあるオレンジのボタンを押すとSMAの機能をリクエストできます。</li>
+      <li><span class="inlineDummyBtn" style="background-color: var(--purple);">🐝 バグ告知</span>のボタンがあります</li>
+    </p>
+    <br>
+    <a id="tos"></a>
+    <h2><symbol class="emojiHolder">📚</symbol> 利用規約：</h2>
+    <p>
+      本サイトの使用上での利用規約は以下の通りです：<br>
+      <li>
+        開智日本橋学園高等学校の生徒・教員のみがSMAにログインが許可される
+      </li>
+      <li>開智日本橋学園高等学校の生徒・教員のみが新しい機能を請求できる</li>
+      <li>人々が不快に思うようなコンテンツをスレッドに載せないこと
+      </li>
+      <li>一度投稿した内容は自身で消去することは不可（ログイン済みの方が利用できるグーグルフォームを通して消去のリクエストを出すことができます）</li>
+    </p>
+    <br>
+    <a id="version"></a>
+    <h2><symbol class="emojiHolder">⏰</symbol> SMAバージョン情報：</h2>
+    <div>
+      <ul>
+        v1.4.2：1月10日
+        <li>CASとS&Aフィルターシステム</li>
+        <li>バージョン情報スタイル変更</li>
+        <li>「活動タイムライン」タイトル変更</li>
+      </ul>
+    </div>
+    <details>
+      <summary>過去のバージョン</summary>
+      <section class="versionGrid load-wave">
+        <div>
+          <ul>
+            v1.4.1：1月8日
+            <li>ロゴの配置調整（モバイル）</li>
+            <li>バージョン情報スタイル変更</li>
+            <li>バージョン情報通知バク修正</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.4.0：12月27日
+            <li>ロゴの配置調整（モバイル）</li>
+            <li>ページ全体におけるスタイル変更（活動記事、サイドバー、バージョン通知等）</li>
+            <li>SMA IPの内容更新</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.3.0：12月23日
+            <li>ロゴの追加</li>
+            <li>モバイルでのログインと活動投稿</li>
+            <li>ボタンと入力欄のスタイル変更</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.2.2：12月18日
+            <li>リンクとリンク名の表示</li>
+            <li>SMA IPの［ホーム］ボタンを［戻る］ボタンに変更</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.2.1：12月17日
+            <li>Eメールアドレスの表示</li>
+            <li>夜モードの明るさ変更</li>
+            <li>プロフィール画像の表示</li>
+            <li>グリッド問題改善</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.2.0：12月16日
+            <li>投稿フォーマットの変更（改行可など）</li>
+            <li>活動種類のタグシステム・色別分類</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.1.0：12月14日
+            <li>バージョンアップデート通知</li>
+            <li>SMA Information Page（本ページ：IP）の内容更新</li>
+            <li>ログインパスコードシステム</li>
+            <!-- <li> 使用法の部分で写真が追加</li> -->
+            <li>SMA IPの夜モード変更可能</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            v1.0.0：12月13日
+            <li>夜モードと朝モードの自動切換え（マニュアル化）</li>
+            <li>関連ウェブサイトの提示</li>
+            <li>ラーニングアウトカムの一覧を提示</li>
+          </ul>
+        </div>
+      </section>
+    </details>
+  <h5 style="text-align: center; color: black">
+    SMA Information Page<br>・・・<br>Written by Y.Y
+  </h5>
+  </body>
+</html>

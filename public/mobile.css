@@ -1,0 +1,100 @@
+@import url(desktop.css);
+
+@media only screen and (max-width: 999px) {
+  .header{
+    margin-top: 15%;
+    margin-bottom: 15%;
+    display: flex;
+    justify-content: center;
+  }
+  .smaLogo{
+    height: 17%;
+    width: 17%;
+  } 
+  
+  body {
+    margin: 0px 5% 5% 5%;
+  }
+  h1 {
+    margin-bottom: var(--containerGap);
+    font-size: 40px;
+  }
+  #loginPopUp {
+    display: none;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px #636363;
+    z-index: 2;
+    height: auto;
+    max-height: none;
+    position: fixed;
+    margin: 10px;
+    top: calc(25% - 80px);
+    right: calc(25% - 100px);
+  }
+  /* #loginPopUp,
+  #whenSignedIn,
+  #whenSignedOut {
+    display: block;
+  } */
+
+  #gridContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: none;
+    gap: var(--containerGap);
+    /* row-gap: 0px;
+    column-gap: 0px; */
+  }
+
+  #cautionNote {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+
+    border: solid rgb(223, 124, 124) 1.5px;
+    border-radius: 5px;
+    /* margin: var(--containerGap); */
+
+    padding: 10px;
+    background-color: rgb(255, 218, 218, 10);
+    color: red;
+  }
+  .mobileErase, .tagButton {
+    display: none;
+  }
+  .desktopErase {
+    display: block;
+  }
+
+  #createPost {
+    border-radius: var(--roundedCorners);
+    padding: 15px;
+    background-color: var(--grey);
+    border: 2px solid grey;
+    margin-bottom: 20px;
+  }
+
+  #createPost input {
+    margin-bottom: 5px;
+  }
+
+  .gridObject > div {
+    margin-top: calc(15px);
+    margin-bottom: calc(15px);
+  }
+  .casTag {
+    box-shadow: 0px -5px 4px var(--purple);
+  }
+  .saaTag {
+    box-shadow: 0px -5px 4px var(--orange);
+  }
+  .largeHr {
+    margin-bottom: 5em;
+    margin-top: 5em;
+  }
+  .versionGrid{
+    grid-template-columns: 1fr;
+  }
+}

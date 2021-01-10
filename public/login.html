@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="desktop.css" />
+    <link rel="stylesheet" href="mobile.css" />
+    <script src="app.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
+      rel="stylesheet"
+    />
+    <title>SMA-Login</title>
+  </head>
+  <body>
+    <section id="whenSignedOut">
+      <h1 class="largeHeading">Login</h1>
+      <br />
+      <h2 style="margin: var(--containerGap)">👥 ログインフォーム：</h2>
+      <div class="greyContainer">
+        ログインができない場合は、メールまたはパスワードが正しいか確認してください。確認した上、まだ入れないようであれば、［アカウント作成］のボタンを押すことでアカウント作成のリクエストを送信することが可能となります。ご理解ご協力の方よろしくおねがいします。<br /><br />
+        <div id="loginContainer">
+          <!-- <div id="inputDiv">
+            <input id="txtEmail" type="email" placeholder="kngメールを入力" />
+            <input
+              id="txtPassword"
+              type="password"
+              placeholder="パスワードを入力"
+            />
+          </div>
+          <br /> -->
+          <div id="submitDiv">
+            <button class="standardButton" style="background-color: var(--blue)">
+              + アカウント作成
+            </button>
+            <button
+              id="btnLogin"
+              class="standardButton"
+              style="background-color: var(--green)"
+            >
+              ログイン
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="whenSignedIn" hidden="true">
+        <div id="userDetails"></div>
+        <button
+        id="btnLogout"
+        class="standardButton"
+        style="background-color: var(--red)"
+      >
+        ログアウト
+      </button>
+    </section>
+  </body>
+</html>
