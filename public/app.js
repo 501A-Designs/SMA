@@ -170,27 +170,6 @@ if (allBtn.style.display === "none") {
   getPosts();  
 }
 
-// function checkPostLink() {
-//   if (docs.data().postLinkName !== "") {
-//     docs.data().postLinkName,
-//     docs.data().postLink
-//   }  
-// }
-
-//THIS VERSION WORKS (getting value from radio button)
-// console.log(document.querySelector(`input[name="activityType"]:checked`))
-//----------------------------
-
-// const saaValue = document.getElementById('saaLabel');
-  
-// if (saaValue.checked = true) {
-//   console.log("bruh it working tho")
-//   div.style.boxShadow="-5px 0px var(--orange)";
-// }else{
-//   div.style.boxShadow="-5px 0px var(--purple)";
-// } 
-
-
 //Google Auth
 auth.onAuthStateChanged(user => {
 if (user) {
@@ -320,59 +299,3 @@ btnLogin.addEventListener("click", (e) => {
 // document.getElementById("postButtons").addEventListener("load",function () {
 //   getPosts()  
 // })
-
-
-// FILTER GANG
-
-
-
-
-const casFilter = document.getElementById("casFilter");
-const saaFilter = document.getElementById("saaFilter");
-
-// if (casFilter.addEventListener) {
-//   casFilter.addEventListener("click", function getCasPosts() {
-//     //before .get insert .orderBy("createdAt")
-//     db.collection("posts")
-//       .where("postType", "==", "CAS")
-//       .get()
-//       .then(snapshot=>{
-//         snapshot.docs.forEach(docs=>{
-//           createPost(
-//             docs.data().createdAt,
-//             docs.data().postType,
-//             // docs.data().loType,
-//             docs.data().postName,
-//             docs.data().postAuthor,
-//             docs.data().postContent
-//             );
-//         });
-//       }).catch(err => {
-//         console.log(err);
-//     });
-//   })  
-// }if (saaFilter.addEventListener) {
-//   saaFilter.addEventListener("click", function getSaaPosts() {
-//     //before .get insert .orderBy("createdAt")
-//     db.collection("posts")
-//       .where("postType", "==", "S&A")
-//       .get()
-//       .then(snapshot=>{
-//         snapshot.docs.forEach(docs=>{
-//           createPost(
-//             docs.data().createdAt,
-//             docs.data().postType,
-//             // docs.data().loType,
-//             docs.data().postName,
-//             docs.data().postAuthor,
-//             docs.data().postContent
-//             );
-//         });
-//       }).catch(err => {
-//         console.log(err);
-//     });
-//   })  
-// }else{
-//   getPosts();
-// }
-

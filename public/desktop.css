@@ -148,28 +148,6 @@ body {
     gap: calc(var(--containerGap)*2);
   }
 
-  /* 
-  .profile {
-    border-radius: var(--roundedCorners);
-    padding: 15px;
-    background-color: var(--grey);
-    margin: var(--containerGap);
-    border: solid var(--grey2) 1.5px;
-  }
-  */
-
-  /* .profileImg */
-  /* #whenSignedIn img,
-  #whenSignedOut img */
-  /* img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    border-radius: 100px;
-    border: solid var(--grey2) 5px;
-  } */
-
   .greyContainer {
     border-radius: var(--roundedCorners);
     /* margin: var(--containerGap); */
@@ -177,24 +155,6 @@ body {
     background-color: var(--grey);
     border: solid var(--grey2) 1.5px;
   }
-
-  /* input,
-  textarea {
-    color: black;
-    padding: 10px;
-    border-radius: var(--roundedCorners);
-    background-color: var(--grey2);
-    border: none;
-    transition: 0.1s;
-    white-space: pre-line;
-  }
-
-  input:focus,
-  textarea:focus {
-    outline: none;
-    background-color: whitesmoke;
-    border: solid var(--blue) 2px;
-  } */
 
   #cautionNote {
     display: none;
@@ -214,12 +174,9 @@ body {
 
     background-color: white;
     opacity: 90%;
-    /* -webkit-backdrop-filter: blur(30px);
-    backdrop-filter: blur(30px); */
 
     max-height: none;
     box-shadow: 5px 5px 20px #636363;
-    /* z-index: 2; */
 
     position: fixed;
     top: calc(25% - 25px);
@@ -270,26 +227,6 @@ body {
   .gridObject > div {
     margin-bottom: var(--containerGap);
   }
-  /* .gridObject > div:active {
-    user-select: none;
-    transform: scale3d(1.1, 1.1, 1.1);
-    margin: none;
-    width: 60%;
-
-    border-radius: 20px;
-    padding: 20px;
-
-    background-color: white;
-    opacity: 95%;
-
-    max-height: none;
-    box-shadow: 5px 5px 20px #636363;
-    z-index: 2;
-
-    position: fixed;
-    top: calc(25% - 70px);
-    right: calc(25% - 55px);
-  } */
   .casTag {
     box-shadow: -5px 0px 4px var(--purple);
   }
@@ -527,7 +464,7 @@ h5 {
 #filter {
   margin: 20px;
   display: flex;
-  gap: 10px;
+  gap: 5px;
 }
 hr {
   border: solid 0.01px grey;
