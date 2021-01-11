@@ -20,12 +20,24 @@ const auth = firebase.auth();
 
 //Reference from DOM
 //password
+const txtWebsitePass = document.getElementById("txtWebsitePassword");
 const txtPass = document.getElementById("txtPassword");
 //buttons
+const btnWebsiteVerify = document.getElementById("btnWebsiteVerify");
 const btnLogin = document.getElementById("btnLogin");
 const btnLogout = document.getElementById("btnLogout");
 
 const provider = new firebase.auth.GoogleAuthProvider();
+
+// check　website pass
+btnWebsiteVerify.onclick = () => {
+  if (txtWebsitePass.value === "kngSMA") {
+    const loader = document.querySelector(".loadObject");
+    loader.setAttribute("style", "display:none;");
+  }else{
+    alert("⚠ パスワードが間違っています");
+  }
+} 
 
 // check pass
 btnLogin.onclick = () => {
@@ -50,7 +62,8 @@ let postCollection = document.querySelector(".gridObject");
 const db = firebase.firestore();
 
 //parse post
-function createPost(date, type, title, author, content, urlName, url) {
+function createPost(date, type, title, author, content) {
+  // , urlName, url (Add parameter)
   //add "type" in function parameter (if the CAS / S&A tag system were to be implemented)
 
   //  lo,
@@ -64,8 +77,8 @@ function createPost(date, type, title, author, content, urlName, url) {
   let hr = document.createElement("hr");
   let pre = document.createElement("pre");
   // let casTag = document.getElementById("casLabel");
-  let linkName = document.createElement("small");
-  let link = document.createElement("h4");
+  // let linkName = document.createElement("small");
+  // let link = document.createElement("h4");
 
   time.textContent = date;
   span.textContent = type;
@@ -73,9 +86,16 @@ function createPost(date, type, title, author, content, urlName, url) {
   h3.textContent = title;
   h5.textContent = author;
   pre.textContent = content;
-  linkName.textContent = urlName;
-  link.textContent = url;
-  link.innerHTML=`<a class="postLinkStyle" href="${link.textContent}">${linkName.textContent}</a>`;
+  // linkName.textContent = urlName;
+  // link.textContent = url;
+  // link.innerHTML=`<a class="postLinkStyle" href="${link.textContent}">${linkName.textContent}</a>`;
+
+  // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
+
+	  var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	  var text = pre.textContent.replace(exp, "<a href='$1'>URLリンク↗</a>");
+	  var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+	  pre.innerHTML=text.replace(exp2, '$1<a target="_blank" href="http://$2">URLリンク↗</a>');
 
   if (span.textContent === "CAS") {
     span.setAttribute("class", "casMiniTag")
@@ -84,9 +104,6 @@ function createPost(date, type, title, author, content, urlName, url) {
     span.setAttribute("class", "saaMiniTag")
     div.setAttribute("class", "saaTag")
   }
-  // loSpan.setAttribute("class", "loTag");
-  //cas filter
-  // div.appendChild(small);
 
   div.appendChild(time);
   div.appendChild(span);
@@ -95,20 +112,17 @@ function createPost(date, type, title, author, content, urlName, url) {
   div.appendChild(h5);
   div.appendChild(hr);
   div.appendChild(pre);
-  div.appendChild(link);
-
-  // db.collection('posts').doc().get({postType:"true"}).then(div.);
-  //div.classList.add('saaTag');
+  // div.appendChild(link);
 
   postCollection.appendChild(div);
 }
 
 
+//GET STUFF
 const limitValue = 5;
 const allBtn = document.querySelector('#allPosts');
 const casBtn = document.querySelector('#casFilter');
 const saaBtn = document.querySelector('#saaFilter');
-
 // get cas data
 casBtn.addEventListener('click', function getCAS() {
   allBtn.style.display = "block";
@@ -141,6 +155,8 @@ saaBtn.addEventListener('click', function getSAA() {
   }
   console.log("Erased CAS")
 })
+// ge all data  
+// allBtn.addEventListener('click', getPosts())
 
 if (allBtn.style.display === "none") {
   //get posts
@@ -158,9 +174,9 @@ if (allBtn.style.display === "none") {
           // docs.data().loType,
           docs.data().postName,
           docs.data().postAuthor,
-          docs.data().postContent,
-          docs.data().postLinkName,
-          docs.data().postLink
+          docs.data().postContent
+          // docs.data().postLinkName,
+          // docs.data().postLink
           );
       });
     }).catch(err => {
@@ -191,8 +207,8 @@ if (user) {
     let postTitle  = document.querySelector('#postTitle').value;
     let postAuthor  = document.querySelector('#postAuthor').value;
     let postContent  = document.querySelector('#postContent').value;
-    let postURLName = document.querySelector('#postLinkName').value;
-    let postURL = document.querySelector('#postLink').value;
+    // let postURLName = document.querySelector('#postLinkName').value;
+    // let postURL = document.querySelector('#postLink').value;
 
     function radioValueFunction() {
       for (let i = 0; i < radios.length; i++) {
@@ -220,9 +236,9 @@ if (user) {
               postName:postTitle,
               postAuthor:postAuthor,
               postContent:postContent,
-              postType:radioValueFunction(),
-              postLinkName:postURLName,
-              postLink:postURL
+              postType:radioValueFunction()
+              // postLinkName:postURLName,
+              // postLink:postURL
               // loType:loBoxesFunction()
           })
           // for (let i = 0; i < radios.length; i++) {

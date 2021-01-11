@@ -22,7 +22,7 @@
 }
 
 .smaVersion::before {
-  content: "1.4.2";
+  content: "1.4.3";
 }
 
 ::-webkit-scrollbar {
@@ -112,24 +112,25 @@ body {
   border-radius: 3px;
   padding: 0px 6px 0px 6px;
 }
-.versionGrid{
+.versionGrid {
+  margin-top: 10px;
   display: grid;
   gap: var(--containerGap);
 }
 
 @media only screen and (min-width: 1000px) {
-  .header{
+  .header {
     margin-top: 5%;
     margin-bottom: 5%;
   }
-  .smaLogo{
+  .smaLogo {
     height: 90px;
     width: 90px;
-    margin-right:15px;
+    margin-right: 15px;
     margin-top: 15px;
     float: left;
   }
-  
+
   body {
     margin-left: 5%;
     margin-right: 5%;
@@ -145,7 +146,7 @@ body {
     grid-template-columns: 4fr 1.5fr;
     grid-template-rows: none;
     padding: none;
-    gap: calc(var(--containerGap)*2);
+    gap: calc(var(--containerGap) * 2);
   }
 
   .greyContainer {
@@ -236,7 +237,7 @@ body {
   .desktopErase {
     display: none;
   }
-  .versionGrid{
+  .versionGrid {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
@@ -496,30 +497,23 @@ summary {
 }
 
 .loadObject {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100%;
   position: fixed;
   z-index: 3;
   top: 0px;
   left: 0px;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+  background-color: white;
 }
-
-.loadObject div {
+.loadObject p {
+  margin-top: 10%;
   font-weight: bold;
-  font-family: Arial;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
-.loadObject div::before {
-  content: "少々お待ちください . . .";
-}
-
-.loadObject.hidden {
-  display: none;
+.loadObject p::before {
+  content: "パスワードを入力してください：";
 }
 
 .tableOfContents {
@@ -562,7 +556,7 @@ summary {
   padding: 5px;
 }
 
-.emojiHolder{
+.emojiHolder {
   font-size: 30px;
   background-color: var(--grey);
   box-shadow: 2px 2px 5px rgb(184, 184, 184);
@@ -571,7 +565,7 @@ summary {
   margin-right: 10px;
 }
 
-.versionGrid div{
+.versionGrid div {
   background-color: var(--grey);
   border-radius: var(--roundedCorners);
   margin: 0px;

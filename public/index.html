@@ -29,14 +29,12 @@
   <body>
     <!-- Loading and loading text -->
     <section class="loadObject">
-      <div></div>
+      <p></p>
+      <div id="submitDiv">
+        <input id="txtWebsitePassword" type="password" placeholder="認証コードを入力" />
+        <button id="btnWebsiteVerify" class="standardButton" style="background-color: var(--green)">認証</button>
+      </div>
     </section>
-    <script>
-      window.addEventListener("load", function () {
-        const loader = document.querySelector(".loadObject");
-        loader.className += "hidden";
-      });
-    </script>
 
     <!-- Version alert pop up -->
     <section id="versionNotify">
@@ -51,9 +49,6 @@
         ログインは、管理者に送られるメールパスワードを使用し、ご利用のグーグルアカウントですることができます。パスワードを入力する際正しいか確認してください。確認した上、まだ入れないようであれば、SMA Information Pageにある［ログインリクエスト］のボタンを押すことでアカウント作成の依頼を送信することが可能となります。ご理解ご協力の方よろしくおねがいします。<br /><br />
         <div id="loginContainer">
             <div id="submitDiv">
-              <!-- <button class="standardButton" style="background-color: var(--blue)">
-                + アカウント作成
-              </button> -->
               <input id="txtPassword" type="password" placeholder="パスワードを入力" />
               <button
                 id="btnLogin"
@@ -75,7 +70,7 @@
     </section>
 
     <section style="display: flex; align-items: center;">
-      <h2>Activity Timeline</h2>
+      <h2 style="margin: 0px;">Activity Timeline</h2>
       <!-- TAGS  -->
       <section id="filter">
         <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
@@ -89,11 +84,10 @@
         <button class="tagButton">LO6</button>
         <button class="tagButton">LO7</button>  -->
       </section>
-    </section>    
-
-    <!-- <p id="cautionNote">
-      ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、アカウントログイン・活動の投稿等はできないです。ご了承ください。
-    </p> -->
+    </section>
+    <p id="cautionNote">
+      ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
+    </p>
 
 <!-- Snake -->
 <section id="snakeG" style="display: none;
@@ -205,7 +199,7 @@
         <button class="standardButton" style="background-color: var(--red);" onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
           - 活動記事の消去をリクエスト
         </button>
-        <button class="standardButton" style="background-color: var(--darkBlue); color: white;" onclick="window.location.reload();">🔃 ページを更新</button>
+        <button class="standardButton" style="background-color: var(--blue);" onclick="window.location.reload();">🔃 ページを更新</button>
       </div>
     </section>
 <!---->
@@ -246,12 +240,15 @@
               placeholder="記事内容"
               style="width: 85%; resize: none;"
             ></textarea>
+            <!-- 
             <br />
             <p>以下は必須項目ではありません（リンクを加えたい人の為）：</p>
             <div>
-            <input type="text" id="postLinkName" placeholder="リンク名">
-            <input type="url" id="postLink" style="margin-left:5px; width: 40%;" placeholder="URLリンク">
-            </div>
+              <section class="linksContainer">
+                <input type="text" id="postLinkName" placeholder="リンク名">
+                <input type="url" id="postLink" style="width: 40%;" placeholder="URLリンク">
+              </section>
+            </div> -->
             <!-- <button class="standardButton" style="margin-left:5px; background-color: var(--grey2);">+ リンクを加える</button> -->
             <br />
             <br />
@@ -268,16 +265,7 @@
             reprehenderit, consectetur, omnis quam! Labore.
           </p>
         </div>
-        <div>
-          <small>Month/Date/Year</small>
-          <h3>Hello World</h3>
-          <small>Author</small>
-          <p>
-          voluptate mollitia dignissimos cupiditate recusandae tempore quo ab, necessitatibus, facilis error repellat dolores nemo eius? Distinctio delectus omnis, commodi nesciunt beatae sit vitae aut ipsam optio consequuntur officiis ad atque facilis odit earum mollitia neque sunt consectetur nihil a ipsa vel iusto quod eos. Est accusantium distinctio sunt tenetur sint quibusdam voluptatibus ratione? Perspiciatis dolores nostrum dolorem sint?
-          </p>
-        </div>
-
-        <h4 style="text-align: center; color: black">・・・<br>投稿はここ以下無いです</h4> -->
+        <h4 style="text-align: center; color: black">・・・<br>投稿はここ以下無いです</h4>-->
       </section>
 
       <section class="sidebarBoxes">

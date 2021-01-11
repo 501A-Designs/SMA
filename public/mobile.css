@@ -1,17 +1,17 @@
 @import url(desktop.css);
 
 @media only screen and (max-width: 999px) {
-  .header{
+  .header {
     margin-top: 15%;
     margin-bottom: 15%;
     display: flex;
     justify-content: center;
   }
-  .smaLogo{
+  .smaLogo {
     height: 17%;
     width: 17%;
-  } 
-  
+  }
+
   body {
     margin: 0px 5% 5% 5%;
   }
@@ -52,16 +52,14 @@
     display: block;
     text-align: center;
     font-size: 13px;
-
-    border: solid rgb(223, 124, 124) 1.5px;
-    border-radius: 5px;
-    /* margin: var(--containerGap); */
-
+    border: solid rgb(223, 124, 124) 3px;
+    border-radius: var(--roundedCorners);
     padding: 10px;
     background-color: rgb(255, 218, 218, 10);
     color: red;
   }
-  .mobileErase, .tagButton {
+  .mobileErase,
+  .tagButton {
     display: none;
   }
   .desktopErase {
@@ -81,8 +79,8 @@
   }
 
   .gridObject > div {
-    margin-top: calc(15px);
-    margin-bottom: calc(15px);
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
   .casTag {
     box-shadow: 0px -5px 4px var(--purple);
@@ -94,7 +92,7 @@
     margin-bottom: 5em;
     margin-top: 5em;
   }
-  .versionGrid{
+  .versionGrid {
     grid-template-columns: 1fr;
   }
 }
