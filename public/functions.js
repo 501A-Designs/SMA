@@ -6,7 +6,7 @@ function eraseVersionNotify(){
 
 //THE COUNT DOWN AND ERASING
 // Set the counting down date
-var countDownDate = new Date("Jan 15, 2021").getTime();
+var countDownDate = new Date("Jan 19, 2021").getTime();
 // Update the count down every 1 second bruh
 var x = setInterval(function () {
     // Get today's date and time
@@ -72,6 +72,13 @@ function blockDisplay(value) {
         createPost.hidden=true;
     }
 }
+
+
+function confirmPrompt() {
+    document.getElementById("confirmDiv").style.display="block";
+    document.getElementById("firstSubmit").style.display="none";
+}
+
 
 function langFunction() {
     const jpn = document.getElementById("loJPN");

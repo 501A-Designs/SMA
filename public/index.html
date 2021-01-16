@@ -32,7 +32,7 @@
       <p></p>
       <div id="submitDiv">
         <input id="txtWebsitePassword" type="password" placeholder="認証コードを入力" />
-        <button id="btnWebsiteVerify" class="standardButton" style="background-color: var(--green)">認証</button>
+        <button id="btnWebsiteVerify" class="standardButton greenBtn">認証</button>
       </div>
     </section>
 
@@ -52,8 +52,7 @@
               <input id="txtPassword" type="password" placeholder="パスワードを入力" />
               <button
                 id="btnLogin"
-                class="standardButton"
-                style="background-color: var(--green)"
+                class="standardButton greenBtn"
               >
                 ログイン
               </button>
@@ -62,11 +61,11 @@
     </section>
 
     <section  class="header">
-      <img src="SMA-Logo.png" class="smaLogo" alt="No Logo">
-      <div class="mobileErase">
-        <h1 style="margin-bottom: -1px;">SMA</h1>
-        <p style="margin: 0px; font-size: 20px; color: grey">Share My Activity</p>
-      </div>
+      <img src="SMA.png" class="smaLogo" alt="No Logo">
+      <h2 class="mobileErase" style="margin-top: 30px; user-select: none;">
+        <!-- <h1 style="margin-bottom: -1px;">SMA</h1> -->
+        Share My Activity
+      </h2>
     </section>
 
     <section style="display: flex; align-items: center;">
@@ -89,117 +88,21 @@
       ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
     </p>
 
-<!-- Snake -->
-<section id="snakeG" style="display: none;
-                  margin: none;
-                  width: 50%;
-                  height: auto;
-                  border-radius: 20px;
-                  padding: 20px;
-                  background-color: white;
-                  opacity: 90%;
-                  max-height: none;
-                  box-shadow: 5px 5px 20px #636363;
-                  z-index: 2;
-                  position: fixed;
-                  top: calc(25% - 70px);
-                  right: calc(25% - 25px);">
-    <canvas id="gc" width="400" height="400" style="border-radius: 10px; float: right; margin-left: 10px;"></canvas>
-    <h2>Snake Easter Egg</h2>
-    <p style="margin-right: 10px;">Rules are simple, use "W","A","S","D" to move around. When you want to hide the game play, press the [Exit] button below. Once this command is executed your game will be running in the background, so once you press the snake button again, your game should still be running. Anyways, hope you have a little fun with this easter egg :)
-      <br>
-      <br>
-      P.S : This game has not been created by SMA creator.
-      <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser history.
-    </p>
-    <button class="closeLoginPopUp" style="float: right;" onclick="eraseSnake()">Exit</button>
-  <script>
-    window.onload=function() {
-        canv=document.getElementById("gc");
-        ctx=canv.getContext("2d");
-        document.addEventListener("keydown",keyPush);
-        setInterval(game,1000/15);    
-    }
-
-    px=py=10;
-    gs=tc=20;
-    ax=ay=15;
-    xv=yv=0;
-    trail=[];
-    tail = 5;
-
-    function game() {
-        px+=xv;
-        py+=yv;
-        if(px<0) {
-            px= tc-1;
-        }
-        if(px>tc-1) {
-            px= 0;
-        }
-        if(py<0) {
-            py= tc-1;
-        }
-        if(py>tc-1) {
-            py= 0;
-        }
-        ctx.fillStyle="black";
-        ctx.fillRect(0,0,canv.width,canv.height);
-        ctx.fillStyle="lime";
-        for(var i=0;i<trail.length;i++) {
-            ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
-            if(trail[i].x==px && trail[i].y==py) {  
-              tail = 5;
-            }
-        }
-        trail.push({x:px,y:py});
-        while(trail.length>tail) {
-        trail.shift();
-        }
-        if(ax==px && ay==py) {
-            tail++;
-            ax=Math.floor(Math.random()*tc);
-            ay=Math.floor(Math.random()*tc);
-        }
-        ctx.fillStyle="red";
-        ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
-    }
-    
-    function keyPush(evt) {
-        switch(evt.keyCode) {
-            case 65:
-                xv=-1;yv=0;
-                break;
-            case 87:
-                xv=0;yv=-1;
-                break;
-            case 68:
-                xv=1;yv=0;
-                break;
-            case 83:
-                xv=0;yv=1;
-                break;
-
-            //Link to more keyCodes: https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-        }
-    }
-  </script>
-</section>
     <section id="postButtons" hidden="true">
-      <br>
-      <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+      <div style="display: flex; gap: 5px; margin-bottom: 10px;">
         <button
-          class="standardButton"
-          style="background-color: var(--green);"
+          class="standardButton greenBtn"
           onclick="blockDisplay(1)"
         >
           <!-- + 活動記事を追加 -->
           + 記事追加
         </button>
-        <button class="standardButton" style="background-color: var(--red);" onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
+        <button class="standardButton redBtn"
+        onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
           - 活動記事の消去をリクエスト
         </button>
-        <button class="standardButton" style="background-color: var(--blue);" onclick="window.location.reload();">🔃 ページを更新</button>
+        <button class="standardButton blueBtn"
+        onclick="window.location.reload();">ページを更新</button>
       </div>
     </section>
 <!---->
@@ -230,7 +133,7 @@
             </form> -->
             <br>
             <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
-            <input id="postAuthor" type="text" placeholder="記事の著者" />
+            <input id="postAuthor" type="text" placeholder="学年・クラス" />
             <input id="postDate" type="date" /><br /><br />
             <textarea
             id="postContent"
@@ -252,7 +155,22 @@
             <!-- <button class="standardButton" style="margin-left:5px; background-color: var(--grey2);">+ リンクを加える</button> -->
             <br />
             <br />
-            <input id="publishPost" type="submit" value="✔　記事完了" class="standardButton" style="background-color: var(--green);"></input>
+            <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">✔　記事完了</button>
+            <div id="confirmDiv">
+              <p>
+                <h2 style="color: crimson; font-weight: bold; text-align: center;">投稿する前！！</h2><br>
+                以下の条件を沿った上活動投稿が許可されます：
+                <ul>
+                  <li>投稿している人は開智日本橋学園高等学校の生徒・教員である</li>
+                  <li>投稿内容に人が不快に思うようなコンテンツが含まれていない</li>
+                  <li>リンクは不可無くアクセスでき、人が不快に思うようなコンテンツが含まれていない</li>
+                  <li>名前、年齢、メールアドレス、パスワードなどの個人情報等を載せいない</li>
+                </ul>
+                詳しくは<a href="about.html#tos" target="_blank">SMA利用規約</a>を確認してください。<br>なお、投稿した後は［ページ更新］ボタンを押すと自身の投稿が閲覧できます。
+              </p>
+              <br>
+              <input id="publishPost" type="submit" value="→　記事投稿" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
+            </div>
         </section>  
         <!-- <div>
           <small>Month/Date/Year</small>
@@ -288,7 +206,7 @@
           <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
             <h3>ログインされていません</h3>
             <div class="buttonsContainer">
-              <button class="standardButton" style="background-color: var(--green)" onclick="popUpFunction(1)">
+              <button class="standardButton greenBtn" onclick="popUpFunction(1)">
                 ログイン
               </button>
             </div>
@@ -299,7 +217,7 @@
             <div id="userDetails"></div>
             <div class="buttonsContainer">
               <!--Logout button | hidden by default-->
-              <button id="btnLogout" class="standardButton" style="background-color: var(--red);">
+              <button id="btnLogout" class="standardButton redBtn">
                 ログアウト
               </button>
             </div>
@@ -307,10 +225,9 @@
 
         <!-- OTHERS CONTAINER -->
         <section id="addFeature" hidden="true">
-          <br>
-          <div  class="buttonsContainer">
-            <button class="standardButton" style="background-color: var(--orange)" onclick="window.location.href='https://forms.gle/cMwf16UFR9ZwxvoZ9';">+ 機能のリクエスト</button>
-            <button class="standardButton" style="background-color: var(--purple)" onclick="window.location.href='https://forms.gle/CoFtiqqxxKxRFKkKA';">🐝 バグ告知</button>
+          <div>
+            <button class="standardButton orangeBtn" onclick="window.location.href='https://forms.gle/cMwf16UFR9ZwxvoZ9';"><span style="font-size:30px">＋</span><br>機能のリクエスト</button>
+            <button class="standardButton purpleBtn" onclick="window.location.href='https://forms.gle/CoFtiqqxxKxRFKkKA';"><span style="font-size:30px">🐝</span><br>バグ告知</button>
           </div>
         </section>
 
@@ -427,6 +344,106 @@
         </h5>
         <button class="easterButton" id="initiateSnake">🐍 Snake</button>
         <!-- <button class="easterButton" id="initiate2048">🔢 2048</button> -->
+      </section>
+      <!-- Snake -->
+      <section id="snakeG" style="display: none;
+                        margin: none;
+                        width: 50%;
+                        height: auto;
+                        border-radius: 20px;
+                        padding: 20px;
+                        background-color: white;
+                        opacity: 90%;
+                        max-height: none;
+                        box-shadow: 5px 5px 20px #636363;
+                        z-index: 2;
+                        position: fixed;
+                        top: calc(25% - 70px);
+                        right: calc(25% - 25px);">
+        <canvas id="gc" width="400" height="400" style="border-radius: 10px; float: right; margin-left: 10px;"></canvas>
+        <h2>Snake Easter Egg</h2>
+        <p style="margin-right: 10px;">Rules are simple, use "W","A","S","D" to move around. When you want to hide the game
+          play, press the [Exit] button below. Once this command is executed your game will be running in the background, so
+          once you press the snake button again, your game should still be running. Anyways, hope you have a little fun with
+          this easter egg :)
+          <br>
+          <br>
+          P.S : This game has not been created by SMA creator.
+          <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser
+          history.
+        </p>
+        <button class="closeLoginPopUp" style="float: right;" onclick="eraseSnake()">Exit</button>
+        <script>
+          window.onload = function () {
+            canv = document.getElementById("gc");
+            ctx = canv.getContext("2d");
+            document.addEventListener("keydown", keyPush);
+            setInterval(game, 1000 / 15);
+          }
+
+          px = py = 10;
+          gs = tc = 20;
+          ax = ay = 15;
+          xv = yv = 0;
+          trail = [];
+          tail = 5;
+
+          function game() {
+            px += xv;
+            py += yv;
+            if (px < 0) {
+              px = tc - 1;
+            }
+            if (px > tc - 1) {
+              px = 0;
+            }
+            if (py < 0) {
+              py = tc - 1;
+            }
+            if (py > tc - 1) {
+              py = 0;
+            }
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canv.width, canv.height);
+            ctx.fillStyle = "lime";
+            for (var i = 0; i < trail.length; i++) {
+              ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
+              if (trail[i].x == px && trail[i].y == py) {
+                tail = 5;
+              }
+            }
+            trail.push({ x: px, y: py });
+            while (trail.length > tail) {
+              trail.shift();
+            }
+            if (ax == px && ay == py) {
+              tail++;
+              ax = Math.floor(Math.random() * tc);
+              ay = Math.floor(Math.random() * tc);
+            }
+            ctx.fillStyle = "red";
+            ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
+          }
+
+          function keyPush(evt) {
+            switch (evt.keyCode) {
+              case 65:
+                xv = -1; yv = 0;
+                break;
+              case 87:
+                xv = 0; yv = -1;
+                break;
+              case 68:
+                xv = 1; yv = 0;
+                break;
+              case 83:
+                xv = 0; yv = 1;
+                break;
+
+              //Link to more keyCodes: https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+            }
+          }
+        </script>
       </section>
 
       <!--PAGINATION BUTTON

@@ -4,12 +4,12 @@
 
 :root {
   /*Color Variables*/
-  --red: #f79b9b;
-  --blue: #9bc0f7;
+  --red: #f1c2c2;
+  --blue: #bcd3f5;
   --darkBlue: #4e82d1;
-  --green: #8fdf88;
-  --orange: rgb(255, 204, 108);
-  --purple: rgb(205, 183, 233);
+  --green: #b8e9b4;
+  --orange: rgb(247, 213, 151);
+  --purple: rgb(227, 205, 255);
   --grey: #f0f0f0;
   --grey2: rgb(201, 201, 201);
 
@@ -17,12 +17,13 @@
 
   /*Factor Variables*/
   --roundedCorners: 10px;
+  /* --roundedCorners: 15px; */
   --containerGap: 10px;
   --activityBox: 5px 5px 20px #b1b1b1;
 }
 
 .smaVersion::before {
-  content: "1.4.3";
+  content: "1.5.0";
 }
 
 ::-webkit-scrollbar {
@@ -50,10 +51,11 @@
   z-index: 2;
   border-radius: 20px;
   padding: 10px;
-  background-color: whitesmoke;
+  background-color: white;
+  border: 2px solid var(--grey);
   text-align: center;
   /* border: 2px solid var(--grey2); */
-  box-shadow: 5px 5px 10px grey;
+  /* box-shadow: 3px 3px 5px lightgray; */
   opacity: 90%;
 
   width: 30%;
@@ -105,7 +107,7 @@ body {
 
   padding: 10px;
   background-color: rgb(255, 218, 218, 10);
-  color: red;
+  color: rgb(175, 0, 0);
 }
 
 .inlineDummyBtn {
@@ -118,17 +120,44 @@ body {
   gap: var(--containerGap);
 }
 
+/* BUTTON COLORS */
+.greenBtn,
+.greenBtn.darkMode {
+  color: green;
+  background-color: var(--green);
+}
+.blueBtn {
+  color: blue;
+  background-color: var(--blue);
+}
+.redBtn {
+  color: red;
+  background-color: var(--red);
+}
+.orangeBtn {
+  color: rgb(155, 101, 0);
+  background-color: var(--orange);
+}
+.purpleBtn {
+  color: purple;
+  background-color: var(--purple);
+}
+
 @media only screen and (min-width: 1000px) {
   .header {
     margin-top: 5%;
     margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .smaLogo {
-    height: 90px;
-    width: 90px;
+    height: 70px;
+    width: 70px;
     margin-right: 15px;
     margin-top: 15px;
     float: left;
+    user-select: none;
   }
 
   body {
@@ -193,14 +222,15 @@ body {
   } */
 
   #createPost {
-    border-radius: var(--roundedCorners);
+    border-radius: calc(var(--roundedCorners) * 1.5);
     padding: 20px;
-    background-color: var(--grey);
-    border: 2px solid grey;
+    background-color: rgb(245, 245, 245);
+    border: 2px solid lightgray;
     /* margin: var(--containerGap); */
     margin-bottom: 20px;
     box-shadow: var(--activityBox);
   }
+
   /* .gridObject > div:hover {
     user-select: none;
     cursor: pointer;
@@ -229,10 +259,10 @@ body {
     margin-bottom: var(--containerGap);
   }
   .casTag {
-    box-shadow: -5px 0px 4px var(--purple);
+    box-shadow: -2px 0px 5px var(--purple);
   }
   .saaTag {
-    box-shadow: -5px 0px 4px var(--orange);
+    box-shadow: -2px 0px 5px var(--orange);
   }
   .desktopErase {
     display: none;
@@ -250,6 +280,15 @@ body {
   padding: 2px 8px 2px 8px;
 }
 
+#confirmDiv {
+  border-radius: calc(var(--roundedCorners) / 1);
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: var(--activityBox);
+  margin-top: 15px;
+  display: none;
+}
+
 input,
 textarea {
   color: black;
@@ -265,7 +304,7 @@ textarea {
 input:focus,
 textarea:focus {
   outline: none;
-  background-color: whitesmoke;
+  background-color: white;
   /* border-radius: calc(var(--roundedCorners) * 2); */
   border: solid var(--blue) 1px;
   transform: scale3d(1.05 1.05 1.05);
@@ -287,12 +326,14 @@ textarea:focus {
   font-weight: bold;
 }
 #langButton {
-  background-color: var(--grey2);
+  /* background-color: var(--grey2); */
+  background-color: var(--grey);
   border: none;
   border-radius: 5px;
   padding: 5px 10px 5px 10px;
 }
 .tagButton {
+  font-size: 13px;
   border: none;
   border-radius: 50px;
   padding: 7px 15px 7px 15px;
@@ -315,7 +356,8 @@ button:focus {
 #additionalSites > button {
   text-align: left;
   font-size: 16px;
-  background-color: var(--grey2);
+  /* background-color: var(--grey2); */
+  background-color: var(--grey);
   border: none;
   border-radius: 5px;
   padding: 10px;
@@ -324,18 +366,21 @@ button:focus {
 
 /*Malleable Content*/
 .gridObject > div {
-  user-select: none;
-  border-radius: var(--roundedCorners);
+  /* user-select: none; */
+  border-radius: calc(var(--roundedCorners) * 1);
   padding: 20px;
-  background-color: var(--grey);
+  /* background-color: var(--grey); */
   /* border: 2px solid var(--grey2); */
 
   /* -webkit-backdrop-filter: blur(100px);
   backdrop-filter: blur(100px); */
 
   /* box-shadow: var(--activityBox); */
-  max-height: 370px;
-  overflow: auto;
+
+  /* TO CONTROL HIGHT */
+  /* max-height: 370px; */
+  /* overflow: auto; */
+
   /* background-image: linear-gradient(
     to bottom,
     transparent,
@@ -357,9 +402,9 @@ button:focus {
 }
 
 time {
-  background-color: var(--grey2);
+  background-color: var(--grey);
   padding: 1px 8px 1px 8px;
-  border-radius: 5px;
+  border-radius: var(--roundedCorners);
   font-size: 14px;
 }
 .gridObject > div > h3 {
@@ -383,10 +428,14 @@ time {
   /* background-color: var(--grey2); */
   margin-left: 5px;
   padding: 1px 8px 1px 8px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  border-radius: var(--roundedCorners);
   font-size: 14px;
 }
 
+button {
+  user-select: none;
+}
 button:hover {
   opacity: 60%;
   cursor: pointer;
@@ -409,11 +458,15 @@ h5 {
 }
 
 .sidebarBox {
-  border-radius: var(--roundedCorners);
+  border-radius: calc(var(--roundedCorners) * 1);
   margin-bottom: var(--containerGap);
   padding: 15px;
-  background-color: var(--grey);
-  box-shadow: 2px 2px 5px rgb(184, 184, 184);
+  /* background-color: var(--grey); */
+
+  /* SHOWS OUTLINE */
+  background-color: white;
+  box-shadow: 0px 2px 5px lightgray;
+
   /* margin: var(--containerGap); */
   /* border: 2px solid var(--grey2); */
 }
@@ -430,7 +483,8 @@ h5 {
   height: 50px;
   border-radius: 50px;
   border: none;
-  background-color: var(--grey2);
+  /* background-color: var(--grey2); */
+  background-color: var(--grey);
 }
 
 #loENG,
@@ -451,7 +505,8 @@ h5 {
 #loENG li:before,
 #loJPN li:before {
   content: counter(loCounter);
-  background: var(--grey2);
+  /* background: var(--grey2); */
+  background-color: var(--grey);
   color: black;
   font-weight: bold;
 
@@ -520,8 +575,8 @@ summary {
   user-select: none;
   border-radius: var(--roundedCorners);
   padding: 15px;
-  background-color: var(--grey);
-  box-shadow: 2px 2px 5px rgb(184, 184, 184);
+  background-color: white;
+  box-shadow: 0px 2px 5px lightgray;
   /* border: 2px solid var(--grey2); */
   /* margin: var(--containerGap); */
 }
@@ -529,7 +584,7 @@ summary {
 #whenSignedIn img {
   border-radius: 100px;
   margin-top: 10px;
-  border: solid var(--grey2) 5px;
+  border: solid var(--grey) 2px;
   box-shadow: 0px 5px 10px grey;
 }
 
@@ -537,9 +592,23 @@ summary {
   user-select: none;
   font-size: 14px;
   font-weight: none;
-  padding: 1px 10px 1px 10px;
-  background-color: var(--grey2);
-  border-radius: 5px;
+  padding: 2px 10px 2px 10px;
+  background-color: var(--grey);
+  border-radius: var(--roundedCorners);
+}
+
+#addFeature {
+  margin-top: 20px;
+}
+#addFeature div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+#addFeature div button {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  user-select: none;
 }
 
 .postLinkStyle {
@@ -558,7 +627,7 @@ summary {
 
 .emojiHolder {
   font-size: 30px;
-  background-color: var(--grey);
+  background-color: white;
   box-shadow: 2px 2px 5px rgb(184, 184, 184);
   border-radius: 10px;
   padding: 1px 8px 8px 8px;

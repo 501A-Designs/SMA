@@ -27,26 +27,7 @@ const btnWebsiteVerify = document.getElementById("btnWebsiteVerify");
 const btnLogin = document.getElementById("btnLogin");
 const btnLogout = document.getElementById("btnLogout");
 
-const provider = new firebase.auth.GoogleAuthProvider();
-
-// check　website pass
-btnWebsiteVerify.onclick = () => {
-  if (txtWebsitePass.value === "kngSMA") {
-    const loader = document.querySelector(".loadObject");
-    loader.setAttribute("style", "display:none;");
-  }else{
-    alert("⚠ パスワードが間違っています");
-  }
-} 
-
-// check pass
-btnLogin.onclick = () => {
-  if (txtPass.value === "kngSMA2021") {
-    auth.signInWithPopup(provider);
-  }else{
-    alert("⚠ ログインできません");
-  }
-} 
+const provider = new firebase.auth.GoogleAuthProvider(); 
 
 //btnLogin.onclick = () => auth.signInWithPopup(provider);  
 btnLogout.onclick = () => auth.signOut();
@@ -96,6 +77,10 @@ function createPost(date, type, title, author, content) {
 	  var text = pre.textContent.replace(exp, "<a href='$1'>URLリンク↗</a>");
 	  var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
 	  pre.innerHTML=text.replace(exp2, '$1<a target="_blank" href="http://$2">URLリンク↗</a>');
+//  <iframe src="" height="600px" width=“800px" allowfullscreen>
+//  </iframe>
+
+// https://drive.google.com/open?id=
 
   if (span.textContent === "CAS") {
     span.setAttribute("class", "casMiniTag")
@@ -184,6 +169,24 @@ if (allBtn.style.display === "none") {
     });
   }
   getPosts();  
+}
+
+// check　website pass
+btnWebsiteVerify.onclick = () => {
+  if (txtWebsitePass.value === "kngSMA") {
+    const loader = document.querySelector(".loadObject");
+    loader.setAttribute("style", "display:none;");
+  }else{
+    alert("⚠ パスワードが間違っています");
+  }
+}
+// check pass
+btnLogin.onclick = () => {
+  if (txtPass.value === "kngSMA2021") {
+    auth.signInWithPopup(provider);
+  }else{
+    alert("⚠ ログインできません");
+  }
 }
 
 //Google Auth
