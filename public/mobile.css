@@ -32,6 +32,7 @@
     margin: 10px;
     top: calc(25% - 80px);
     right: calc(25% - 100px);
+    animation: popupAni 1s;
   }
   /* #loginPopUp,
   #whenSignedIn,

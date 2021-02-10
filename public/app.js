@@ -74,9 +74,9 @@ function createPost(date, type, title, author, content) {
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
 	  var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-	  var text = pre.textContent.replace(exp, "<a href='$1'>URLリンク↗</a>");
+	  var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>URLリンク↗</a>");
 	  var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-	  pre.innerHTML=text.replace(exp2, '$1<a target="_blank" href="http://$2">URLリンク↗</a>');
+	  pre.innerHTML=text.replace(exp2, "$1<a target='_blank' href='http://$2'>URLリンク↗</a>");
 //  <iframe src="" height="600px" width=“800px" allowfullscreen>
 //  </iframe>
 
@@ -104,7 +104,7 @@ function createPost(date, type, title, author, content) {
 
 
 //GET STUFF
-const limitValue = 5;
+const limitValue = 20;
 const allBtn = document.querySelector('#allPosts');
 const casBtn = document.querySelector('#casFilter');
 const saaBtn = document.querySelector('#saaFilter');
@@ -171,15 +171,9 @@ if (allBtn.style.display === "none") {
   getPosts();  
 }
 
-// check　website pass
-btnWebsiteVerify.onclick = () => {
-  if (txtWebsitePass.value === "kngSMA") {
-    const loader = document.querySelector(".loadObject");
-    loader.setAttribute("style", "display:none;");
-  }else{
-    alert("⚠ パスワードが間違っています");
-  }
-}
+const loader = document.querySelector(".loadObject");
+const loadAni = document.querySelector(".loadingAni");
+
 // check pass
 btnLogin.onclick = () => {
   if (txtPass.value === "kngSMA2021") {
@@ -192,6 +186,8 @@ btnLogin.onclick = () => {
 //Google Auth
 auth.onAuthStateChanged(user => {
 if (user) {
+  loader.remove();
+
   //signed in
   whenSignedIn.hidden=false;
   whenSignedOut.hidden=true;
@@ -286,6 +282,7 @@ if (user) {
     }else{
       userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんにちは 🌄<h3><small>${user.email}</small>`;
     }
+  loadAni.remove();
 
 }else{
   //signed out
@@ -297,6 +294,18 @@ if (user) {
   // loginPopUp.innerHTML=`ログイン成功！`;
   postButtons.hidden=true;
   userDetails.innerHTML=``;
+
+  loadAni.remove();
+
+
+  // check　website pass
+  btnWebsiteVerify.onclick = () => {
+    if (txtWebsitePass.value === "kngSMA") {
+      loader.remove();
+    }else{
+      alert("⚠ パスワードが間違っています");
+    }
+  }
 }
 
 })

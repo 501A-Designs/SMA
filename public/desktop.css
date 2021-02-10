@@ -23,7 +23,7 @@
 }
 
 .smaVersion::before {
-  content: "1.5.0";
+  content: "1.5.1";
 }
 
 ::-webkit-scrollbar {
@@ -41,9 +41,10 @@
 .darkMode {
   filter: invert(90%) hue-rotate(180deg);
 }
-/* .invert {
-  filter: invert(1) hue-rotate(180deg);
-} */
+
+.darkMode img {
+  filter: invert(1) hue-rotate(180deg) brightness(115%);
+}
 
 #versionNotify {
   position: sticky;
@@ -211,6 +212,7 @@ body {
     position: fixed;
     top: calc(25% - 25px);
     right: calc(25% - 25px);
+    animation: popupAni 1s;
   }
 
   /* .closeLoginPopUp {
@@ -271,6 +273,20 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
+@keyframes popupAni {
+  0% {
+    transform: scale3d(0.2, 0.2, 0.2);
+    box-shadow: 5px 5px -5px #636363;
+  }
+  30% {
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 /* POSTS GLOBAL CSS */
 .closeLoginPopUp {
   float: right;
@@ -551,14 +567,46 @@ summary {
   }
 }
 
+.loadingAni,
 .loadObject {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 3;
   top: 0px;
   left: 0px;
   background-color: white;
+}
+.loadingAni {
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+.loadingAni div {
+  z-index: 5;
+  width: 45px;
+  height: 45px;
+  background-color: cadetblue;
+  animation: loadAni 1s infinite;
+}
+
+.loadObject {
+  z-index: 3;
+}
+@keyframes loadAni {
+  0% {
+    transform: rotate(0deg);
+    border-radius: 10px;
+  }
+  70% {
+    transform: rotate(180deg);
+    border-radius: 30px;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-radius: 10px;
+  }
 }
 .loadObject p {
   margin-top: 10%;
@@ -568,7 +616,7 @@ summary {
   justify-content: center;
 }
 .loadObject p::before {
-  content: "パスワードを入力してください：";
+  content: "認証コードを入力してください：";
 }
 
 .tableOfContents {
@@ -586,6 +634,10 @@ summary {
   margin-top: 10px;
   border: solid var(--grey) 2px;
   box-shadow: 0px 5px 10px grey;
+}
+
+.darkMode #whenSignedIn img {
+  border: solid black 2px;
 }
 
 #whenSignedIn small {

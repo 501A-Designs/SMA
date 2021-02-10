@@ -6,7 +6,7 @@ function eraseVersionNotify(){
 
 //THE COUNT DOWN AND ERASING
 // Set the counting down date
-var countDownDate = new Date("Jan 19, 2021").getTime();
+var countDownDate = new Date("Feb 19, 2021").getTime();
 // Update the count down every 1 second bruh
 var x = setInterval(function () {
     // Get today's date and time
@@ -28,21 +28,17 @@ var x = setInterval(function () {
 //Darkmode variablenames
 const LD = document.getElementById('LtoD');
 const DL = document.getElementById('DtoL');
+
 //Darkmode toggle
 function LtoD() {
     document.documentElement.classList.toggle('darkMode', false);
-    // document.querySelectorAll(".inverted").forEach((result)=>{
-    //     console.log("bruh");
-    //     result.classList.toggle("invert", true);
-    // })
+    // img.toggle('darkMode', false);
     LD.style.display="block";
     DL.style.display="none";
 }
 function DtoL() {
     document.documentElement.classList.toggle('darkMode', true);
-    // document.querySelectorAll(".inverted").forEach((result)=>{
-    //     result.classList.toggle("invert",false);
-    // })
+    // img.toggle('darkMode', false);
     LD.style.display="none";
     DL.style.display="block";
 }
@@ -95,8 +91,3 @@ function langFunction() {
         eng.style.display="none";
     }
 }
-
-
-// document.getElementById("reloadBtn").addEventListener('click',function () {
-//     document.getElementById("publishPost").style.display="none";
-// })
