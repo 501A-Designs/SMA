@@ -44,43 +44,29 @@ const db = firebase.firestore();
 
 //parse post
 function createPost(date, type, title, author, content) {
-  // , urlName, url (Add parameter)
-  //add "type" in function parameter (if the CAS / S&A tag system were to be implemented)
-
-  //  lo,
   let div = document.createElement("div");
+  
   //div components
   let time = document.createElement("time");
   let span = document.createElement("span");
-  // let loSpan = document.createElement("span");
   let h3 = document.createElement("h3");
   let h5 = document.createElement("h5");
   let hr = document.createElement("hr");
   let pre = document.createElement("pre");
-  // let casTag = document.getElementById("casLabel");
-  // let linkName = document.createElement("small");
-  // let link = document.createElement("h4");
+  let like = document.createElement("button");
 
   time.textContent = date;
   span.textContent = type;
-  // loSpan.textContent = lo;
   h3.textContent = title;
   h5.textContent = author;
   pre.textContent = content;
-  // linkName.textContent = urlName;
-  // link.textContent = url;
-  // link.innerHTML=`<a class="postLinkStyle" href="${link.textContent}">${linkName.textContent}</a>`;
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
-	  var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-	  var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>URLリンク↗</a>");
-	  var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-	  pre.innerHTML=text.replace(exp2, "$1<a target='_blank' href='http://$2'>URLリンク↗</a>");
-//  <iframe src="" height="600px" width=“800px" allowfullscreen>
-//  </iframe>
-
-// https://drive.google.com/open?id=
+	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>URLリンク↗</a>");
+	var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+  pre.innerHTML = text.replace(exp2, "$1<a target='_blank' href='http://$2'>URLリンク↗</a>");
 
   if (span.textContent === "CAS") {
     span.setAttribute("class", "casMiniTag")
@@ -89,15 +75,27 @@ function createPost(date, type, title, author, content) {
     span.setAttribute("class", "saaMiniTag")
     div.setAttribute("class", "saaTag")
   }
+  like.setAttribute("class", "likeBtn");
 
   div.appendChild(time);
   div.appendChild(span);
-  // div.appendChild(loSpan);
   div.appendChild(h3);
   div.appendChild(h5);
   div.appendChild(hr);
   div.appendChild(pre);
-  // div.appendChild(link);
+  div.appendChild(like);
+
+  like.innerHTML="いいね 👍";
+
+  like.onclick = function(){
+    div.setAttribute("style", "animation: likeAni 0.7s linear;")
+    like.setAttribute("class", "likeBtn");
+    like.innerHTML="いいねしました ❤️"
+
+    // db.collection('posts').doc().update({
+    //   postLike: firebase.firestore.FieldValue.increment(1)
+    // });
+  };
 
   postCollection.appendChild(div);
 }
@@ -140,13 +138,11 @@ saaBtn.addEventListener('click', function getSAA() {
   }
   console.log("Erased CAS")
 })
-// ge all data  
-// allBtn.addEventListener('click', getPosts())
+
 
 if (allBtn.style.display === "none") {
   //get posts
   function getPosts() {
-  //before .get insert .orderBy("createdAt")
   db.collection("posts")
     .limit(limitValue)
     .orderBy("createdAt", "desc")
@@ -156,12 +152,10 @@ if (allBtn.style.display === "none") {
         createPost(
           docs.data().createdAt,
           docs.data().postType,
-          // docs.data().loType,
           docs.data().postName,
           docs.data().postAuthor,
-          docs.data().postContent
-          // docs.data().postLinkName,
-          // docs.data().postLink
+          docs.data().postContent,
+          docs.data().postLike
           );
       });
     }).catch(err => {
@@ -191,23 +185,17 @@ if (user) {
   //signed in
   whenSignedIn.hidden=false;
   whenSignedOut.hidden=true;
-
   addFeature.hidden=false;
-
-  // loginPopUp.hidden=true;
   postButtons.hidden=false;
-  // userDetails.innerHTML=`<h3>${user.displayName}さん<br>こんにちは 🌄<h3>`;
 
   loginPopUp.innerHTML=`<button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
 
-  //CREATE THE POST BRUHHHHHHHH
+  //CREATE THE POST
   document.querySelector('#publishPost').addEventListener('click',function () {
     let postDate  = document.querySelector('#postDate').value;
     let postTitle  = document.querySelector('#postTitle').value;
     let postAuthor  = document.querySelector('#postAuthor').value;
-    let postContent  = document.querySelector('#postContent').value;
-    // let postURLName = document.querySelector('#postLinkName').value;
-    // let postURL = document.querySelector('#postLink').value;
+    let postContent = document.querySelector('#postContent').value;
 
     function radioValueFunction() {
       for (let i = 0; i < radios.length; i++) {
@@ -216,13 +204,6 @@ if (user) {
         }
       }      
     }
-    // function loBoxesFunction() {
-    //   for (let j = 0; j < loBoxes.length; j++) {
-    //     if (loBoxes[j].checked) {
-    //           return loBoxes[j].value;
-    //     }
-    //   }      
-    // }    
 
     if (postDate === "" ||
         postTitle === "" ||
@@ -235,95 +216,46 @@ if (user) {
               postName:postTitle,
               postAuthor:postAuthor,
               postContent:postContent,
-              postType:radioValueFunction()
-              // postLinkName:postURLName,
-              // postLink:postURL
-              // loType:loBoxesFunction()
+              postType:radioValueFunction(),
+              postLike:0
           })
-          // for (let i = 0; i < radios.length; i++) {
-          //   if (radios[i].checked) {
-          //     db.collection('posts').doc().set({
-          //         createdAt:postDate,
-          //         postName:postTitle,
-          //         postAuthor:postAuthor,
-          //         postContent:postContent,
-          //         postType:radios[i].value,
-          //         loType:loBoxes[i].value
-          //     })
-          //   }
-          // }
-          // BRUHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-          // for (let j = 0; j < loBoxes.length; j++) {
-          //   if (loBoxes[i].checked) {
-          //     db.collection('posts').doc().set({
-          //         loType:loBoxes[j].value
-          //     })
-          //   }
-          // }
         }
     document.getElementById("createPost").hidden=true;
   })
 
-  // document.getElementById("publishPost").addEventListener('click',function () {
-    
-// })
-
-  //pull values from input
-  // getPosts();
-
-
-
-  //Date And Message
+    //Date And Message
     var d = new Date();
     var h = d.getHours();
     if (h > 12) {
-      // userDetails.innerHTML = `<h3>✔<br>ログイン済み<br><br>${user.displayName}さん<br>こんばんは 🌃<h3>`;
       userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんばんは 🌃<h3><small>${user.email}</small>`;
     }else{
       userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんにちは 🌄<h3><small>${user.email}</small>`;
     }
-  loadAni.remove();
+    
+    loadAni.remove();
 
-}else{
-  //signed out
-  whenSignedIn.hidden=true;
-  whenSignedOut.hidden=false;
+  }else{
+    //signed out
+    whenSignedIn.hidden=true;
+    whenSignedOut.hidden=false;
 
-  addFeature.hidden=true;
+    addFeature.hidden=true;
 
-  // loginPopUp.innerHTML=`ログイン成功！`;
-  postButtons.hidden=true;
-  userDetails.innerHTML=``;
+    // loginPopUp.innerHTML=`ログイン成功！`;
+    postButtons.hidden=true;
+    userDetails.innerHTML=``;
 
-  loadAni.remove();
+    loadAni.remove();
 
 
-  // check　website pass
-  btnWebsiteVerify.onclick = () => {
-    if (txtWebsitePass.value === "kngSMA") {
-      loader.remove();
-    }else{
-      alert("⚠ パスワードが間違っています");
+    // check　website pass
+    btnWebsiteVerify.onclick = () => {
+      if (txtWebsitePass.value === "kngSMA") {
+        loader.remove();
+      }else{
+        alert("⚠ パスワードが間違っています");
+      }
     }
   }
-}
-
 })
 
-/* 
-//Login Event
-btnLogin.addEventListener("click", (e) => {
-  //Getting email and password
-  const email = txtEmail.value;
-  const pass = txtPassword.value;
-  const auth = firebase.auth();
-
-  //Signing in
-  const promise = auth.signInWithEmailAndPassword(email, pass);
-  promise.catch((e) => console.log(e.message));
-});
-*/
-
-// document.getElementById("postButtons").addEventListener("load",function () {
-//   getPosts()  
-// })
