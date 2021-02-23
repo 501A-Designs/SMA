@@ -44,7 +44,7 @@ const db = firebase.firestore();
 
 
 //parse post
-function createPost(date, type, title, author, content, likeNum) {
+function createPost(doc) {
   let div = document.createElement("div");
   
   //div components
@@ -56,12 +56,12 @@ function createPost(date, type, title, author, content, likeNum) {
   let pre = document.createElement("pre");
   let like = document.createElement("button");
 
-  time.textContent = date;
-  span.textContent = type;
-  h3.textContent = title;
-  h5.textContent = author;
-  pre.textContent = content;
-  like.innerHTML = "❤️ : " + likeNum;
+  time.textContent = doc.data().createdAt;
+  span.textContent = doc.data().postType;
+  h3.textContent = doc.data().postName;
+  h5.textContent = doc.data().postAuthor;
+  pre.textContent = doc.data().postContent;
+  like.innerHTML = "❤️ : " + doc.data().postLike;
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
@@ -88,28 +88,14 @@ function createPost(date, type, title, author, content, likeNum) {
   div.appendChild(pre);
   div.appendChild(like);
 
-  like.onclick = function (doc) {
-    // const likeIncrement = firebase.firestore.FieldValue.increment(1);
-
-    // db.collection('posts').get().then(function(querySnapshot) {
-    //   querySnapshot.forEach(function(doc) {
-    //   });
-    // });
-    console.log(doc.id);
-
-    // db.collection('posts')
-    //   .doc(doc.id)
-    //   .update({ postLike: likeIncrement })
-    //   .catch(function (error) {
-    //       console.log("Error getting documents: ", error);
-    //   });
-
-    // db.collection('posts')
-    //   .doc()
-    //   .update({ postLike: likeIncrement })
-    //   .catch(function (error) {
-    //       console.log("Error getting documents: ", error);
-    //   });
+  like.onclick = () => {
+    const likeIncrement = firebase.firestore.FieldValue.increment(1);
+    db.collection('posts')
+      .doc(doc.id)
+      .update({ postLike: likeIncrement })
+      .catch(function (error) {
+          console.log("Error getting documents: ", error);
+      });
     
     div.setAttribute("style", "animation: likeAni 0.7s linear;")
     like.innerHTML = "❤️ ✔";
@@ -165,15 +151,8 @@ if (allBtn.style.display === "none") {
       .orderBy("createdAt", "desc")
       .get()
       .then(snapshot => {
-        snapshot.docs.forEach(docs => {
-          createPost(
-            docs.data().createdAt,
-            docs.data().postType,
-            docs.data().postName,
-            docs.data().postAuthor,
-            docs.data().postContent,
-            docs.data().postLike
-            );
+        snapshot.docs.forEach(doc => {
+          createPost(doc);
         });
       }).catch(err => {
         console.log(err);
@@ -207,26 +186,6 @@ if (user) {
   postButtons.hidden = false;
 
   loginPopUp.innerHTML = `<button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
-
-    // const postLikeBtn = document.querySelectorAll('likeBtn');
-    // for (let i = 0; i < postLikeBtn.length; i++) {
-    //   console.log(likes);
-    //   // postLikeBtn[i].addEventListener('click', () => {
-    //   //   likes.style.display = "none";
-    //   // })
-    // } 
-
-  // Array.from(postLikeBtn).forEach(function (postLikeBtn) {
-  //   console.log(postLikeBtn);
-  //   // postLikeBtn.addEventListener('click', console.log("bruh"));
-  //     // const likeIncrement = firebase.firestore.FieldValue.increment(1);
-  //     // db.collection('posts')
-  //     //   .doc(doc.id)
-  //     //   .update({ postLike: likeIncrement })
-  //     //   .catch(function (error) {
-  //     //       console.log("Error getting documents: ", error);
-  //     //   });
-  // });
 
   //CREATE THE POST
   document.querySelector('#publishPost').addEventListener('click',function () {
@@ -269,7 +228,6 @@ if (user) {
     }else{
       userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんにちは 🌄<h3><small>${user.email}</small>`;
     }
-    
     loadAni.remove();
 
   }else{
@@ -283,7 +241,6 @@ if (user) {
     userDetails.innerHTML = ``;
 
     loadAni.remove();
-
 
     // check　website pass
     btnWebsiteVerify.onclick = () => {

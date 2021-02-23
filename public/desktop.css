@@ -23,7 +23,7 @@
 }
 
 .smaVersion::before {
-  content: "1.5.1";
+  content: "1.5.2";
 }
 
 ::-webkit-scrollbar {

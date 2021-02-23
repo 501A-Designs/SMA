@@ -6,7 +6,7 @@ function eraseVersionNotify(){
 
 //THE COUNT DOWN AND ERASING
 // Set the counting down date
-var countDownDate = new Date("Feb 19, 2021").getTime();
+var countDownDate = new Date("Mar 1, 2021").getTime();
 // Update the count down every 1 second bruh
 var x = setInterval(function () {
     // Get today's date and time
