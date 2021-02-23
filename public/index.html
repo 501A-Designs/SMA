@@ -104,7 +104,7 @@
         </button>
         <button class="standardButton redBtn"
         onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
-          - 活動記事の消去をリクエスト
+          - 記事消去をリクエスト
         </button>
         <button class="standardButton blueBtn"
         onclick="window.location.reload();">ページを更新</button>
@@ -160,7 +160,7 @@
             <!-- <button class="standardButton" style="margin-left:5px; background-color: var(--grey2);">+ リンクを加える</button> -->
             <br />
             <br />
-            <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">✔　記事完了</button>
+            <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">記事完了</button>
             <div id="confirmDiv">
               <p>
                 <h2 style="color: crimson; font-weight: bold; text-align: center;">投稿する前！！</h2><br>
@@ -218,7 +218,6 @@
           </div>
           
           <section style="text-align: center" class="sidebarBox" id="whenSignedIn" hidden="true">
-            <!-- <h3>ログイン済みです</h3> -->
             <div id="userDetails"></div>
             <div class="buttonsContainer">
               <!--Logout button | hidden by default-->
@@ -273,33 +272,57 @@
           <div  class="load-wave">
             <br>
             <section id="additionalSites">
-            <button
-              id="kngedjp"
-              onclick="window.location.href='http://kng.ed.jp';"
-            >
-              🏫　開智日本橋学園
-            </button>
-            <button
-              id="glcdlc"
-              onclick="window.location.href='http://glcdlc.com';"
-            >
-              🌐　GLC・DLC
-            </button>
-            <!-- <button
-              id="ibmanabu"
-              onclick="window.location.href='https://www.ibmanabu.com/';"
-            >
-              🗣　IB学ぶ
-            </button> -->
-            <button
-              id="learngeo"
-              onclick="window.location.href='https://www.learngeowith.me/';"
-            >
-              🏔　LearnGeoWithMe
-            </button>
+              <button
+                id="kngedjp"
+                onclick="window.open('http://kng.ed.jp','_blank')"
+              >
+                開智日本橋学園
+              </button>
+              <button
+                id="glcdlc"
+                onclick="window.open('http://glcdlc.com','_blank')"
+              >
+                GLC・DLC
+              </button>
+              <button onclick="window.open('https://501a-designs.github.io/schedule-creator/','_blank')">
+                時間割作成サイト
+              </button>
+              <!-- <button
+                id="ibmanabu"
+                onclick="window.open('http://glcdlc.com','_blank')"
+              >
+                🗣　IB学ぶ
+              </button> -->
+              <button
+                id="learngeo"
+                onclick="window.open('https://www.learngeowith.me/','_blank')"
+              >
+                LearnGeoWithMe
+              </button>
             </section>
           </div>
         </details>
+
+        <!-- <details class="sidebarBox" open>
+          <summary>生徒によるウェブサイト</summary>
+          <div  class="load-wave">
+            <br>
+            <section id="additionalSites">
+              <button onclick="window.open('https://501a-designs.github.io/schedule-creator/','_blank')">
+                時間割作成サイト
+              </button>
+              <button onclick="window.open('http://kng.ed.jp','_blank')">
+                🌐　GLC・DLC
+              </button>
+              <button onclick="window.open('http://kng.ed.jp','_blank')">
+                🗣　IB学ぶ
+              </button>
+              <button onclick="window.open('http://kng.ed.jp','_blank')">
+                🗣　IB学ぶ
+              </button>
+            </section>
+          </div>
+        </details> -->
 
         <!-- DARK MODE BUTTON -->
         <section class="sidebarBox">
@@ -314,8 +337,8 @@
         <section class="sidebarBox">
           <h4 style="margin-top: 0px;">Share My Activity</h4>
           <section id="additionalSites">
-            <button onclick="window.location.href='about.html#about';">SMAについて</button>
-            <button onclick="window.location.href='about.html#howto';">SMAの使用法</button>
+            <button onclick="window.open('about.html#about','_blank')">SMAについて</button>
+            <button onclick="window.open('about.html#howto','_blank')">SMAの使用法</button>
           </section>
         </section>
 
@@ -331,16 +354,21 @@
           <script>
             document.getElementById("loadEaster").addEventListener("click", ()=> {
               document.getElementById("initiateSnake").style.display="block";
+              document.getElementById("initiateMulti").style.display="block";
+
               document.getElementById("initiateSnake").addEventListener("click", ()=> {
                 document.getElementById("snakeG").style.display="block";
               });
-              // document.getElementById("initiate2048").addEventListener("click", () => {
-              //   document.getElementById("2048G").style.display = "block";
-              // });
+              document.getElementById("initiateMulti").addEventListener("click", () => {
+                document.getElementById("multiG").style.display = "block";
+              });
             });
             // Hiding Command
             eraseSnake =()=>{
               document.getElementById("snakeG").style.display="none"
+            }
+            eraseMulti =()=>{
+              document.getElementById("multiG").style.display="none"
             }
           </script>
           <a style="color: black" href="http://y-com.jp">Developed by 501A</a>
@@ -348,23 +376,32 @@
           IP Written by Y.Y
         </h5>
         <button class="easterButton" id="initiateSnake">🐍 Snake</button>
+        <button class="easterButton" id="initiateMulti">🔫 Multibattle</button>
         <!-- <button class="easterButton" id="initiate2048">🔢 2048</button> -->
       </section>
       <!-- Snake -->
-      <section id="snakeG" style="display: none;
-                        margin: none;
-                        width: 50%;
-                        height: auto;
-                        border-radius: 20px;
-                        padding: 20px;
-                        background-color: white;
-                        opacity: 90%;
-                        max-height: none;
-                        box-shadow: 5px 5px 20px #636363;
-                        z-index: 2;
-                        position: fixed;
-                        top: calc(25% - 70px);
-                        right: calc(25% - 25px);">
+      <section id="multiG" class="easterPopup" style="display: none;">
+        <iframe src="https://scratch.mit.edu/projects/121736387/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" style="border-radius: 10px; float: right; margin-left: 10px;" allowfullscreen></iframe>
+        <h2>Multibattle</h2>
+        <p style="margin-right: 10px;">
+          Original Multibattle from 2016 created by Skawa
+          <br>
+          To move Sonic use keys A,W, D, and Space
+          <br>
+          To move Megaman use arrow keys, and press P to shoot long range.
+          <br>
+          To move Ash use keys H,U,K and Y for power.
+          <br>
+          To move Captain America use keys C,F,V, and B
+          <br>
+          To move Gemack use number keys 4,5,6,8, and 7
+          <br>
+          <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser
+          history.
+        </p>
+        <button class="closeLoginPopUp" style="float: right;" onclick="eraseMulti()">Exit</button>
+      </section>
+      <section id="snakeG" class="easterPopup" style="display: none;">
         <canvas id="gc" width="400" height="400" style="border-radius: 10px; float: right; margin-left: 10px;"></canvas>
         <h2>Snake Easter Egg</h2>
         <p style="margin-right: 10px;">Rules are simple, use "W","A","S","D" to move around. When you want to hide the game

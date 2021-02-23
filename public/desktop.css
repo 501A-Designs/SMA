@@ -179,14 +179,6 @@ body {
     gap: calc(var(--containerGap) * 2);
   }
 
-  .greyContainer {
-    border-radius: var(--roundedCorners);
-    /* margin: var(--containerGap); */
-    padding: 15px;
-    background-color: var(--grey);
-    border: solid var(--grey2) 1.5px;
-  }
-
   #cautionNote {
     display: none;
   }
@@ -277,10 +269,11 @@ body {
 @keyframes popupAni {
   0% {
     transform: scale3d(0.2, 0.2, 0.2);
-    box-shadow: 5px 5px -5px #636363;
+    box-shadow: 5px 5px -5px white;
   }
-  30% {
-    transform: scale3d(1.2, 1.2, 1.2);
+  40% {
+    transform: scale3d(1.1, 1.1, 1.1);
+    box-shadow: 1px 1px -5px white;
   }
   100% {
     transform: scale3d(1, 1, 1);
@@ -322,7 +315,8 @@ textarea:focus {
   outline: none;
   background-color: white;
   /* border-radius: calc(var(--roundedCorners) * 2); */
-  border: solid var(--blue) 1px;
+  border: solid var(--blue) 2px;
+  padding: 8px;
   transform: scale3d(1.05 1.05 1.05);
 }
 
@@ -364,7 +358,7 @@ button:focus {
 
 #additionalSites {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   font-weight: bold;
 }
@@ -431,15 +425,21 @@ time {
   padding: 5px 8px 5px 8px;
   border: none;
 }
-.likedBtn {
-  opacity: 1;
-  font-weight: bold;
-  padding: 5px 8px 5px 8px;
-  border: none;
+/* .likeBtn:hover {
+  animation: likeHoverAni 2s infinite;
 }
-.likedBtn:hover {
-  opacity: 1;
-}
+@keyframes likeHoverAni{
+  0%{
+    transform: scale3d(1, 1, 1);
+  }
+  50%{
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  100%{
+    transform: scale3d(1, 1, 1);
+  }
+} */
+
 @keyframes likeAni {
   0% {
     background-color: red;
@@ -698,6 +698,21 @@ summary {
   /* font-weight: bold; */
 }
 
+.easterPopup{
+  margin: none;
+  width: 50%;
+  height: auto;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: white;
+  opacity: 90%;
+  max-height: none;
+  box-shadow: 5px 5px 20px #636363;
+  z-index: 2;
+  position: fixed;
+  top: calc(25% - 70px);
+  right: calc(25% - 25px);
+}
 .easterButton {
   float: right;
   margin: 10px;

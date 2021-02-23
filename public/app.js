@@ -42,8 +42,9 @@ let loBoxes = document.getElementsByName('loType');
 let postCollection = document.querySelector(".gridObject");
 const db = firebase.firestore();
 
+
 //parse post
-function createPost(date, type, title, author, content) {
+function createPost(date, type, title, author, content, likeNum) {
   let div = document.createElement("div");
   
   //div components
@@ -60,6 +61,7 @@ function createPost(date, type, title, author, content) {
   h3.textContent = title;
   h5.textContent = author;
   pre.textContent = content;
+  like.innerHTML = "❤️ : " + likeNum;
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
@@ -75,6 +77,7 @@ function createPost(date, type, title, author, content) {
     span.setAttribute("class", "saaMiniTag")
     div.setAttribute("class", "saaTag")
   }
+
   like.setAttribute("class", "likeBtn");
 
   div.appendChild(time);
@@ -85,21 +88,35 @@ function createPost(date, type, title, author, content) {
   div.appendChild(pre);
   div.appendChild(like);
 
-  like.innerHTML="いいね 👍";
+  like.onclick = function (doc) {
+    // const likeIncrement = firebase.firestore.FieldValue.increment(1);
 
-  like.onclick = function(){
-    div.setAttribute("style", "animation: likeAni 0.7s linear;")
-    like.setAttribute("class", "likeBtn");
-    like.innerHTML="いいねしました ❤️"
-
-    // db.collection('posts').doc().update({
-    //   postLike: firebase.firestore.FieldValue.increment(1)
+    // db.collection('posts').get().then(function(querySnapshot) {
+    //   querySnapshot.forEach(function(doc) {
+    //   });
     // });
-  };
+    console.log(doc.id);
 
+    // db.collection('posts')
+    //   .doc(doc.id)
+    //   .update({ postLike: likeIncrement })
+    //   .catch(function (error) {
+    //       console.log("Error getting documents: ", error);
+    //   });
+
+    // db.collection('posts')
+    //   .doc()
+    //   .update({ postLike: likeIncrement })
+    //   .catch(function (error) {
+    //       console.log("Error getting documents: ", error);
+    //   });
+    
+    div.setAttribute("style", "animation: likeAni 0.7s linear;")
+    like.innerHTML = "❤️ ✔";
+    like.setAttribute("disabled", "");
+  };
   postCollection.appendChild(div);
 }
-
 
 //GET STUFF
 const limitValue = 20;
@@ -143,25 +160,25 @@ saaBtn.addEventListener('click', function getSAA() {
 if (allBtn.style.display === "none") {
   //get posts
   function getPosts() {
-  db.collection("posts")
-    .limit(limitValue)
-    .orderBy("createdAt", "desc")
-    .get()
-    .then(snapshot=>{
-      snapshot.docs.forEach(docs=>{
-        createPost(
-          docs.data().createdAt,
-          docs.data().postType,
-          docs.data().postName,
-          docs.data().postAuthor,
-          docs.data().postContent,
-          docs.data().postLike
-          );
+    db.collection("posts")
+      .limit(limitValue)
+      .orderBy("createdAt", "desc")
+      .get()
+      .then(snapshot => {
+        snapshot.docs.forEach(docs => {
+          createPost(
+            docs.data().createdAt,
+            docs.data().postType,
+            docs.data().postName,
+            docs.data().postAuthor,
+            docs.data().postContent,
+            docs.data().postLike
+            );
+        });
+      }).catch(err => {
+        console.log(err);
       });
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+    }
   getPosts();  
 }
 
@@ -177,6 +194,7 @@ btnLogin.onclick = () => {
   }
 }
 
+
 //Google Auth
 auth.onAuthStateChanged(user => {
 if (user) {
@@ -186,9 +204,29 @@ if (user) {
   whenSignedIn.hidden=false;
   whenSignedOut.hidden=true;
   addFeature.hidden=false;
-  postButtons.hidden=false;
+  postButtons.hidden = false;
 
-  loginPopUp.innerHTML=`<button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
+  loginPopUp.innerHTML = `<button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
+
+    // const postLikeBtn = document.querySelectorAll('likeBtn');
+    // for (let i = 0; i < postLikeBtn.length; i++) {
+    //   console.log(likes);
+    //   // postLikeBtn[i].addEventListener('click', () => {
+    //   //   likes.style.display = "none";
+    //   // })
+    // } 
+
+  // Array.from(postLikeBtn).forEach(function (postLikeBtn) {
+  //   console.log(postLikeBtn);
+  //   // postLikeBtn.addEventListener('click', console.log("bruh"));
+  //     // const likeIncrement = firebase.firestore.FieldValue.increment(1);
+  //     // db.collection('posts')
+  //     //   .doc(doc.id)
+  //     //   .update({ postLike: likeIncrement })
+  //     //   .catch(function (error) {
+  //     //       console.log("Error getting documents: ", error);
+  //     //   });
+  // });
 
   //CREATE THE POST
   document.querySelector('#publishPost').addEventListener('click',function () {
@@ -200,9 +238,9 @@ if (user) {
     function radioValueFunction() {
       for (let i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
-              return radios[i].value;
+          return radios[i].value;
         }
-      }      
+      }
     }
 
     if (postDate === "" ||
@@ -216,10 +254,10 @@ if (user) {
               postName:postTitle,
               postAuthor:postAuthor,
               postContent:postContent,
-              postType:radioValueFunction(),
-              postLike:0
+              postType: radioValueFunction(),
+              postLike:1
           })
-        }
+    }
     document.getElementById("createPost").hidden=true;
   })
 
@@ -238,12 +276,11 @@ if (user) {
     //signed out
     whenSignedIn.hidden=true;
     whenSignedOut.hidden=false;
-
     addFeature.hidden=true;
 
     // loginPopUp.innerHTML=`ログイン成功！`;
     postButtons.hidden=true;
-    userDetails.innerHTML=``;
+    userDetails.innerHTML = ``;
 
     loadAni.remove();
 

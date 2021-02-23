@@ -71,7 +71,7 @@
     border-radius: var(--roundedCorners);
     padding: 15px;
     background-color: var(--grey);
-    border: 2px solid grey;
+    border: 1px solid lightgray;
     margin-bottom: 20px;
   }
 
