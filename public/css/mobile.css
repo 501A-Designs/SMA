@@ -1,17 +1,14 @@
-@import url(desktop.css);
+@import '/public/css/variables.css';
 
 @media only screen and (max-width: 999px) {
   .header {
     margin-top: 15%;
     margin-bottom: 15%;
-    display: flex;
-    justify-content: center;
   }
   .smaLogo {
     height: 25%;
     width: 25%;
   }
-
   body {
     margin: 0px 5% 5% 5%;
   }
@@ -19,34 +16,16 @@
     margin-bottom: var(--containerGap);
     font-size: 40px;
   }
+  #gridContainer {
+    grid-template-columns: 1fr;
+    gap: var(--containerGap);
+  }
   #loginPopUp {
-    display: none;
-    border-radius: 20px;
-    padding: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px #636363;
-    z-index: 2;
-    height: auto;
-    max-height: none;
-    position: fixed;
     margin: 10px;
+    padding: var(--largeMobilePadding);
+    box-shadow: var(--heavyMobileBoxShadow);
     top: calc(25% - 80px);
     right: calc(25% - 100px);
-    animation: popupAni 1s;
-  }
-  /* #loginPopUp,
-  #whenSignedIn,
-  #whenSignedOut {
-    display: block;
-  } */
-
-  #gridContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: none;
-    gap: var(--containerGap);
-    /* row-gap: 0px;
-    column-gap: 0px; */
   }
 
   #cautionNote {
@@ -66,23 +45,19 @@
   .desktopErase {
     display: block;
   }
-
   #createPost {
     border-radius: var(--roundedCorners);
-    padding: 15px;
-    background-color: var(--grey);
-    border: 1px solid lightgray;
-    margin-bottom: 20px;
+    padding: var(--largeMobilePadding);
+    border: var(--mobileBorder);
+    box-shadow: var(--lightMobileBoxShadow);
   }
-
   #createPost input {
     margin-bottom: 5px;
   }
-
   .gridObject > div {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: var(--largeMobilePadding) 0px var(--largeMobilePadding) 0px;
   }
+
   .casTag {
     box-shadow: 0px -5px 4px var(--purple);
   }
@@ -93,6 +68,7 @@
     margin-bottom: 5em;
     margin-top: 5em;
   }
+
   .versionGrid {
     grid-template-columns: 1fr;
   }

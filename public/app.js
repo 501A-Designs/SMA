@@ -214,7 +214,7 @@ if (user) {
               postAuthor:postAuthor,
               postContent:postContent,
               postType: radioValueFunction(),
-              postLike:1
+              postLike:0
           })
     }
     document.getElementById("createPost").hidden=true;
