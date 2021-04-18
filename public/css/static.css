@@ -2,7 +2,7 @@
 
 
 .smaVersion::before {
-    content: "1.6.0";
+    content: "1.6.1";
 }
 ::-webkit-scrollbar {
     border-radius: var(--roundedCorners);
