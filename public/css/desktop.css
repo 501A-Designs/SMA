@@ -31,18 +31,49 @@
 }
 #loginPopUp {
   position: fixed;
-  display: none;
   z-index: 3;
   height: auto;
   max-height: none;
   background-color: white;
-  opacity: 90%;
+  opacity: var(--popupOpacity);
   border-radius: calc(var(--roundedCorners)*2);
   animation: popupAni var(--standardTransition);
 }
+#announcePopUp{
+  position: fixed;
+  z-index: 3;
+  overflow-y: auto;
+  padding: var(--padding);
+  background-color: white;
+  opacity: var(--popupOpacity);
+  width: 80%;
+  top: calc(10% - 25px);
+  right: calc(13% - 25px);
+  bottom: calc(10% - 25px);
+  border-radius: calc(var(--roundedCorners)*2);
+  animation: popupAni var(--standardTransition);
+}
+
 #createPost{
   background-color: var(--grey);
   margin-bottom: 20px;
+}
+#announceObject{
+  border: var(--desktopBorder);
+  padding: var(--padding);
+  background-color: var(--grey);
+  border-radius: var(--roundedCorners);
+  overflow-y: auto;
+}
+#announcePosts{
+  margin: 10px 0px 10px 0px;
+}
+#announcePosts > div{
+  background-color: white;
+  margin-bottom: var(--margin);
+  border: var(--mobileBorder);
+  border-radius: var(--roundedCorners);
+  padding: var(--largeDesktopPadding);
 }
 
 /* Keyframes */
@@ -80,7 +111,7 @@
     margin: 0px;
   }
   #gridContainer {
-    grid-template-columns: 4fr 1.5fr;
+    grid-template-columns: 1.5fr 3.5fr 1.5fr;
     /* grid-template-rows: none; */
     gap: calc(var(--containerGap) * 2);
   }
@@ -91,6 +122,14 @@
     width: 50%;
     top: calc(25% - 25px);
     right: calc(25% - 25px);
+  }
+  #announcePopUp{
+    margin: none;
+    padding: var(--largeDesktopPadding);
+    box-shadow: var(--heavyDesktopBoxShadow);
+  }
+  #announceObject{
+    height: 1000px;
   }
   #cautionNote {
     display: none;
@@ -119,18 +158,24 @@
     box-shadow: -2px 0px 5px var(--orange);
   }
 
+  .duoGrid{
+    grid-template-columns: 1fr 1fr;
+  }
   .versionGrid {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 
-.closeLoginPopUp {
+.close {
   float: right;
   border: none;
   border-radius: var(--roundedCorners);
   background-color: var(--closeBtnRed);
   padding: var(--miniBtnPadding);
+}
+.close::before{
+  content: "✕ 閉じる";
 }
 
 #confirmDiv {
@@ -199,7 +244,7 @@ button:focus {
 #additionalSites {
   gap: var(--containerGap);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   font-weight: bold;
 }
 
@@ -256,7 +301,7 @@ button:focus {
 .gridObject > div > h5::after {
   content: "：作";
 }
-.gridObject > div > pre {
+.gridObject > div > pre, #announcePosts > div > pre {
   white-space: pre-wrap; /* css-3 */
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
   white-space: -pre-wrap; /* Opera 4-6 */
@@ -340,7 +385,7 @@ h5 {
 }
 
 #filter {
-  margin: 20px;
+  margin: 20px 0px 20px 0px;
   display: flex;
   gap: 5px;
 }
@@ -430,7 +475,7 @@ summary {
 }
 
 #whenSignedIn img {
-  border-radius: calc(var(--roundedCorners)*2);
+  border-radius: calc(var(--roundedCorners) * 10);
   margin-top: var(--margin);
   border: var(--desktopBorder);
   box-shadow: 0px 5px 10px grey;
@@ -438,6 +483,9 @@ summary {
 
 .darkMode #whenSignedIn img {
   border: solid black 2px;
+  filter: invert(1) hue-rotate(180deg) brightness(115%);
+}
+.darkMode iframe {
   filter: invert(1) hue-rotate(180deg) brightness(115%);
 }
 
@@ -462,6 +510,11 @@ summary {
   user-select: none;
 }
 
+.duoGrid{
+  display: grid;
+  gap: calc(var(--containerGap)*3);
+}
+
 .easterPopup{
   margin: none;
   width: 50%;
@@ -469,7 +522,7 @@ summary {
   border-radius: 20px;
   padding: 20px;
   background-color: white;
-  opacity: 90%;
+  opacity: var(--popupOpacity);
   max-height: none;
   box-shadow: 5px 5px 20px #636363;
   z-index: 2;

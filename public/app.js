@@ -1,14 +1,14 @@
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
-     apiKey: "AIzaSyClYBau_KYGEiitdBo1KSJCDfy-8BZda0E",
-     authDomain: "share-my-activity.firebaseapp.com",
-     databaseURL: "https://share-my-activity.firebaseio.com",
-     projectId: "share-my-activity",
-     storageBucket: "share-my-activity.appspot.com",
-     messagingSenderId: "966863510348",
-     appId: "1:966863510348:web:41b43bd09ccd244c058de9",
-     measurementId: "G-YJJK1ZL449",
+  apiKey: "AIzaSyClYBau_KYGEiitdBo1KSJCDfy-8BZda0E",
+  authDomain: "share-my-activity.firebaseapp.com",
+  databaseURL: "https://share-my-activity.firebaseio.com",
+  projectId: "share-my-activity",
+  storageBucket: "share-my-activity.appspot.com",
+  messagingSenderId: "966863510348",
+  appId: "1:966863510348:web:41b43bd09ccd244c058de9",
+  measurementId: "G-YJJK1ZL449",
 };
 
 // Initialize Firebase
@@ -40,8 +40,9 @@ let loBoxes = document.getElementsByName('loType');
 
 //database stuff
 let postCollection = document.querySelector(".gridObject");
-const db = firebase.firestore();
+let announcePostCollection = document.querySelector("#announcePosts");
 
+const db = firebase.firestore();
 
 //parse post
 function createPost(doc) {
@@ -61,7 +62,7 @@ function createPost(doc) {
   h3.textContent = doc.data().postName;
   h5.textContent = doc.data().postAuthor;
   pre.textContent = doc.data().postContent;
-  like.innerHTML = "❤️ : " + doc.data().postLike;
+  like.innerHTML = "❤️ " + doc.data().postLike;
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
@@ -103,9 +104,37 @@ function createPost(doc) {
   };
   postCollection.appendChild(div);
 }
+// parse announce
+function createAnnouncePost(aDoc) {
+  let div = document.createElement("div");
+  let time = document.createElement("time");
+  let h3 = document.createElement("h3");
+  let span = document.createElement("span");
+  let hr = document.createElement("hr");
+  let pre = document.createElement("pre");
+
+  time.textContent = "〜" + aDoc.data().aPostEnd + "まで";
+  h3.textContent = aDoc.data().aPostTitle;
+  span.textContent = "投稿日：" + aDoc.data().aPostStart;
+  pre.textContent = aDoc.data().aPostContent;
+
+	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>$1</a>");
+	var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+  pre.innerHTML = text.replace(exp2, "$1<a target='_blank' href='http://$2'>$2</a>");
+
+  div.appendChild(time);
+  div.appendChild(h3);
+  div.appendChild(span);
+  div.appendChild(hr);
+  div.appendChild(pre);
+
+  announcePostCollection.appendChild(div);
+}
+
 
 //GET STUFF
-const limitValue = 20;
+// const limitValue = 20;
 const allBtn = document.querySelector('#allPosts');
 const casBtn = document.querySelector('#casFilter');
 const saaBtn = document.querySelector('#saaFilter');
@@ -147,7 +176,7 @@ if (allBtn.style.display === "none") {
   //get posts
   function getPosts() {
     db.collection("posts")
-      .limit(limitValue)
+      // .limit(limitValue)
       .orderBy("createdAt", "desc")
       .get()
       .then(snapshot => {
@@ -158,7 +187,20 @@ if (allBtn.style.display === "none") {
         console.log(err);
       });
     }
-  getPosts();  
+  getPosts();
+  function getAnnouncePosts() {
+    db.collection("announce")
+      .orderBy("aPostEnd", "desc")
+      .get()
+      .then(snapshot => {
+        snapshot.docs.forEach(aDoc => {
+          createAnnouncePost(aDoc);
+        });
+      }).catch(aErr => {
+        console.log(aErr);
+      });
+    }
+  getAnnouncePosts();
 }
 
 const loader = document.querySelector(".loadObject");
@@ -184,8 +226,9 @@ if (user) {
   whenSignedOut.hidden=true;
   addFeature.hidden=false;
   postButtons.hidden = false;
+  announcePostButton.hidden = false;
 
-  loginPopUp.innerHTML = `<button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
+  loginPopUp.innerHTML = `<button class="close" onclick="loginPopUpFunction()"></button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
 
   //CREATE THE POST
   document.querySelector('#publishPost').addEventListener('click',function () {
@@ -220,6 +263,29 @@ if (user) {
     document.getElementById("createPost").hidden=true;
   })
 
+  // Create Announce
+  document.querySelector('#publishAnnounce').addEventListener('click',function () {
+    let announceTitle  = document.querySelector('#announceTitle').value;
+    let announceStartDate  = document.querySelector('#announceStartDate').value;
+    let announceEndDate  = document.querySelector('#announceEndDate').value;
+    let announceContent = document.querySelector('#announceContent').value;
+
+    if (announceTitle === "" ||
+        announceStartDate === "" ||
+        announceEndDate === "" ||
+        announceContent === "") {
+          alert("全ての欄を記入してください");
+        }else{
+          db.collection('announce').doc().set({
+              aPostTitle:announceTitle,
+              aPostStart:announceStartDate,
+              aPostEnd:announceEndDate,
+              aPostContent:announceContent
+          })
+    }
+    document.getElementById("announcePopUp").hidden=true;
+  })
+
     //Date And Message
     var d = new Date();
     var h = d.getHours();
@@ -234,10 +300,12 @@ if (user) {
     //signed out
     whenSignedIn.hidden=true;
     whenSignedOut.hidden=false;
-    addFeature.hidden=true;
-
+    addFeature.hidden = true;
+    
+    
     // loginPopUp.innerHTML=`ログイン成功！`;
     postButtons.hidden=true;
+    announcePostButton.hidden=true;
     userDetails.innerHTML = ``;
 
     loadAni.remove();

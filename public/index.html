@@ -19,7 +19,12 @@
     href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
     rel="stylesheet"
     />
-    <link rel="stylesheet" href="index.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/color.css">
+    <link rel="stylesheet" href="./css/desktop.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+    <link rel="stylesheet" href="./css/static.css">
+    <link rel="stylesheet" href="./css/variables.css">
     
     <script src="app.js" defer></script>
     <script src="functions.js" defer></script>
@@ -48,47 +53,61 @@
       <p id="erasedDate"></p>
     </section>
 
-    <section id="loginPopUp">
-        <button class="closeLoginPopUp" onclick="popUpFunction()">✕ 閉じる</button>
-        <h2 style="margin: var(--containerGap)">👥 ログインについて：</h2>
-        ログインは、管理者に送られるメールパスワードを使用し、ご利用のグーグルアカウントですることができます。パスワードを入力する際正しいか確認してください。確認した上、まだ入れないようであれば、SMA Information Pageにある［ログインリクエスト］のボタンを押すことでアカウント作成の依頼を送信することが可能となります。ご理解ご協力の方よろしくおねがいします。<br /><br />
-        <div id="loginContainer">
-            <div id="submitDiv">
-              <input id="txtPassword" type="password" placeholder="パスワードを入力" />
-              <button
-                id="btnLogin"
-                class="standardButton greenBtn"
-              >
-                ログイン
-              </button>
-            </div>
-        </div>
+    <section id="loginPopUp" style="display: none;">
+      <button class="close" onclick="loginPopUpFunction()"></button>
+      <h2 style="margin: var(--containerGap)">👥 ログインについて：</h2>
+      ログインは、管理者に送られるメールパスワードを使用し、ご利用のグーグルアカウントですることができます。パスワードを入力する際正しいか確認してください。確認した上、まだ入れないようであれば、SMA Information Pageにある［ログインリクエスト］のボタンを押すことでアカウント作成の依頼を送信することが可能となります。ご理解ご協力の方よろしくおねがいします。<br /><br />
+      <div id="loginContainer">
+          <div id="submitDiv">
+            <input id="txtPassword" type="password" placeholder="パスワードを入力" />
+            <button
+              id="btnLogin"
+              class="standardButton greenBtn"
+            >
+              ログイン
+            </button>
+          </div>
+      </div>
+    </section>
+
+    <section id="announcePopUp" hidden="true">
+      <button class="close" onclick="announcePopUpFunction()"></button>
+      <h2>📣 新しいアナウンス</h2>
+      新しいアナウンスを書き終え、［アナウンス　→］ボタンを押すと投稿が SMA
+      のサイト上に誰もが閲覧できるようになります。<br /><br />
+      <input id="announceTitle" style="max-width: 500px;" type="text" placeholder="記事のタイトル" /><br /><br /><hr><br />
+      投稿日 <input id="announceStartDate" type="date" /><br />
+      締切日 <input id="announceEndDate" type="date" /><br /><br />
+      <textarea id="announceContent"
+                cols="30"
+                rows="8"
+                placeholder="アナウンスの内容"
+                style="width: 85%; resize: none;"></textarea>
+      <br><br>
+      <input id="publishAnnounce" type="submit" value="アナウンス →" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
     </section>
 
     <section  class="header">
       <img src="SMA.png" class="smaLogo" alt="No Logo">
       <h2 class="mobileErase" style="margin-top: 30px; user-select: none;">
-        <!-- <h1 style="margin-bottom: -1px;">SMA</h1> -->
         Share My Activity
       </h2>
+      <h1 class="desktopErase" style="margin-top: 5px; user-select: none;">SMA</h1>
     </section>
 
-    <section style="display: flex; align-items: center;">
-      <h2 style="margin: 0px;">Activity Timeline</h2>
-      <!-- TAGS  -->
-      <section id="filter">
-        <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
-        <button class="tagButton" id="casFilter" style="background-color: var(--purple);">CAS Activities</button>
-        <button class="tagButton" id="saaFilter" style="background-color: var(--orange);">S&A Activities</button>
-        <!-- <button class="tagButton">LO1</button>
-        <button class="tagButton">LO2</button>
-        <button class="tagButton">LO3</button>
-        <button class="tagButton">LO4</button>
-        <button class="tagButton">LO5</button>
-        <button class="tagButton">LO6</button>
-        <button class="tagButton">LO7</button>  -->
-      </section>
+    <section id="filter">
+      <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
+      <button class="tagButton" id="casFilter" style="background-color: var(--purple);">CAS Activities</button>
+      <button class="tagButton" id="saaFilter" style="background-color: var(--orange);">S&A Activities</button>
+      <!-- <button class="tagButton">LO1</button>
+      <button class="tagButton">LO2</button>
+      <button class="tagButton">LO3</button>
+      <button class="tagButton">LO4</button>
+      <button class="tagButton">LO5</button>
+      <button class="tagButton">LO6</button>
+      <button class="tagButton">LO7</button>  -->
     </section>
+
     <p id="cautionNote">
       ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
     </p>
@@ -112,10 +131,19 @@
     </section>
 <!---->
     <div id="gridContainer">
+      <section id="announceObject">
+        <h3 style="margin-left: 10px;">Announce 📣</h3>
+        <button class="standardButton greenBtn" id="announcePostButton" onclick="announcePopUpFunction()">+ アナウンスを追加</button>
+        <section id="announcePosts">
+        </section>
+        <p>ここから先アナウンスはありません</p>
+      </section>
+
+
       <section class="gridObject">
         <section id="createPost" hidden="true"> 
           <!-- add this above (in section tag)  id="createPost" hidden="true" -->
-          <button class="closeLoginPopUp" onclick="blockDisplay()">✕ 閉じる</button>
+          <button class="close" onclick="blockDisplay()"></button>
             <h2 style="margin-top: var(--containerGap);">🔧 新しい活動：</h2>
             新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
             のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。<br /><br /><hr><br>
@@ -201,7 +229,7 @@
           <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
             <h3>ログインされていません</h3>
             <div class="buttonsContainer">
-              <button class="standardButton greenBtn" onclick="popUpFunction(1)">
+              <button class="standardButton greenBtn" onclick="loginPopUpFunction()">
                 ログイン
               </button>
             </div>
@@ -219,6 +247,7 @@
 
         <!-- OTHERS CONTAINER -->
         <section id="addFeature" hidden="true">
+          <button class="standardButton" onclick="window.open('https://forms.gle/scDFYdD3nV3Hny3e6','_blank');" style="width: 100%; margin-bottom: 10px;"">↑ CAS確認要望</button>
           <div>
             <button class="standardButton orangeBtn" onclick="window.open('https://forms.gle/cMwf16UFR9ZwxvoZ9','_blank');"><span style="font-size:30px">＋</span><br>機能のリクエスト</button>
             <button target='_blank' class="standardButton purpleBtn" onclick="window.open('https://forms.gle/CoFtiqqxxKxRFKkKA','_blank');"><span style="font-size:30px">🐝</span><br>バグ告知</button>
@@ -382,7 +411,7 @@
           <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser
           history.
         </p>
-        <button class="closeLoginPopUp" style="float: right;" onclick="eraseMulti()">Exit</button>
+        <button class="close" style="float: right;" onclick="eraseMulti()"></button>
       </section>
       <section id="snakeG" class="easterPopup" style="display: none;">
         <canvas id="gc" width="400" height="400" style="border-radius: 10px; float: right; margin-left: 10px;"></canvas>
@@ -397,7 +426,7 @@
           <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser
           history.
         </p>
-        <button class="closeLoginPopUp" style="float: right;" onclick="eraseSnake()">Exit</button>
+        <button class="close" style="float: right;" onclick="eraseSnake()"></button>
         <script>
           window.onload = function () {
             canv = document.getElementById("gc");

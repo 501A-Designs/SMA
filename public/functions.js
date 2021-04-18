@@ -6,7 +6,7 @@ function eraseVersionNotify(){
 
 //THE COUNT DOWN AND ERASING
 // Set the counting down date
-var countDownDate = new Date("Mar 1, 2021").getTime();
+var countDownDate = new Date("Apr 7, 2021").getTime();
 // Update the count down every 1 second bruh
 var x = setInterval(function () {
     // Get today's date and time
@@ -50,16 +50,29 @@ if (h > 19) {
     LtoD();
 }
 
-//erasing stuff
-function popUpFunction(value){
-    const popUp = document.getElementById("loginPopUp");
+// const popUp = document.getElementById(idName);
+// const popUp = document.getElementById(idName);
+// const popUp = document.getElementById(idName);
 
-    if (value === 1) {
-        popUp.style.display="block";
-    }else{
-        popUp.style.display="none";
+//erasing stuff
+function loginPopUpFunction(){
+    const loginPopUp = document.getElementById("loginPopUp");
+    if (loginPopUp.style.display === "none") {
+        loginPopUp.style.display = "block";
+    } else {
+        loginPopUp.style.display = "none";
     }
 }
+
+function announcePopUpFunction(){
+    const announcePopUp = document.getElementById("announcePopUp");
+    if (announcePopUp.hidden === true) {
+        announcePopUp.hidden = false;
+    } else {
+        announcePopUp.hidden = true;
+    }
+}
+
 function blockDisplay(value) {
     const createPost = document.getElementById("createPost");
     if (value === 1) {

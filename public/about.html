@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/color.css">
+    <link rel="stylesheet" href="./css/desktop.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+    <link rel="stylesheet" href="./css/static.css">
+    <link rel="stylesheet" href="./css/variables.css">
 
     <link
       href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
@@ -14,23 +19,43 @@
     <title>About SMA</title>
   </head>
   <body>
-<br>
+<!-- <br>
   <button class="standardButton orangeBtn" onclick="window.history.back();">← 戻る</button>
-<br> 
+<br>  -->
 <br>
-<h1>SMA Information Page</h1>
+<h1 style="text-align: center;">SMA Info Page</h1>
 <br>
-  <section id="gridContainer">
-    <section class="tableOfContents">
-      <h2>コンテンツ：</h2>
+<div class="duoGrid">
+  <iframe src='https://my.spline.design/untitled-9929766d4604a741f780c80dc3ea31fb/' frameborder='0' width='100%' height='500px' style="border-radius: 20px; box-shadow: var(--heavyBoxshadow);"></iframe>
+  <section>
+    <section>
+      <h2>新情報</h2>
+      <p>
+        SMAバージョン2.0.0が今年の12月にリリースする見込みです。このバージョンアップデートは生徒や先生方のリクエスト/ユーザーフィードバックを元に改善されたバージョンであり、SMAをより多くの人達に使用してもらう事を目的としています。
+      </p>
+    </section>
+    <section>
+      <h2>SMAについて：</h2>
+      <p>
+        SMAはShare My Activityの略であり、見本となるCASやS&Aの活動の共有をする場としての役割を果たし、CAS Projectの一貫として作成されたものです。なお、開智日本橋学園のもとで運営されているウェブアプリです。 <br>
+      </p>
+    </section>
+    <section>
+      <h2>本ページコンテンツ：</h2>
       <ul>
-        <li><a href="#about">SMAについて</a></li>
         <li><a href="#howto">使用法</a></li>
         <li><a href="#tos">利用規約</a></li>
         <li><a href="#version">バージョン情報</a></li>
       </ul>
     </section>
-    <section class="sidebarBox">
+  </section>
+</div>
+    <!-- <p class="cautionNoteResponsive">
+      ！！ 注意 ！！<br />本ページでは［夜モード］を使用することができません。ご了承ください。
+    </p> -->
+    <br>
+
+    <!-- <section class="sidebarBox">
       <h4 style="margin-top: 0px;">色モード変更</h4>
       <div class="buttonsContainer">
         <button onclick="LtoD()" id="DtoL">🌄 朝モード</button>
@@ -44,17 +69,8 @@
           ログインリクエスト
         </button>
       </div>
-    </section>
-  </section>
-    <!-- <p class="cautionNoteResponsive">
-      ！！ 注意 ！！<br />本ページでは［夜モード］を使用することができません。ご了承ください。
-    </p> -->
-    <br>
-    <a id="about"></a>
-    <h2><symbol class="emojiHolder">📖</symbol> SMAについて：</h2>
-    <p>
-      SMAはShare My Activityの略であり、見本となるCASやS&Aの活動の共有をする場としての役割を果たし、CAS Projectの一貫として作成されたものです。なお、開智日本橋学園のもとで運営されているウェブアプリです。 <br>
-    </p>
+    </section> -->
+    
     <br>
     <a id="howto"></a>
     <h2><symbol class="emojiHolder">🛠️</symbol> 使用法：</h2>
@@ -104,15 +120,24 @@
     <h2><symbol class="emojiHolder">⏰</symbol> SMAバージョン情報：</h2>
     <div>
       <ul>
-        v1.5.2：2月24日
-        <li>［いいね］ボタン追加</li>
-        <li>不要ファイルの消去</li>
+        v1.6.0：3月26日
+        <li>新しいアナウンス機能追加</li>
+        <li>インプットのスタイル問題改善</li>
+        <li>スタイルストラクチャー改善</li>
         <li>サイドバーのグリッド変更</li>
       </ul>
     </div>
     <details>
       <summary>過去のバージョン</summary>
       <section class="versionGrid load-wave">
+        <div>
+          <ul>
+            v1.5.2：2月24日
+            <li>［いいね］ボタン追加</li>
+            <li>不要ファイルの消去</li>
+            <li>サイドバーのグリッド変更</li>
+          </ul>
+        </div>
         <div>
           <ul>
             v1.5.1：2月10日

@@ -27,7 +27,13 @@
     top: calc(25% - 80px);
     right: calc(25% - 100px);
   }
-
+  #announcePopUp{
+    padding: var(--largeMobilePadding);
+    box-shadow: var(--heavyMobileBoxShadow);
+  }
+  #announceContent{
+    max-height: 500px;
+  }
   #cautionNote {
     display: block;
     text-align: center;
@@ -69,7 +75,7 @@
     margin-top: 5em;
   }
 
-  .versionGrid {
+  .duoGrid,.versionGrid {
     grid-template-columns: 1fr;
   }
 }

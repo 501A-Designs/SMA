@@ -2,7 +2,7 @@
 
 
 .smaVersion::before {
-    content: "1.5.2";
+    content: "1.6.0";
 }
 ::-webkit-scrollbar {
     border-radius: var(--roundedCorners);
@@ -32,7 +32,7 @@ body {
     padding: var(--padding);
     border-radius: var(--roundedCorners);
     background-color: white;
-    border: var(--desktopBorder);
+    border: var(--mobileBorder);
     text-align: center;
     opacity: 90%;
     width: 30%;
