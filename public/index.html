@@ -99,13 +99,6 @@
       <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
       <button class="tagButton" id="casFilter" style="background-color: var(--purple);">CAS Activities</button>
       <button class="tagButton" id="saaFilter" style="background-color: var(--orange);">S&A Activities</button>
-      <!-- <button class="tagButton">LO1</button>
-      <button class="tagButton">LO2</button>
-      <button class="tagButton">LO3</button>
-      <button class="tagButton">LO4</button>
-      <button class="tagButton">LO5</button>
-      <button class="tagButton">LO6</button>
-      <button class="tagButton">LO7</button>  -->
     </section>
 
     <p id="cautionNote">
@@ -152,18 +145,6 @@
               <input type="radio" name="activityType" id="casLabel" value="CAS">CAS活動</input>
               <input type="radio" name="activityType" id="saaLabel" value="S&A">S&A活動</input>
             </form>
-            <!-- 
-            <br>
-            <form id="loForm">
-              主要なラーニングアウトカム（LO）を一つ選んでください：<br>
-              <input type="radio" name="loType" id="lo1" value="LO1">1：自らの長所と成長すべき点を認識する。</input><br>
-              <input type="radio" name="loType" id="lo2" value="LO2">2：課題に挑戦し、その過程で新しいスキルを習得している。</input><br>
-              <input type="radio" name="loType" id="lo3" value="LO3">3：自らCASを計画し開始することができる。</input><br>
-              <input type="radio" name="loType" id="lo4" value="LO4">4：CAS活動を継続し、やり遂げる粘り強さを示す。</input><br>
-              <input type="radio" name="loType" id="lo5" value="LO5">5：自らのスキルを活かし、また他者と共に活動する意義を認識する。</input><br>
-              <input type="radio" name="loType" id="lo6" value="LO6">6：グローバルな問題に取り組む。</input><br>
-              <input type="radio" name="loType" id="lo7" value="LO7">7：選択と行動の倫理を認識し、考察する。</input>
-            </form> -->
             <br>
             <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
             <input id="postAuthor" type="text" placeholder="学年・クラス" />
@@ -176,16 +157,6 @@
               placeholder="記事内容"
               style="width: 85%; resize: none;"
             ></textarea>
-            <!-- 
-            <br />
-            <p>以下は必須項目ではありません（リンクを加えたい人の為）：</p>
-            <div>
-              <section class="linksContainer">
-                <input type="text" id="postLinkName" placeholder="リンク名">
-                <input type="url" id="postLink" style="width: 40%;" placeholder="URLリンク">
-              </section>
-            </div> -->
-            <!-- <button class="standardButton" style="margin-left:5px; background-color: var(--grey2);">+ リンクを加える</button> -->
             <br />
             <br />
             <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">→　記事完了</button>
@@ -204,46 +175,34 @@
               <br>
               <input id="publishPost" type="submit" value="記事投稿　→" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
             </div>
-        </section>  
-        <!--
-        <h4 style="text-align: center; color: black">・・・<br>投稿はここ以下無いです</h4>-->
+        </section>
       </section>
 
       <section class="sidebarBoxes">
-        <!-- <section>
-          <div class="buttonsContainer">
-            <button class="standardButton" style="background-color: var(--grey2)" onclick="">
-              ← 新規の投稿
-            </button>
-            <button class="standardButton" style="background-color: var(--grey2)" onclick="">
-              過去の投稿 →
-            </button>
-          </div>
-        </section> -->
-
         <section class="desktopErase">
           <hr class="largeHr">
           <h2>Profile・Others</h2>
           <!-- LOGIN SECTION GOES HERE -->
-          </section>
-          <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
-            <h3>ログインされていません</h3>
-            <div class="buttonsContainer">
-              <button class="standardButton greenBtn" onclick="loginPopUpFunction()">
-                ログイン
-              </button>
-            </div>
+        </section>
+        
+        <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
+          <h3>ログインされていません</h3>
+          <div class="buttonsContainer">
+            <button class="standardButton greenBtn" onclick="loginPopUpFunction()">
+              ログイン
+            </button>
           </div>
+        </div>
           
-          <section style="text-align: center" class="sidebarBox" id="whenSignedIn" hidden="true">
-            <div id="userDetails"></div>
-            <div class="buttonsContainer">
-              <!--Logout button | hidden by default-->
-              <button id="btnLogout" class="standardButton redBtn">
-                ログアウト
-              </button>
-            </div>
-          </section>
+        <section style="text-align: center" class="sidebarBox" id="whenSignedIn" hidden="true">
+          <div id="userDetails"></div>
+          <div class="buttonsContainer">
+            <!--Logout button | hidden by default-->
+            <button id="btnLogout" class="standardButton redBtn">
+              ログアウト
+            </button>
+          </div>
+        </section>
 
         <!-- OTHERS CONTAINER -->
         <section id="addFeature" hidden="true">
@@ -298,21 +257,6 @@
                 開智日本橋学園
               </button>
               <button
-                id="glcdlc"
-                onclick="window.open('http://glcdlc.com','_blank')"
-              >
-                GLC・DLC
-              </button>
-              <button onclick="window.open('https://501a-designs.github.io/schedule-creator/','_blank')">
-                時間割作成サイト
-              </button>
-              <!-- <button
-                id="ibmanabu"
-                onclick="window.open('http://glcdlc.com','_blank')"
-              >
-                🗣　IB学ぶ
-              </button> -->
-              <button
                 id="learngeo"
                 onclick="window.open('https://www.learngeowith.me/','_blank')"
               >
@@ -362,148 +306,12 @@
         </section>
 
         <h5 style="text-align: center; color: black">
-          SMA バージョン <span class="smaVersion"></span><br><span id="loadEaster">・・・</span><br>
-          <script>
-            document.getElementById("loadEaster").addEventListener("click", ()=> {
-              document.getElementById("initiateSnake").style.display="block";
-              document.getElementById("initiateMulti").style.display="block";
-
-              document.getElementById("initiateSnake").addEventListener("click", ()=> {
-                document.getElementById("snakeG").style.display="block";
-              });
-              document.getElementById("initiateMulti").addEventListener("click", () => {
-                document.getElementById("multiG").style.display = "block";
-              });
-            });
-            // Hiding Command
-            eraseSnake =()=>{
-              document.getElementById("snakeG").style.display="none"
-            }
-            eraseMulti =()=>{
-              document.getElementById("multiG").style.display="none"
-            }
-          </script>
-          <a style="color: black" href="http://y-com.jp">Developed by 501A</a>
-          <br>
+          SMA バージョン <span class="smaVersion"></span><br><span>・・・</span><br>
+          <a style="color: black" href="http://y-com.jp">Developed by 501A</a><br>
           IP Written by Y.Y
         </h5>
         <button class="easterButton" id="initiateSnake">🐍 Snake</button>
-        <button class="easterButton" id="initiateMulti">🔫 Multibattle</button>
-        <!-- <button class="easterButton" id="initiate2048">🔢 2048</button> -->
       </section>
-      <!-- Snake -->
-      <section id="multiG" class="easterPopup" style="display: none;">
-        <iframe src="https://scratch.mit.edu/projects/121736387/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" style="border-radius: 10px; float: right; margin-left: 10px;" allowfullscreen></iframe>
-        <h2>Multibattle</h2>
-        <p style="margin-right: 10px;">
-          Original Multibattle from 2016 created by Skawa
-          <br>
-          To move Sonic use keys A,W, D, and Space
-          <br>
-          To move Megaman use arrow keys, and press P to shoot long range.
-          <br>
-          To move Ash use keys H,U,K and Y for power.
-          <br>
-          To move Captain America use keys C,F,V, and B
-          <br>
-          To move Gemack use number keys 4,5,6,8, and 7
-          <br>
-          <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser
-          history.
-        </p>
-        <button class="close" style="float: right;" onclick="eraseMulti()"></button>
-      </section>
-      <section id="snakeG" class="easterPopup" style="display: none;">
-        <canvas id="gc" width="400" height="400" style="border-radius: 10px; float: right; margin-left: 10px;"></canvas>
-        <h2>Snake Easter Egg</h2>
-        <p style="margin-right: 10px;">Rules are simple, use "W","A","S","D" to move around. When you want to hide the game
-          play, press the [Exit] button below. Once this command is executed your game will be running in the background, so
-          once you press the snake button again, your game should still be running. Anyways, hope you have a little fun with
-          this easter egg :)
-          <br>
-          <br>
-          P.S : This game has not been created by SMA creator.
-          <br>Also, because this is a hidden section within the main page your game play will not be logged in your browser
-          history.
-        </p>
-        <button class="close" style="float: right;" onclick="eraseSnake()"></button>
-        <script>
-          window.onload = function () {
-            canv = document.getElementById("gc");
-            ctx = canv.getContext("2d");
-            document.addEventListener("keydown", keyPush);
-            setInterval(game, 1000 / 15);
-          }
-
-          px = py = 10;
-          gs = tc = 20;
-          ax = ay = 15;
-          xv = yv = 0;
-          trail = [];
-          tail = 5;
-
-          function game() {
-            px += xv;
-            py += yv;
-            if (px < 0) {
-              px = tc - 1;
-            }
-            if (px > tc - 1) {
-              px = 0;
-            }
-            if (py < 0) {
-              py = tc - 1;
-            }
-            if (py > tc - 1) {
-              py = 0;
-            }
-            ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, canv.width, canv.height);
-            ctx.fillStyle = "lime";
-            for (var i = 0; i < trail.length; i++) {
-              ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
-              if (trail[i].x == px && trail[i].y == py) {
-                tail = 5;
-              }
-            }
-            trail.push({ x: px, y: py });
-            while (trail.length > tail) {
-              trail.shift();
-            }
-            if (ax == px && ay == py) {
-              tail++;
-              ax = Math.floor(Math.random() * tc);
-              ay = Math.floor(Math.random() * tc);
-            }
-            ctx.fillStyle = "red";
-            ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
-          }
-
-          function keyPush(evt) {
-            switch (evt.keyCode) {
-              case 65:
-                xv = -1; yv = 0;
-                break;
-              case 87:
-                xv = 0; yv = -1;
-                break;
-              case 68:
-                xv = 1; yv = 0;
-                break;
-              case 83:
-                xv = 0; yv = 1;
-                break;
-
-              //Link to more keyCodes: https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-            }
-          }
-        </script>
-      </section>
-
-      <!--PAGINATION BUTTON
-        <section class="buttonsContainer">
-        <button class="standardButton" style="background-color: lightblue;">🔃 もっと表示</button>
-      </section> -->
     </div>
   </body>
 </html>
