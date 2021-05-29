@@ -134,7 +134,7 @@ function createAnnouncePost(aDoc) {
 
 
 //GET STUFF
-// const limitValue = 20;
+const limitValue = 7;
 const allBtn = document.querySelector('#allPosts');
 const casBtn = document.querySelector('#casFilter');
 const saaBtn = document.querySelector('#saaFilter');
@@ -176,7 +176,7 @@ if (allBtn.style.display === "none") {
   //get posts
   function getPosts() {
     db.collection("posts")
-      // .limit(limitValue)
+      .limit(limitValue)
       .orderBy("createdAt", "desc")
       .get()
       .then(snapshot => {
