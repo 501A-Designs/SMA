@@ -39,7 +39,7 @@ let radios = document.getElementsByName('activityType');
 let loBoxes = document.getElementsByName('loType');
 
 //database stuff
-let postCollection = document.querySelector(".gridObject");
+let postCollection = document.querySelector("#postCollection");
 let announcePostCollection = document.querySelector("#announcePosts");
 
 const db = firebase.firestore();
@@ -47,6 +47,7 @@ const db = firebase.firestore();
 //parse post
 function createPost(doc) {
   let div = document.createElement("div");
+  let section = document.createElement("section");
   
   //div components
   let time = document.createElement("time");
@@ -56,13 +57,15 @@ function createPost(doc) {
   let hr = document.createElement("hr");
   let pre = document.createElement("pre");
   let like = document.createElement("button");
+  let view = document.createElement("button");
 
   time.textContent = doc.data().createdAt;
   span.textContent = doc.data().postType;
   h3.textContent = doc.data().postName;
   h5.textContent = doc.data().postAuthor;
   pre.textContent = doc.data().postContent;
-  like.innerHTML = "❤️ " + doc.data().postLike;
+  like.innerHTML = "<span class='material-icons' style='font-size:16px'>thumb_up</span> " + doc.data().postLike;
+  view.innerHTML = "<span class='material-icons'>sticky_note_2</span>";
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
@@ -73,21 +76,28 @@ function createPost(doc) {
 
   if (span.textContent === "CAS") {
     span.setAttribute("class", "casMiniTag")
-    div.setAttribute("class", "casTag")
+    div.setAttribute("class", "post")
   }else{
     span.setAttribute("class", "saaMiniTag")
-    div.setAttribute("class", "saaTag")
+    div.setAttribute("class", "post")
   }
 
   like.setAttribute("class", "likeBtn");
+  view.setAttribute("class", "viewPostBtn");
 
   div.appendChild(time);
   div.appendChild(span);
+  div.appendChild(view);
   div.appendChild(h3);
   div.appendChild(h5);
   div.appendChild(hr);
   div.appendChild(pre);
   div.appendChild(like);
+
+  view.onclick = () => {
+    var newWindow = window.open("", "MsgWindow", "width=400,height=200");
+    newWindow.document.write(doc.data().postContent);
+  };
 
   like.onclick = () => {
     const likeIncrement = firebase.firestore.FieldValue.increment(1);
@@ -99,7 +109,7 @@ function createPost(doc) {
       });
     
     div.setAttribute("style", "animation: likeAni 0.7s linear;")
-    like.innerHTML = "❤️ ✔";
+    like.innerHTML = "<span class='material-icons' style='font-size:16px'>thumb_up</span><span class='material-icons' style='font-size:16px'>done</span>";
     like.setAttribute("disabled", "");
   };
   postCollection.appendChild(div);
@@ -133,55 +143,43 @@ function createAnnouncePost(aDoc) {
 }
 
 
-//GET STUFF
-<<<<<<< HEAD:public/app.js
-const limitValue = 15;
-=======
+// PAGINATE DATA
 const limitValue = 7;
->>>>>>> minify:src/app.js
-const allBtn = document.querySelector('#allPosts');
-const casBtn = document.querySelector('#casFilter');
-const saaBtn = document.querySelector('#saaFilter');
-// get cas data
-casBtn.addEventListener('click', function getCAS() {
-  allBtn.style.display = "block";
-  casBtn.style.display = "none";
-  saaBtn.style.display = "block";
-
-  const saaPosts = postCollection.querySelectorAll(".saaTag");
-  const casPosts = postCollection.querySelectorAll(".casTag");
-  for (let i = 0; i < saaPosts.length; i++) {
-    saaPosts[i].style.display = "none";
-  }
-  for (let i = 0; i < casPosts.length; i++) {
-    casPosts[i].style.display = "block";
-  }
-  console.log("Erased S&A")
-})
-// get s&a data
-saaBtn.addEventListener('click', function getSAA() {
-  allBtn.style.display = "block";
-  saaBtn.style.display = "none";
-  casBtn.style.display = "block";
-
-  const saaPosts = postCollection.querySelectorAll(".saaTag");
-  const casPosts = postCollection.querySelectorAll(".casTag");
-  for (let i = 0; i < casPosts.length; i++) {
-    casPosts[i].style.display = "none";
-  }
-  for (let i = 0; i < saaPosts.length; i++) {
-    saaPosts[i].style.display = "block";
-  }
-  console.log("Erased CAS")
-})
+const loadMore = document.querySelector('#loadMore');
 
 
-if (allBtn.style.display === "none") {
-  //get posts
-  function getPosts() {
+//GET STUFF
+// const casBtn = document.querySelector('#casFilter');
+// const saaBtn = document.querySelector('#saaFilter');
+// const saaPosts = postCollection.querySelectorAll(".saaMiniTag");
+// const casPosts = postCollection.querySelectorAll(".casMiniTag");
+// // get cas data
+// casBtn.addEventListener('click', function getCAS() {
+//   for (let i = 0; i < saaPosts.length; i++) {
+//     saaPosts[i].style.display = "none";
+//   }
+//   for (let i = 0; i < casPosts.length; i++) {
+//     casPosts[i].style.display = "block";
+//   }
+//   console.log("Erased S&A")
+// })
+// // get s&a data
+// saaBtn.addEventListener('click', function getSAA() {
+//   for (let i = 0; i < casPosts.length; i++) {
+//     casPosts[i].style.display = "none";
+//   }
+//   for (let i = 0; i < saaPosts.length; i++) {
+//     saaPosts[i].style.display = "block";
+//   }
+//   console.log("Erased CAS")
+// })
+
+// let latestDoc = null;
+const getPosts = async () => {
     db.collection("posts")
-      .limit(limitValue)
       .orderBy("createdAt", "desc")
+      // .startAfter(latestDoc || 0)
+      .limit(limitValue)
       .get()
       .then(snapshot => {
         snapshot.docs.forEach(doc => {
@@ -191,22 +189,34 @@ if (allBtn.style.display === "none") {
         console.log(err);
       });
     }
-  getPosts();
-  function getAnnouncePosts() {
-    db.collection("announce")
-      // .limit(limitValue)
-      .orderBy("aPostEnd", "desc")
-      .get()
-      .then(snapshot => {
-        snapshot.docs.forEach(aDoc => {
-          createAnnouncePost(aDoc);
-        });
-      }).catch(aErr => {
-        console.log(aErr);
-      });
-    }
-  getAnnouncePosts();
+const getAnnouncePosts = async () => {
+  db.collection("announce")
+  .limit(limitValue)
+  .orderBy("aPostEnd", "desc")
+  .get()
+  .then(snapshot => {
+    snapshot.docs.forEach(aDoc => {
+      createAnnouncePost(aDoc);
+    });
+  }).catch(aErr => {
+    console.log(aErr);
+  });
 }
+  
+window.addEventListener('DOMContentLoaded', function () {
+  getPosts();
+  getAnnouncePosts();
+})
+
+// function nextBatch(last) {
+//   return ref.orderBy("createdAt", "desc")
+//             .startAfter(last["createdAt", "desc"])
+//             .limit(limitValue);
+// }
+
+loadMore.addEventListener('click', function () {
+  getPosts();
+})
 
 const loader = document.querySelector(".loadObject");
 const loadAni = document.querySelector(".loadingAni");
@@ -232,6 +242,7 @@ if (user) {
   addFeature.hidden=false;
   postButtons.hidden = false;
   announcePostButton.hidden = false;
+  addSite.hidden = false;
 
   loginPopUp.innerHTML = `<button class="close" onclick="loginPopUpFunction()"></button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
 
@@ -295,9 +306,9 @@ if (user) {
     var d = new Date();
     var h = d.getHours();
     if (h > 12) {
-      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんばんは 🌃<h3><small>${user.email}</small>`;
+      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんばんは 🌃</h3>`;
     }else{
-      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんにちは 🌄<h3><small>${user.email}</small>`;
+      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんにちは 🌄</h3>`;
     }
     loadAni.remove();
 
@@ -306,7 +317,7 @@ if (user) {
     whenSignedIn.hidden=true;
     whenSignedOut.hidden=false;
     addFeature.hidden = true;
-    
+    addSite.hidden = true;
     
     // loginPopUp.innerHTML=`ログイン成功！`;
     postButtons.hidden=true;

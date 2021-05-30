@@ -1,15 +1,15 @@
-@import '/public/css/variables.css';
+/* @import '/public/css/variables.css'; */
 
 
 .smaVersion::before {
-    content: "1.6.1";
+    content: "2.0.0";
 }
 ::-webkit-scrollbar {
     border-radius: var(--roundedCorners);
     width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: var(--grey2);
+    background-color: var(--grey);
     border-radius: 20px;
 }
 ::-webkit-scrollbar-track {
@@ -21,7 +21,16 @@ body {
 }
 
 .darkMode {
-  filter: invert(90%) hue-rotate(180deg);
+    filter: invert(80%) hue-rotate(180deg);
+    animation: darkAni var(--standardTransition);
+}
+@keyframes darkAni {
+    0%{
+        filter: invert(0%) hue-rotate(0deg);
+    }
+    100%{
+        filter: invert(80%) hue-rotate(180deg);
+    }
 }
 
 /* POP UP NOTIFY */
@@ -68,7 +77,6 @@ body {
     gap: var(--containerGap);
 }
 .versionGrid div {
-    background-color: var(--grey);
     border-radius: var(--roundedCorners);
     margin: 0px;
     padding: var(--padding);
@@ -82,5 +90,15 @@ button:hover {
     cursor: pointer;
 }
 hr {
-    border: solid 0.01px grey;
+    border: solid 0.01px lightgray;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+h1 .material-icons{
+    font-size: 48px;
+    line-height: 45px;
+}
+h2 .material-icons{
+    font-size: 24px;
+    line-height: 24px;
 }

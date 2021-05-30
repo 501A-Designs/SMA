@@ -6,7 +6,7 @@ function eraseVersionNotify(){
 
 //THE COUNT DOWN AND ERASING
 // Set the counting down date
-var countDownDate = new Date("Apr 26, 2021").getTime();
+var countDownDate = new Date("Jun 26, 2021").getTime();
 // Update the count down every 1 second bruh
 var x = setInterval(function () {
     // Get today's date and time
@@ -92,15 +92,13 @@ function confirmPrompt() {
 function langFunction() {
     const jpn = document.getElementById("loJPN");
     const eng = document.getElementById("loENG");
-    const btn = document.getElementById("langButton");
     
     if (eng.style.display === "none") {
         jpn.style.display="none";
-        btn.innerHTML="日本語で表示";
         eng.style.display="block";
     } else {
         jpn.style.display="block";
-        btn.innerHTML="Translate to English";
         eng.style.display="none";
     }
 }
+

@@ -25,7 +25,9 @@
     <link rel="stylesheet" href="./css/mobile.min.css">
     <link rel="stylesheet" href="./css/static.min.css">
     <link rel="stylesheet" href="./css/variables.min.css">
-    
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <script src="app.min.js" defer></script>
     <script src="functions.min.js" defer></script>
   </head>
@@ -37,11 +39,11 @@
 
     <!-- Loading and loading text -->
     <section class="loadObject">
-      <p></p>
-      <div id="submitDiv">
+      <div><symbol class="material-icons">lock</symbol>認証コードを入力してください：</div>
+      <form id="submitDiv">
         <input id="txtWebsitePassword" type="password" placeholder="認証コードを入力" />
         <button id="btnWebsiteVerify" class="standardButton greenBtn">認証</button>
-      </div>
+      </form>
     </section>
 
     <!-- Version alert pop up -->
@@ -53,7 +55,7 @@
 
     <section id="loginPopUp" style="display: none;">
       <button class="close" onclick="loginPopUpFunction()"></button>
-      <h2 style="margin: var(--containerGap)">👥 ログインについて：</h2>
+      <h2 style="margin: var(--containerGap)"><symbol class="material-icons iconHolder">perm_identity</symbol> ログインについて：</h2>
       ログインは、管理者に送られるメールパスワードを使用し、ご利用のグーグルアカウントですることができます。パスワードを入力する際正しいか確認してください。確認した上、まだ入れないようであれば、SMA Information Pageにある［ログインリクエスト］のボタンを押すことでアカウント作成の依頼を送信することが可能となります。ご理解ご協力の方よろしくおねがいします。<br /><br />
       <div id="loginContainer">
           <div id="submitDiv">
@@ -68,9 +70,10 @@
       </div>
     </section>
 
+
     <section id="announcePopUp" hidden="true">
       <button class="close" onclick="announcePopUpFunction()"></button>
-      <h2>📣 新しいアナウンス</h2>
+      <h2><symbol class="material-icons iconHolder"> announcement</symbol> 新しいアナウンス</h2>
       新しいアナウンスを書き終え、［アナウンス　→］ボタンを押すと投稿が SMA
       のサイト上に誰もが閲覧できるようになります。<br /><br />
       <input id="announceTitle" style="max-width: 500px;" type="text" placeholder="記事のタイトル" /><br /><br /><hr><br />
@@ -87,17 +90,17 @@
 
     <section  class="header">
       <img src="SMA.png" class="smaLogo" alt="No Logo">
-      <h2 class="mobileErase" style="margin-top: 30px; user-select: none;">
+      <h2 class="mobileErase" style="user-select: none;">
         Share My Activity
       </h2>
-      <h1 class="desktopErase" style="margin-top: 5px; user-select: none;">SMA</h1>
+      <h1 class="desktopErase" style="user-select: none;">SMA</h1>
     </section>
 
-    <section id="filter">
+    <!-- <section id="filter">
       <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
       <button class="tagButton" id="casFilter" style="background-color: var(--purple);">CAS Activities</button>
       <button class="tagButton" id="saaFilter" style="background-color: var(--orange);">S&A Activities</button>
-    </section>
+    </section> -->
 
     <p id="cautionNote">
       ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
@@ -105,7 +108,7 @@
 
     <div id="gridContainer">
       <section id="announceObject">
-        <h3 style="margin-left: 10px;">Announce 📣</h3>
+        <h3 style="margin-left: 10px;"><symbol class="material-icons iconHolder"> announcement</symbol> Announce</h3>
         <button class="standardButton greenBtn" id="announcePostButton" onclick="announcePopUpFunction()">+ アナウンスを追加</button>
         <section id="announcePosts">
         </section>
@@ -115,82 +118,91 @@
 
       <section class="gridObject">
         <section id="postButtons" hidden="true">
-          <button
-            class="standardButton greenBtn"
-            onclick="blockDisplay(1)"
-          >
-            <span style="font-size:30px">＋</span><br>記事追加
-          </button>
-          <button class="standardButton redBtn"
-          onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
-            <span style="font-size:30px">✕</span><br>記事消去をリクエスト
-          </button>
-          <button class="standardButton blueBtn"
-          onclick="window.location.reload();">
-            <span style="font-size:30px">⭯</span><br>ページを更新
-          </button>
+          <div class="postBtnGrid">
+            <button
+              class="standardButton greenBtn"
+              onclick="blockDisplay(1)"
+            >
+              <span style="font-size:30px">＋</span><br>記事追加
+            </button>
+            <button class="standardButton redBtn"
+            onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
+              <span class="material-icons" style="font-size:30px">delete_outline</span><br>記事消去をリクエスト
+            </button>
+            <button class="standardButton blueBtn"
+            onclick="window.location.reload();">
+              <span style="font-size:30px">⭯</span><br>ページを更新
+            </button>
+          </div>
         </section>
 
         <section id="createPost" hidden="true"> 
           <!-- add this above (in section tag)  id="createPost" hidden="true" -->
           <button class="close" onclick="blockDisplay()"></button>
-            <h2 style="margin-top: var(--containerGap);">🔧 新しい活動：</h2>
-            新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
-            のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。<br /><br /><hr><br>
-            <form>
-            活動種類を選んでください：
-              <input type="radio" name="activityType" id="casLabel" value="CAS">CAS活動</input>
-              <input type="radio" name="activityType" id="saaLabel" value="S&A">S&A活動</input>
-            </form>
+          <h2 style="margin-top: var(--containerGap);"><symbol class="material-icons iconHolder"> build</symbol> 新しい活動：</h2>
+          新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
+          のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。<br /><br /><hr><br>
+          <form>
+          活動種類を選んでください：
+            <input type="radio" name="activityType" id="casLabel" value="CAS">CAS活動</input>
+            <input type="radio" name="activityType" id="saaLabel" value="S&A">S&A活動</input>
+          </form>
+          <br>
+          <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
+          <input id="postAuthor" type="text" placeholder="学年・クラス" />
+          <input id="postDate" type="date" /><br /><br />
+          <textarea
+          id="postContent"
+            name="bruh"
+            cols="30"
+            rows="8"
+            placeholder="記事内容"
+            style="width: 85%; resize: none;"
+          ></textarea>
+          <label for="myfile">Select a file:</label><input type="file" id="myfile" name="myfile"><br><br>
+          <br />
+          <br />
+          <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">→　記事完了</button>
+          <div id="confirmDiv">
+            <p>
+              <h2 style="color: crimson; font-weight: bold; text-align: center;">投稿する前！</h2><br>
+              以下の条件を沿った上活動投稿が許可されます：
+              <ul>
+                <li>投稿している人は開智日本橋学園高等学校の生徒・教員である</li>
+                <li>投稿内容に人が不快に思うようなコンテンツが含まれていない</li>
+                <li>リンクは不可無くアクセスでき、人が不快に思うようなコンテンツが含まれていない</li>
+                <li>名前、年齢、メールアドレス、パスワードなどの個人情報等を載せいない</li>
+              </ul>
+              詳しくは<a href="about.html#tos" target="_blank">SMA利用規約</a>を確認してください。<br>なお、投稿した後は［ページ更新］ボタンを押すと自身の投稿が閲覧できます。
+            </p>
             <br>
-            <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
-            <input id="postAuthor" type="text" placeholder="学年・クラス" />
-            <input id="postDate" type="date" /><br /><br />
-            <textarea
-            id="postContent"
-              name="bruh"
-              cols="30"
-              rows="8"
-              placeholder="記事内容"
-              style="width: 85%; resize: none;"
-            ></textarea>
-            <br />
-            <br />
-            <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">→　記事完了</button>
-            <div id="confirmDiv">
-              <p>
-                <h2 style="color: crimson; font-weight: bold; text-align: center;">投稿する前！</h2><br>
-                以下の条件を沿った上活動投稿が許可されます：
-                <ul>
-                  <li>投稿している人は開智日本橋学園高等学校の生徒・教員である</li>
-                  <li>投稿内容に人が不快に思うようなコンテンツが含まれていない</li>
-                  <li>リンクは不可無くアクセスでき、人が不快に思うようなコンテンツが含まれていない</li>
-                  <li>名前、年齢、メールアドレス、パスワードなどの個人情報等を載せいない</li>
-                </ul>
-                詳しくは<a href="about.html#tos" target="_blank">SMA利用規約</a>を確認してください。<br>なお、投稿した後は［ページ更新］ボタンを押すと自身の投稿が閲覧できます。
-              </p>
-              <br>
-              <input id="publishPost" type="submit" value="記事投稿　→" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
-            </div>
+            <input id="publishPost" type="submit" value="記事投稿　→" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
+          </div>
         </section>
+        
+        <div id="postCollection"></div>
+        <div style="display:flex; justify-content: center;">
+          <button id="loadMore" class="standardButton orangeBtn"><span class="material-icons" style="font-size:30px">cached</span><br>もっと表示</button>
+        </div>
+        <br>
       </section>
 
       <section class="sidebarBoxes">
         <section class="desktopErase">
           <hr class="largeHr">
-          <h2>Profile・Others</h2>
+          <h2><symbol class="material-icons iconHolder"> face</symbol> Profile・Others</h2>
           <!-- LOGIN SECTION GOES HERE -->
         </section>
         
         <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
-          <h3>ログインされていません</h3>
+          <h3><span class="material-icons" style="font-size:30px">person_off</span><br>ログインされていません</h3>
           <div class="buttonsContainer">
             <button class="standardButton greenBtn" onclick="loginPopUpFunction()">
               ログイン
             </button>
           </div>
         </div>
-          
+        
         <section style="text-align: center" class="sidebarBox" id="whenSignedIn" hidden="true">
           <div id="userDetails"></div>
           <div class="buttonsContainer">
@@ -206,7 +218,7 @@
           <button class="standardButton" onclick="window.open('https://forms.gle/scDFYdD3nV3Hny3e6','_blank');" style="width: 100%; margin-bottom: 10px;"">↑ CAS確認要望</button>
           <div>
             <button class="standardButton orangeBtn" onclick="window.open('https://forms.gle/cMwf16UFR9ZwxvoZ9','_blank');"><span style="font-size:30px">＋</span><br>機能のリクエスト</button>
-            <button target='_blank' class="standardButton purpleBtn" onclick="window.open('https://forms.gle/CoFtiqqxxKxRFKkKA','_blank');"><span style="font-size:30px">🐝</span><br>バグ告知</button>
+            <button target='_blank' class="standardButton purpleBtn" onclick="window.open('https://forms.gle/CoFtiqqxxKxRFKkKA','_blank');"><span class="material-icons" style="font-size:30px">bug_report</span><br>バグ告知</button>
           </div>
         </section>
 
@@ -238,11 +250,11 @@
               <li>グローバルな問題に取り組む。</li>
               <li>選択と行動の倫理を認識し、考察する。</li>
             </ol>
-            <button id="langButton" onclick="langFunction()">Translate to English</button>
+            <button id="langButton" onclick="langFunction()"><span class="material-icons" style="font-size: 18px;">translate</span></button>
           </div>
         </details>
 
-        <details class="sidebarBox" open>
+        <details class="sidebarBox" close>
           <summary>関連ウェブサイト</summary>
           <div  class="load-wave">
             <br>
@@ -254,6 +266,12 @@
                 開智日本橋学園
               </button>
               <button
+                id="mreader"
+                onclick="window.open('https://mreader.org/index.php','_blank')"
+              >
+                Mreader
+              </button>
+              <button
                 id="learngeo"
                 onclick="window.open('https://www.learngeowith.me/','_blank')"
               >
@@ -263,39 +281,43 @@
           </div>
         </details>
 
-        <!-- <details class="sidebarBox" open>
+        <details class="sidebarBox" close>
           <summary>生徒によるウェブサイト</summary>
-          <div  class="load-wave">
+          <div class="load-wave">
             <br>
             <section id="additionalSites">
-              <button onclick="window.open('https://501a-designs.github.io/schedule-creator/','_blank')">
+              <button onclick="window.open('https://schedule-creator-site.firebaseapp.com/','_blank')">
                 時間割作成サイト
               </button>
-              <button onclick="window.open('http://kng.ed.jp','_blank')">
-                🌐　GLC・DLC
+              <button onclick="window.open('http://www.kngcan.info/','_blank')">
+                KNG Can Food Drive
               </button>
-              <button onclick="window.open('http://kng.ed.jp','_blank')">
-                🗣　IB学ぶ
+              <button
+                id="ibmanabu"
+                onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"
+              >
+                IBmanabu
               </button>
-              <button onclick="window.open('http://kng.ed.jp','_blank')">
-                🗣　IB学ぶ
-              </button>
+              <div id="addSite" hidden="true">
+                <small style="color: rgb(155, 101, 0);">自分が作成したサイトの提示をリクエストできます</small>
+                <button style="width: 100%; margin-top: 15px;" class="standardButton orangeBtn" onclick="window.open('https://forms.gle/FNXXS4YKYb6ySTmy5','_blank')"><span class="material-icons" style="font-size:30px">note_add</span><br>提示をリクエスト</button>
+              </div>
             </section>
           </div>
-        </details> -->
+        </details>
 
         <!-- DARK MODE BUTTON -->
         <section class="sidebarBox">
-          <h4 style="margin-top: 0px;">色モード変更</h4>
+        <h4 style="margin-top: 0px;"><symbol class="material-icons iconHolder"> invert_colors</symbol> 色モード変更</h4>
           <div class="buttonsContainer">
-            <button onclick="LtoD()" id="DtoL">🌄 朝モード</button>
-            <button onclick="DtoL()" id="LtoD">🌃 夜モード</button>
+            <button onclick="LtoD()" id="DtoL"><span class="material-icons">wb_sunny</span><br>朝モード</button>
+            <button onclick="DtoL()" id="LtoD"><span class="material-icons">landscape</span><br>夜モード</button>
           </div>         
         </section>
 
         <!-- OTHERS CONTAINER -->
         <section class="sidebarBox">
-          <h4 style="margin-top: 0px;">Share My Activity</h4>
+          <h4 style="margin-top: 0px;"><symbol class="material-icons iconHolder"> explore</symbol> Share My Activity</h4>
           <section id="additionalSites">
             <button onclick="window.open('about.html#about','_blank')">SMAについて</button>
             <button onclick="window.open('about.html#howto','_blank')">SMAの使用法</button>
@@ -304,7 +326,7 @@
 
         <h5 style="text-align: center; color: black">
           SMA バージョン <span class="smaVersion"></span><br><span>・・・</span><br>
-          <a style="color: black" href="http://y-com.jp">Developed by 501A</a><br>
+          <a style="color: black" href="https://501a.netlify.app/">Developed by 501A</a><br>
           IP Written by Y.Y
         </h5>
         <button class="easterButton" id="initiateSnake">🐍 Snake</button>

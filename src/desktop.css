@@ -1,4 +1,4 @@
-@import '/public/css/variables.css';
+/* @import '/public/src/variables.css'; */
 
 /* .darkMode img {
   filter: invert(1) hue-rotate(180deg) brightness(115%); 
@@ -8,16 +8,11 @@
   display: block;
   text-align: center;
   font-size: 13px;
-  border: solid rgb(223, 124, 124) 1.5px;
+  border: 1px solid rgb(223, 124, 124);
   border-radius: var(--roundedCorners);
   padding: var(--padding);
   background-color: rgb(255, 218, 218, 10);
   color: rgb(175, 0, 0);
-}
-
-.inlineDummyBtn {
-  border-radius: calc(var(--roundedCorners)/2);
-  padding: 0px 8px 0px 8px;
 }
 
 .header {
@@ -55,13 +50,12 @@
 }
 
 #createPost{
-  background-color: var(--grey);
   margin-bottom: 20px;
 }
 #announceObject{
-  border: var(--desktopBorder);
+  border: var(--mobileBorder);
   padding: var(--padding);
-  background-color: var(--grey);
+  background-color: white;
   border-radius: var(--roundedCorners);
   overflow-y: auto;
 }
@@ -73,6 +67,7 @@
   margin-bottom: var(--margin);
   border: var(--mobileBorder);
   border-radius: var(--roundedCorners);
+  background-color: var(--grey);
   padding: var(--largeDesktopPadding);
 }
 
@@ -92,14 +87,14 @@
 }
 @media only screen and (min-width: 1000px) {
   .header {
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
   }
   .smaLogo {
     height: 70px;
     width: 70px;
     margin-right: 15px;
-    margin-top: 15px;
+    /* margin-top: 15px; */
     float: left;
     user-select: none;
   }
@@ -113,7 +108,7 @@
   #gridContainer {
     grid-template-columns: 1.5fr 3.5fr 1.5fr;
     /* grid-template-rows: none; */
-    gap: calc(var(--containerGap) * 2);
+    gap: calc(var(--containerGap) * 5);
   }
   #loginPopUp {
     margin: none;
@@ -147,17 +142,6 @@
     border: var(--desktopBorder);
     box-shadow: var(--lightDesktopBoxShadow);
   }
-  .gridObject > div {
-    margin-bottom: var(--margin);
-  }
-
-  .casTag {
-    box-shadow: -2px 0px 5px var(--purple);
-  }
-  .saaTag {
-    box-shadow: -2px 0px 5px var(--orange);
-  }
-
   .duoGrid{
     grid-template-columns: 1fr 1fr;
   }
@@ -171,7 +155,8 @@
   float: right;
   border: none;
   border-radius: var(--roundedCorners);
-  background-color: var(--closeBtnRed);
+  color: red;
+  background-color: var(--red);
   padding: var(--miniBtnPadding);
 }
 .close::before{
@@ -187,7 +172,9 @@
   display: none;
 }
 
-input,
+input[type="text"],
+input[type="date"],
+input[type="password"],
 textarea {
   padding: var(--padding);
   border-radius: var(--roundedCorners);
@@ -198,11 +185,22 @@ textarea {
   white-space: pre-line;
 }
 
-input:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus,
 textarea:focus {
   border: solid var(--blue) 2px;
   background-color: white;
   outline: none;
+}
+input[type="file"] {
+  padding: var(--padding);
+  border-radius: var(--roundedCorners);
+  border: solid var(--grey) 2px;
+  background-color: var(--grey2);
+  transition: var(--clickTransition);
+  color: black;
+  white-space: pre-line;
 }
 
 /*Global CSS*/
@@ -225,10 +223,10 @@ button:focus {
   font-weight: bold;
 }
 #langButton {
-  background-color: var(--grey);
+  background-color: var(--grey2);
   border: none;
-  border-radius: calc(var(--roundedCorners)/2);
-  padding: var(--miniBtnPadding);
+  border-radius: calc(var(--roundedCorners)*2);
+  padding: 5px 10px 2px 10px;
 }
 .tagButton {
   border-radius: var(--roundedCorners);
@@ -257,10 +255,13 @@ button:focus {
 }
 
 /*Malleable Content*/
-.gridObject > div {
-  /* user-select: none; */
+.post {
   border-radius: var(--roundedCorners);
   padding: var(--largeDesktopPadding);
+  /* background-color: var(--grey); */
+  /* box-shadow: var(--boxShadow); */
+  border:var(--mobileBorder);
+  margin-bottom: var(--margin);
 }
 /* POST COMPONENT */
 .casMiniTag {
@@ -272,7 +273,9 @@ button:focus {
 .loTag {
   background-color: var(--red);
 }
-.likeBtn {
+.post .viewPostBtn,
+.post .likeBtn {
+  opacity: 0;
   font-weight: bold;
   border-radius: var(--roundedCorners);
   background-color: var(--grey);
@@ -281,7 +284,7 @@ button:focus {
 }
 @keyframes likeAni {
   0% {
-    background-color: red;
+    background-color: blue;
     clip-path: circle(0% at 0% 100%);
     opacity: 0%;
   }
@@ -290,18 +293,27 @@ button:focus {
     opacity: 100%;
   }
 }
+.post:hover .viewPostBtn,
+.post:hover .likeBtn{
+  opacity: 1;
+}
 
-.gridObject > div > h3 {
+.viewPostBtn{
+  float: right;
+  transition: var(--clickTransition);
+}
+
+.post h3 {
   margin-bottom: 5px;
 }
-.gridObject > div > h5 {
+.post h5 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.gridObject > div > h5::after {
+.post h5::after {
   content: "：作";
 }
-.gridObject > div > pre, #announcePosts > div > pre {
+.post pre, #announcePosts > div > pre {
   white-space: pre-wrap; /* css-3 */
   white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
   white-space: -pre-wrap; /* Opera 4-6 */
@@ -309,7 +321,8 @@ button:focus {
   word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
-.gridObject > div > span {
+.post .casMiniTag,
+.post .saaMiniTag  {
   padding: var(--postTagPadding);
   border-radius: var(--roundedCorners);
   margin-left: 5px;
@@ -326,8 +339,11 @@ h5 {
   font-weight: normal;
 }
 
-#postButtons{
-  margin-bottom: 15px;
+.postBtnGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 /* SIDEBAR */
@@ -339,20 +355,16 @@ h5 {
   margin-bottom: var(--containerGap);
   padding: var(--largeDesktopPadding);
   background-color: white;
-  box-shadow: var(--boxShadow);
+  border: var(--mobileBorder);
 }
 
 /*TOGGLE*/
 #DtoL,
 #LtoD {
   position: relative;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-
+  padding: var(--padding) calc(var(--padding)*1.5);
   width: auto;
-  height: 50px;
-  border-radius: 50px;
+  border-radius: var(--roundedCorners);
   border: none;
   /* background-color: var(--grey2); */
   background-color: var(--grey);
@@ -438,7 +450,7 @@ summary {
   z-index: 5;
   width: 45px;
   height: 45px;
-  background-color: cadetblue;
+  background-color: black;
   animation: loadAni 1s infinite;
 }
 
@@ -447,27 +459,30 @@ summary {
 }
 @keyframes loadAni {
   0% {
+    background-color: rgb(49, 49, 49);
     transform: rotate(0deg);
     border-radius: 10px;
   }
   70% {
+    background-color: black;
     transform: rotate(180deg);
     border-radius: 30px;
   }
   100% {
+    background-color: rgb(49, 49, 49);
     transform: rotate(360deg);
     border-radius: 10px;
   }
 }
-.loadObject p {
+.loadObject div{
   margin-top: 10%;
+  margin-bottom: 20px;
   font-weight: bold;
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-}
-.loadObject p::before {
-  content: "認証コードを入力してください：";
+  gap: 15px;
 }
 
 .tableOfContents {
@@ -481,8 +496,8 @@ summary {
 #whenSignedIn img {
   border-radius: calc(var(--roundedCorners) * 10);
   margin-top: var(--margin);
-  border: var(--desktopBorder);
-  box-shadow: 0px 5px 10px grey;
+  border: solid white 2px;
+  box-shadow: 0px 5px 10px lightgray;
 }
 
 .darkMode #whenSignedIn img {
@@ -509,7 +524,7 @@ summary {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-#addFeature div button {
+#postButtons button, #addFeature div button, #addSite button {
   padding: var(--largeDesktopPadding) 10px var(--largeDesktopPadding) 10px;
   user-select: none;
 }
@@ -543,11 +558,34 @@ summary {
   padding: 5px;
 }
 
-.emojiHolder {
+.iconHolder {
   border-radius: var(--roundedCorners);
   margin-right: var(--margin);
   box-shadow: var(--boxShadow);
   background-color: white;
   font-size: 30px;
-  padding: 2px 10px 10px 10px;
+  padding: calc(var(--padding)/2);
+}
+
+.infoContainer section{
+  background-color: var(--grey);
+  border-radius: var(--roundedCorners);
+  padding: calc(var(--padding)/2) var(--padding);
+  margin-bottom: var(--containerGap);
+}
+
+.greyBack div{
+  background-color: var(--grey);
+}
+.greyBorder div{
+  border: var(--desktopBorder);
+}
+
+.versionGrid h3{
+  margin-top: 5px;
+}
+
+.versionGrid div .material-icons,.versionGrid section .material-icons{
+  margin-top: 10px;
+  font-size: 36px;
 }
