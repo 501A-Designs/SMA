@@ -105,24 +105,6 @@
       ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
     </p>
 
-    <section id="postButtons" hidden="true">
-      <div style="display: flex; gap: 5px; margin-bottom: 10px;">
-        <button
-          class="standardButton greenBtn"
-          onclick="blockDisplay(1)"
-        >
-          <!-- + 活動記事を追加 -->
-          + 記事追加
-        </button>
-        <button class="standardButton redBtn"
-        onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
-          - 記事消去をリクエスト
-        </button>
-        <button class="standardButton blueBtn"
-        onclick="window.location.reload();">ページを更新</button>
-      </div>
-    </section>
-<!---->
     <div id="gridContainer">
       <section id="announceObject">
         <h3 style="margin-left: 10px;">Announce 📣</h3>
@@ -134,6 +116,23 @@
 
 
       <section class="gridObject">
+        <section id="postButtons" hidden="true">
+          <button
+            class="standardButton greenBtn"
+            onclick="blockDisplay(1)"
+          >
+            <span style="font-size:30px">＋</span><br>記事追加
+          </button>
+          <button class="standardButton redBtn"
+          onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
+            <span style="font-size:30px">✕</span><br>記事消去をリクエスト
+          </button>
+          <button class="standardButton blueBtn"
+          onclick="window.location.reload();">
+            <span style="font-size:30px">⭯</span><br>ページを更新
+          </button>
+        </section>
+
         <section id="createPost" hidden="true"> 
           <!-- add this above (in section tag)  id="createPost" hidden="true" -->
           <button class="close" onclick="blockDisplay()"></button>

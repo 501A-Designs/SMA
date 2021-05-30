@@ -326,6 +326,10 @@ h5 {
   font-weight: normal;
 }
 
+#postButtons{
+  margin-bottom: 15px;
+}
+
 /* SIDEBAR */
 .sidebarBoxes > section {
   margin-bottom: var(--containerGap);
