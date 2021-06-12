@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="SMA.png"/>
     <title>SMA</title>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
@@ -74,7 +75,7 @@
     <section id="announcePopUp" hidden="true">
       <button class="close" onclick="announcePopUpFunction()"></button>
       <h2><symbol class="material-icons iconHolder"> announcement</symbol> 新しいアナウンス</h2>
-      新しいアナウンスを書き終え、［アナウンス　→］ボタンを押すと投稿が SMA
+      新しいアナウンスを書き終え、［アナウンス →］ボタンを押すと投稿が SMA
       のサイト上に誰もが閲覧できるようになります。<br /><br />
       <input id="announceTitle" style="max-width: 500px;" type="text" placeholder="記事のタイトル" /><br /><br /><hr><br />
       投稿日 <input id="announceStartDate" type="date" /><br />
@@ -85,7 +86,7 @@
                 placeholder="アナウンスの内容"
                 style="width: 85%; resize: none;"></textarea>
       <br><br>
-      <input id="publishAnnounce" type="submit" value="アナウンス →" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
+      <input id="publishAnnounce" type="submit" value="アナウンス →" class="standardButton greenBtn"></input>
     </section>
 
     <section  class="header">
@@ -109,7 +110,10 @@
     <div id="gridContainer">
       <section id="announceObject">
         <h3 style="margin-left: 10px;"><symbol class="material-icons iconHolder"> announcement</symbol> Announce</h3>
-        <button class="standardButton greenBtn" id="announcePostButton" onclick="announcePopUpFunction()">+ アナウンスを追加</button>
+        <div class="bigButtons">
+          <button class="standardButton greenBtn" id="announcePostButton" onclick="announcePopUpFunction()"><span style="font-size:30px">＋</span><br>アナウンスを追加</button>
+        </div>
+
         <section id="announcePosts">
         </section>
         <p>ここから先アナウンスはありません</p>
@@ -149,7 +153,7 @@
           </form>
           <br>
           <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
-          <input id="postAuthor" type="text" placeholder="学年・クラス" />
+          <input id="postAuthor" type="text" placeholder="学年・組・イニシャル" />
           <input id="postDate" type="date" /><br /><br />
           <textarea
           id="postContent"
@@ -159,7 +163,6 @@
             placeholder="記事内容"
             style="width: 85%; resize: none;"
           ></textarea>
-          <label for="myfile">Select a file:</label><input type="file" id="myfile" name="myfile"><br><br>
           <br />
           <br />
           <button id="firstSubmit" class="standardButton blueBtn" onclick="confirmPrompt()">→　記事完了</button>
@@ -176,7 +179,7 @@
               詳しくは<a href="about.html#tos" target="_blank">SMA利用規約</a>を確認してください。<br>なお、投稿した後は［ページ更新］ボタンを押すと自身の投稿が閲覧できます。
             </p>
             <br>
-            <input id="publishPost" type="submit" value="記事投稿　→" class="standardButton" style="background-color: var(--green);cursor: pointer;"></input>
+            <input id="publishPost" type="submit" value="記事投稿　→" class="standardButton greenBtn"></input>
           </div>
         </section>
         
@@ -220,6 +223,16 @@
             <button class="standardButton orangeBtn" onclick="window.open('https://forms.gle/cMwf16UFR9ZwxvoZ9','_blank');"><span style="font-size:30px">＋</span><br>機能のリクエスト</button>
             <button target='_blank' class="standardButton purpleBtn" onclick="window.open('https://forms.gle/CoFtiqqxxKxRFKkKA','_blank');"><span class="material-icons" style="font-size:30px">bug_report</span><br>バグ告知</button>
           </div>
+        </section>
+
+        <section class="sidebarBox">
+          <h4 style="margin-top: 0px;"><symbol class="material-icons iconHolder"> travel_explore</symbol> 便利なツール</h4>
+            <div class="bigButtons">
+              <button class="standardButton blueBtn" onclick="window.open('https://schedule-creator-site.firebaseapp.com/','_blank')"><span class="material-icons" style="font-size:30px">calendar_today</span><br>時間割作成サイト</button>
+              <button class="standardButton blueBtn" id="ibmanabu"
+              onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"><span class="material-icons" style="font-size:30px">public</span><br>IBmanabu</button>
+              <small style="color: var(--darkBlue);">便利なツール達はSMA製作者が全て作成したものです</small>
+            </div>
         </section>
 
         <details class="sidebarBox">
@@ -281,14 +294,11 @@
           </div>
         </details>
 
-        <details class="sidebarBox" close>
+        <details class="sidebarBox" open>
           <summary>生徒によるウェブサイト</summary>
           <div class="load-wave">
             <br>
             <section id="additionalSites">
-              <button onclick="window.open('https://schedule-creator-site.firebaseapp.com/','_blank')">
-                時間割作成サイト
-              </button>
               <button onclick="window.open('http://www.kngcan.info/','_blank')">
                 KNG Can Food Drive
               </button>
@@ -296,7 +306,7 @@
                 id="ibmanabu"
                 onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"
               >
-                IBmanabu
+                Orenohibi
               </button>
               <div id="addSite" hidden="true">
                 <small style="color: rgb(155, 101, 0);">自分が作成したサイトの提示をリクエストできます</small>

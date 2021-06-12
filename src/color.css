@@ -7,7 +7,7 @@
 }
 .blueBtn,
 .blueCard {
-  color: blue;
+  color: var(--darkBlue);
   background-color: var(--blue);
 }
 .redBtn,
@@ -15,11 +15,13 @@
   color: red;
   background-color: var(--red);
 }
+.saaMiniTag,
 .orangeBtn,
 .orangeCard {
   color: rgb(155, 101, 0);
   background-color: var(--orange);
 }
+.casMiniTag,
 .purpleBtn,
 .purpleCard {
   color: purple;

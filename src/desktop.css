@@ -70,6 +70,10 @@
   background-color: var(--grey);
   padding: var(--largeDesktopPadding);
 }
+#announcePosts > div > time{
+  background-color: white;
+  border: var(--mobileBorder);
+}
 
 /* Keyframes */
 @keyframes popupAni {
@@ -106,9 +110,9 @@
     margin: 0px;
   }
   #gridContainer {
-    grid-template-columns: 1.5fr 3.5fr 1.5fr;
+    grid-template-columns: 2fr 3.5fr 1.5fr;
     /* grid-template-rows: none; */
-    gap: calc(var(--containerGap) * 5);
+    gap: calc(var(--containerGap) * 3);
   }
   #loginPopUp {
     margin: none;
@@ -166,7 +170,8 @@
 #confirmDiv {
   border-radius: var(--roundedCorners);
   padding: var(--largeDesktopPadding);
-  box-shadow: var(--lightDesktopBoxShadow);
+  /* box-shadow: var(--lightDesktopBoxShadow); */
+  border: var(--mobileBorder);
   margin-top: var(--margin);
   background-color: white;
   display: none;
@@ -189,7 +194,7 @@ input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="password"]:focus,
 textarea:focus {
-  border: solid var(--blue) 2px;
+  border: solid var(--darkBlue) 2px;
   background-color: white;
   outline: none;
 }
@@ -239,7 +244,7 @@ button:focus {
 }
 
 /* SIDEBAR CSS */
-#additionalSites {
+#additionalSites,.bigButtons {
   gap: var(--containerGap);
   display: grid;
   grid-template-columns: 1fr;
@@ -254,6 +259,11 @@ button:focus {
   border: none;
 }
 
+.bigButtons > button{
+  width: 100%;
+  padding: var(--largeDesktopPadding);
+}
+
 /*Malleable Content*/
 .post {
   border-radius: var(--roundedCorners);
@@ -264,12 +274,6 @@ button:focus {
   margin-bottom: var(--margin);
 }
 /* POST COMPONENT */
-.casMiniTag {
-  background-color: var(--purple);
-}
-.saaMiniTag {
-  background-color: var(--orange);
-}
 .loTag {
   background-color: var(--red);
 }
@@ -327,7 +331,9 @@ button:focus {
   border-radius: var(--roundedCorners);
   margin-left: 5px;
 }
+
 time {
+  color: rgb(80, 80, 80);
   background-color: var(--grey);
   padding: var(--postTagPadding);
   border-radius: var(--roundedCorners); 
@@ -497,7 +503,7 @@ summary {
   border-radius: calc(var(--roundedCorners) * 10);
   margin-top: var(--margin);
   border: solid white 2px;
-  box-shadow: 0px 5px 10px lightgray;
+  box-shadow: var(--boxShadow);
 }
 
 .darkMode #whenSignedIn img {

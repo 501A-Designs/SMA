@@ -15,13 +15,11 @@
 ::-webkit-scrollbar-track {
     margin: var(--margin);
 }
-
 body {
     background: white;
 }
-
 .darkMode {
-    filter: invert(80%) hue-rotate(180deg);
+    filter: invert(95%) hue-rotate(180deg);
     animation: darkAni var(--standardTransition);
 }
 @keyframes darkAni {
@@ -29,9 +27,11 @@ body {
         filter: invert(0%) hue-rotate(0deg);
     }
     100%{
-        filter: invert(80%) hue-rotate(180deg);
+        background-color: rgb(236, 236, 236);
+        filter: invert(95%) hue-rotate(180deg);
     }
 }
+
 
 /* POP UP NOTIFY */
 #versionNotify {
@@ -41,7 +41,7 @@ body {
     padding: var(--padding);
     border-radius: var(--roundedCorners);
     background-color: white;
-    border: var(--mobileBorder);
+    box-shadow: var(--boxShadow);
     text-align: center;
     opacity: 90%;
     width: 30%;
@@ -52,8 +52,11 @@ body {
 #versionNotify button {
     float: right;
     border: none;
+    width: fit-content;
+    height: fit-content;
     border-radius: var(--roundedCorners);
-    background-color: var(--closeBtnRed);
+    background-color: var(--red);
+    color: red;
 }
 #versionNotify button:hover {
     opacity: 50%;

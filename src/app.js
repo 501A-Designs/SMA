@@ -112,6 +112,16 @@ function createPost(doc) {
     like.innerHTML = "<span class='material-icons' style='font-size:16px'>thumb_up</span><span class='material-icons' style='font-size:16px'>done</span>";
     like.setAttribute("disabled", "");
   };
+
+// make so that everytime post publish btn is clicked adds +1 to users document. Display added value to frontend
+  // dataRef.doc(user.uid).get().then((doc) => {
+  //         getSubjects(doc)
+  //         // console.log(doc.data().cells)
+  //     }).catch((error) => {
+  //         console.log("Error getting document:", error);
+  //     });
+
+
   postCollection.appendChild(div);
 }
 // parse announce
@@ -301,14 +311,16 @@ if (user) {
     }
     document.getElementById("announcePopUp").hidden=true;
   })
+  const firstName = user.displayName.split(" ")[0];
+  const userPostSum = 0;
 
     //Date And Message
     var d = new Date();
     var h = d.getHours();
     if (h > 12) {
-      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんばんは 🌃</h3>`;
+      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${firstName}さん<br>こんばんは 🌃</h3><h4>総投稿数：${userPostSum}</h4>`;
     }else{
-      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${user.displayName}さん<br>こんにちは 🌄</h3>`;
+      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${firstName}さん<br>こんにちは 🌄</h3><h4>総投稿数：${userPostSum}</h4>`;
     }
     loadAni.remove();
 
