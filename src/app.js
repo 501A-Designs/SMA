@@ -41,6 +41,7 @@ let loBoxes = document.getElementsByName('loType');
 //database stuff
 let postCollection = document.querySelector("#postCollection");
 let announcePostCollection = document.querySelector("#announcePosts");
+let topPosts = document.querySelector("#topPosts");
 
 const db = firebase.firestore();
 
@@ -58,13 +59,14 @@ function createPost(doc) {
   let pre = document.createElement("pre");
   let like = document.createElement("button");
   let view = document.createElement("button");
+  let comment = document.createElement("button");
 
   time.textContent = doc.data().createdAt;
   span.textContent = doc.data().postType;
   h3.textContent = doc.data().postName;
   h5.textContent = doc.data().postAuthor;
   pre.textContent = doc.data().postContent;
-  like.innerHTML = "<span class='material-icons' style='font-size:16px'>thumb_up</span> " + doc.data().postLike;
+  like.innerHTML = "<span class='material-icons' style='font-size:16px; margin-right:5px;'>thumb_up</span>" + doc.data().postLike;
   view.innerHTML = "<span class='material-icons'>sticky_note_2</span>";
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
@@ -93,6 +95,7 @@ function createPost(doc) {
   div.appendChild(hr);
   div.appendChild(pre);
   div.appendChild(like);
+  div.appendChild(comment);
 
   view.onclick = () => {
     var newWindow = window.open("", "MsgWindow", "width=400,height=200");
@@ -109,7 +112,7 @@ function createPost(doc) {
       });
     
     div.setAttribute("style", "animation: likeAni 0.7s linear;")
-    like.innerHTML = "<span class='material-icons' style='font-size:16px'>thumb_up</span><span class='material-icons' style='font-size:16px'>done</span>";
+    like.innerHTML = "<span class='material-icons' style='font-size:16px; margin-right:5px;'>thumb_up</span><span class='material-icons' style='font-size:16px'>done</span>";
     like.setAttribute("disabled", "");
   };
 
@@ -152,70 +155,78 @@ function createAnnouncePost(aDoc) {
   announcePostCollection.appendChild(div);
 }
 
+function createTopPost(rDoc) {
+  let div = document.createElement("div");
+
+  //div components
+  let hr = document.createElement("hr");
+  let like = document.createElement("p");
+  let h4 = document.createElement("h4");
+  let h5 = document.createElement("h5");
+
+  h4.textContent = rDoc.data().postName;
+  h5.textContent = rDoc.data().postAuthor;
+  like.innerHTML = "<span class='material-icons' style='font-size:16px; margin-right:5px;'>thumb_up</span>" + rDoc.data().postLike;
+
+  div.appendChild(hr);
+  div.appendChild(like);
+  div.appendChild(h5);
+  div.appendChild(h4);
+  div.setAttribute("class", "rankedPost")
+
+  topPosts.appendChild(div);
+}
 
 // PAGINATE DATA
 const limitValue = 7;
 const loadMore = document.querySelector('#loadMore');
 
-
-//GET STUFF
-// const casBtn = document.querySelector('#casFilter');
-// const saaBtn = document.querySelector('#saaFilter');
-// const saaPosts = postCollection.querySelectorAll(".saaMiniTag");
-// const casPosts = postCollection.querySelectorAll(".casMiniTag");
-// // get cas data
-// casBtn.addEventListener('click', function getCAS() {
-//   for (let i = 0; i < saaPosts.length; i++) {
-//     saaPosts[i].style.display = "none";
-//   }
-//   for (let i = 0; i < casPosts.length; i++) {
-//     casPosts[i].style.display = "block";
-//   }
-//   console.log("Erased S&A")
-// })
-// // get s&a data
-// saaBtn.addEventListener('click', function getSAA() {
-//   for (let i = 0; i < casPosts.length; i++) {
-//     casPosts[i].style.display = "none";
-//   }
-//   for (let i = 0; i < saaPosts.length; i++) {
-//     saaPosts[i].style.display = "block";
-//   }
-//   console.log("Erased CAS")
-// })
-
 // let latestDoc = null;
 const getPosts = async () => {
-    db.collection("posts")
-      .orderBy("createdAt", "desc")
-      // .startAfter(latestDoc || 0)
-      .limit(limitValue)
-      .get()
-      .then(snapshot => {
-        snapshot.docs.forEach(doc => {
-          createPost(doc);
-        });
-      }).catch(err => {
-        console.log(err);
+  db.collection("posts")
+    .orderBy("createdAt", "desc")
+    // .startAfter(latestDoc || 0)
+    .limit(limitValue)
+    .get()
+    .then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        createPost(doc);
       });
-    }
+    }).catch(err => {
+      console.log(err);
+    });
+}
 const getAnnouncePosts = async () => {
   db.collection("announce")
-  .limit(limitValue)
-  .orderBy("aPostEnd", "desc")
-  .get()
-  .then(snapshot => {
-    snapshot.docs.forEach(aDoc => {
-      createAnnouncePost(aDoc);
+    .limit(limitValue)
+    .orderBy("aPostEnd", "desc")
+    .get()
+    .then(snapshot => {
+      snapshot.docs.forEach(aDoc => {
+        createAnnouncePost(aDoc);
+      });
+    }).catch(aErr => {
+      console.log(aErr);
     });
-  }).catch(aErr => {
-    console.log(aErr);
-  });
 }
-  
+const getTopPosts = async () => {
+  db.collection("posts")
+    .orderBy("postLike", "desc")
+    .limit(3)
+    .get()
+    .then(snapshot => {
+      snapshot.docs.forEach(rDoc => {
+        createTopPost(rDoc);
+      });
+    }).catch(err => {
+      console.log(err);
+    });
+}
+
 window.addEventListener('DOMContentLoaded', function () {
   getPosts();
   getAnnouncePosts();
+  getTopPosts();
 })
 
 // function nextBatch(last) {
@@ -240,6 +251,7 @@ btnLogin.onclick = () => {
   }
 }
 
+const body = document.querySelector('body');
 
 //Google Auth
 auth.onAuthStateChanged(user => {
@@ -251,8 +263,10 @@ if (user) {
   whenSignedOut.hidden=true;
   addFeature.hidden=false;
   postButtons.hidden = false;
-  announcePostButton.hidden = false;
+  announceObject.hidden = false;
+  announcePlaceholder.hidden = true;
   addSite.hidden = false;
+  body.setAttribute('id', 'loggedIn');
 
   loginPopUp.innerHTML = `<button class="close" onclick="loginPopUpFunction()"></button>ログイン済みです！<br><h3>${user.displayName}さん、SMAダッシュボードへようこそ 🎉</h3>`;
 
@@ -312,16 +326,9 @@ if (user) {
     document.getElementById("announcePopUp").hidden=true;
   })
   const firstName = user.displayName.split(" ")[0];
-  const userPostSum = 0;
 
     //Date And Message
-    var d = new Date();
-    var h = d.getHours();
-    if (h > 12) {
-      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${firstName}さん<br>こんばんは 🌃</h3><h4>総投稿数：${userPostSum}</h4>`;
-    }else{
-      userDetails.innerHTML = `<img src="${user.photoURL}"><h3>${firstName}さん<br>こんにちは 🌄</h3><h4>総投稿数：${userPostSum}</h4>`;
-    }
+    userDetails.innerHTML = `<div class="iconTitle"><img src="${user.photoURL}"><h4>${firstName}さん</h4></div>`;
     loadAni.remove();
 
   }else{
@@ -333,8 +340,10 @@ if (user) {
     
     // loginPopUp.innerHTML=`ログイン成功！`;
     postButtons.hidden=true;
-    announcePostButton.hidden=true;
+    announceObject.hidden = true;
+    announcePlaceholder.hidden = false;
     userDetails.innerHTML = ``;
+    body.removeAttribute('id', 'loggedIn');  
 
     loadAni.remove();
 

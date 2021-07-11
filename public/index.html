@@ -48,11 +48,11 @@
     </section>
 
     <!-- Version alert pop up -->
-    <section id="versionNotify">
+    <!-- <section id="versionNotify">
       <button onclick="eraseVersionNotify()">✕</button>
-      <a href="about.html#version">SMA v<span class="smaVersion"></span> にアップデートされました！</a>
+      
       <p id="erasedDate"></p>
-    </section>
+    </section> -->
 
     <section id="loginPopUp" style="display: none;">
       <button class="close" onclick="loginPopUpFunction()"></button>
@@ -74,7 +74,10 @@
 
     <section id="announcePopUp" hidden="true">
       <button class="close" onclick="announcePopUpFunction()"></button>
-      <h2><symbol class="material-icons iconHolder"> announcement</symbol> 新しいアナウンス</h2>
+      <div class="iconTitle">
+        <symbol class="material-icons iconHolder">announcement</symbol>
+        <h2>新しいアナウンス</h2>
+      </div>
       新しいアナウンスを書き終え、［アナウンス →］ボタンを押すと投稿が SMA
       のサイト上に誰もが閲覧できるようになります。<br /><br />
       <input id="announceTitle" style="max-width: 500px;" type="text" placeholder="記事のタイトル" /><br /><br /><hr><br />
@@ -84,18 +87,40 @@
                 cols="30"
                 rows="8"
                 placeholder="アナウンスの内容"
-                style="width: 85%; resize: none;"></textarea>
+                style="width: 85%; resize: vertical;"></textarea>
       <br><br>
       <input id="publishAnnounce" type="submit" value="アナウンス →" class="standardButton greenBtn"></input>
     </section>
 
-    <section  class="header">
-      <img src="SMA.png" class="smaLogo" alt="No Logo">
-      <h2 class="mobileErase" style="user-select: none;">
-        Share My Activity
-      </h2>
-      <h1 class="desktopErase" style="user-select: none;">SMA</h1>
-    </section>
+    <header>
+      <div class="header">
+        <img src="SMA.png" class="smaLogo" alt="No Logo">
+        <h2 class="mobileErase" style="user-select: none;">
+          Share My Activity
+        </h2>
+        <a class="mobileErase smaVersion" href="about.html#version">v</a>
+      </div>
+
+      <div id="whenSignedOut">
+        <div class="header" style="gap: 10px;">
+          <div class="iconTitle">
+            <span style="margin-left: 5px;" class="material-icons">person_off</span>
+            <h4>ログインされていません</h4>
+          </div>
+          <button class="standardButton greenBtn" onclick="loginPopUpFunction()">
+            ログイン
+          </button>
+        </div>
+      </div>
+      <div id="whenSignedIn" hidden="true">
+        <div class="header" style="gap: 10px;">
+          <div id="userDetails"></div>
+          <button id="btnLogout" class="standardButton redBtn">
+            ログアウト
+          </button>
+        </div>
+      </div>
+    </header>
 
     <!-- <section id="filter">
       <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
@@ -108,8 +133,30 @@
     </p>
 
     <div id="gridContainer">
-      <section id="announceObject">
-        <h3 style="margin-left: 10px;"><symbol class="material-icons iconHolder"> announcement</symbol> Announce</h3>
+      <section id="announcePlaceholder">
+        <div class="iconTitle" style="margin-left: 10px;">
+          <symbol class="material-icons iconHolder"> turned_in</symbol>
+          <h3>SMAへようこそ！</h3>
+        </div>
+        <p>
+          SMA（こちらのサイト）は開智日本橋学園の生徒、先生、保護者の為に立てられたサイトです。
+          <br>
+          現在は本校で行うIBプログラム（MYPとDP）に在籍している生徒の課外活動を提示しています。課外活動はMYP（中学1年生〜高校1年生）で行うS&Aというものと、DP（高校2年生〜3年生）で行うCASというプログラムを通して生徒は課外活動を進めています。
+          <br>
+          SMAの仕組みとしては、生徒がパスワードでログインすることができ、自分の課外活動を投稿します。投稿した活動内容はサイトにアクセスする権限を持つ人のみが自由に閲覧することができ、ログインした他の生徒は活動内容にコメントまたはいいねをつける事が可能となっています。このサイトもCAS活動の一部として作成されたものです。
+          <br>
+          <br>
+          SMAについては<a href="about.html">こちら</a>から。
+          <br>
+          SMA製作者については<a href="501a.netlify.app">こちら</a>から。
+        </p>
+      </section>
+
+      <section id="announceObject" hidden="true">
+        <div class="iconTitle" style="margin-bottom: calc(var(--margin)*2);">
+          <symbol class="material-icons iconHolder">announcement</symbol>
+          <h4>アナウンス</h4>
+        </div>
         <div class="bigButtons">
           <button class="standardButton greenBtn" id="announcePostButton" onclick="announcePopUpFunction()"><span style="font-size:30px">＋</span><br>アナウンスを追加</button>
         </div>
@@ -118,7 +165,6 @@
         </section>
         <p>ここから先アナウンスはありません</p>
       </section>
-
 
       <section class="gridObject">
         <section id="postButtons" hidden="true">
@@ -140,10 +186,13 @@
           </div>
         </section>
 
-        <section id="createPost" hidden="true"> 
+        <section id="createPost" hidden="true" class="load-wave"> 
           <!-- add this above (in section tag)  id="createPost" hidden="true" -->
           <button class="close" onclick="blockDisplay()"></button>
-          <h2 style="margin-top: var(--containerGap);"><symbol class="material-icons iconHolder"> build</symbol> 新しい活動：</h2>
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">build</symbol>
+            <h2>新しい活動：</h2>
+          </div>
           新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
           のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。<br /><br /><hr><br>
           <form>
@@ -161,7 +210,7 @@
             cols="30"
             rows="8"
             placeholder="記事内容"
-            style="width: 85%; resize: none;"
+            style="width: 85%; resize: vertical;"
           ></textarea>
           <br />
           <br />
@@ -193,28 +242,20 @@
       <section class="sidebarBoxes">
         <section class="desktopErase">
           <hr class="largeHr">
-          <h2><symbol class="material-icons iconHolder"> face</symbol> Profile・Others</h2>
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">face</symbol>
+            <h3>Others</h3>
+          </div>
           <!-- LOGIN SECTION GOES HERE -->
         </section>
-        
-        <div style="text-align: center" class="sidebarBox" id="whenSignedOut">
-          <h3><span class="material-icons" style="font-size:30px">person_off</span><br>ログインされていません</h3>
-          <div class="buttonsContainer">
-            <button class="standardButton greenBtn" onclick="loginPopUpFunction()">
-              ログイン
-            </button>
+
+        <div class="sidebarBox">
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">swap_vert</symbol>
+            <h4>いいね数 Top 3</h4>
           </div>
+          <div id="topPosts"></div>
         </div>
-        
-        <section style="text-align: center" class="sidebarBox" id="whenSignedIn" hidden="true">
-          <div id="userDetails"></div>
-          <div class="buttonsContainer">
-            <!--Logout button | hidden by default-->
-            <button id="btnLogout" class="standardButton redBtn">
-              ログアウト
-            </button>
-          </div>
-        </section>
 
         <!-- OTHERS CONTAINER -->
         <section id="addFeature" hidden="true">
@@ -226,13 +267,16 @@
         </section>
 
         <section class="sidebarBox">
-          <h4 style="margin-top: 0px;"><symbol class="material-icons iconHolder"> travel_explore</symbol> 便利なツール</h4>
-            <div class="bigButtons">
-              <button class="standardButton blueBtn" onclick="window.open('https://schedule-creator-site.firebaseapp.com/','_blank')"><span class="material-icons" style="font-size:30px">calendar_today</span><br>時間割作成サイト</button>
-              <button class="standardButton blueBtn" id="ibmanabu"
-              onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"><span class="material-icons" style="font-size:30px">public</span><br>IBmanabu</button>
-              <small style="color: var(--darkBlue);">便利なツール達はSMA製作者が全て作成したものです</small>
-            </div>
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">travel_explore</symbol>
+            <h4>便利なツール</h4>
+          </div>
+          <div class="bigButtons">
+            <button class="standardButton blueBtn" onclick="window.open('https://schedule-creator-site.firebaseapp.com/','_blank')"><span class="material-icons" style="font-size:30px">calendar_today</span><br>時間割作成サイト</button>
+            <button class="standardButton blueBtn" id="ibmanabu"
+            onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"><span class="material-icons" style="font-size:30px">public</span><br>IBmanabu</button>
+            <small style="color: var(--darkBlue);">便利なツール達はSMA製作者が全て作成したものです</small>
+          </div>
         </section>
 
         <details class="sidebarBox">
@@ -318,7 +362,10 @@
 
         <!-- DARK MODE BUTTON -->
         <section class="sidebarBox">
-        <h4 style="margin-top: 0px;"><symbol class="material-icons iconHolder"> invert_colors</symbol> 色モード変更</h4>
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">invert_colors</symbol>
+            <h4>色モード変更</h4>
+          </div>
           <div class="buttonsContainer">
             <button onclick="LtoD()" id="DtoL"><span class="material-icons">wb_sunny</span><br>朝モード</button>
             <button onclick="DtoL()" id="LtoD"><span class="material-icons">landscape</span><br>夜モード</button>
@@ -327,7 +374,10 @@
 
         <!-- OTHERS CONTAINER -->
         <section class="sidebarBox">
-          <h4 style="margin-top: 0px;"><symbol class="material-icons iconHolder"> explore</symbol> Share My Activity</h4>
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">explore</symbol>
+            <h4>Share My Activity</h4>
+          </div>
           <section id="additionalSites">
             <button onclick="window.open('about.html#about','_blank')">SMAについて</button>
             <button onclick="window.open('about.html#howto','_blank')">SMAの使用法</button>
@@ -335,11 +385,9 @@
         </section>
 
         <h5 style="text-align: center; color: black">
-          SMA バージョン <span class="smaVersion"></span><br><span>・・・</span><br>
           <a style="color: black" href="https://501a.netlify.app/">Developed by 501A</a><br>
           IP Written by Y.Y
         </h5>
-        <button class="easterButton" id="initiateSnake">🐍 Snake</button>
       </section>
     </div>
   </body>

@@ -1,51 +1,47 @@
 * {
-  font-family: "Sawarabi Gothic", sans-serif;
+	font-family: "Sawarabi Gothic", sans-serif;
 }
 :root {
-  /*Color Variables*/
-  --red: #f1c2c2;
-  --blue: #bcd3f5;
-  --darkBlue: #1265e0;
-  --green: #b8e9b4;
-  --orange: rgb(247, 213, 151);
-  --purple: rgb(227, 205, 255);
-  --teal: rgb(186, 252, 252);
-  --grey: #f0f0f0;
-  --grey2: rgb(201, 201, 201);
+	/*Color Variables*/
+	--red: #f1c2c2;
+	--blue: #bcd3f5;
+	--darkBlue: #1265e0;
+	--green: #b8e9b4;
+	--orange: rgb(247, 213, 151);
+	--purple: rgb(227, 205, 255);
+	--teal: rgb(186, 252, 252);
+	--grey: #f0f0f0;
+	--grey2: rgb(201, 201, 201);
 
-  /*Corner*/
-  --roundedCorners: 10px;
-      
-  /* Transition */
-  --standardTransition: 1s;
-  --clickTransition: 0.1s;
-  
-  /* Box Shadow */
-  --boxShadow: 0px 2px 5px lightgray;
+	/*Corner*/
+	--roundedCorners: 10px;
 
-  --lightDesktopBoxShadow: 5px 5px 20px #b1b1b1;
-  --lightMobileBoxShadow: 2.5px 2.5px 10px #b1b1b1;
+	/* Transition */
+	--standardTransition: 1s;
+	--clickTransition: 0.1s;
 
-  --heavyDesktopBoxShadow: 5px 5px 20px #636363;
-  --heavyMobileBoxShadow: 2px 2px 10px #636363;
+	/* Box Shadow */
+	--boxShadow1: 0px 1px 10px lightgray;
+	--boxShadow2: 0px 1px 15px lightgray;
+	--boxShadow3: 0px 1px 20px #b1b1b1;
 
-  /* Border */
-  --desktopBorder:2px solid lightgray;
-  --mobileBorder:1px solid lightgray;
+	/* Border */
+	--desktopBorder: 2px solid lightgray;
+	--mobileBorder: 1px solid lightgray;
 
-  /* Margin & Padding */
-  --margin: 10px;
-  --padding: 10px;
+	/* Margin & Padding */
+	--margin: 10px;
+	--padding: 10px;
 
-  --largeDesktopPadding: 20px;
-  --largeMobilePadding: 15px;
+	--largeDesktopPadding: 20px;
+	--largeMobilePadding: 15px;
 
-  --miniBtnPadding: 5px 10px 5px 10px;
-  --longBtnPadding:7px 15px 7px 15px;
-  --btnPadding: 8px 10px 8px 10px;
-  --containerGap: 10px;
-  --postTagPadding:1px 8px 1px 8px;
+	--miniBtnPadding: 5px 10px 5px 10px;
+	--longBtnPadding: 7px 15px 7px 15px;
+	--btnPadding: 8px 10px 8px 10px;
+	--containerGap: 10px;
+	--postTagPadding: 1px 8px 1px 8px;
 
-  /* Opacity */
-  --popupOpacity:95%;
+	/* Opacity */
+	--popupOpacity: 95%;
 }

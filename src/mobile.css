@@ -1,81 +1,74 @@
-@import '/public/css/variables.css';
+@import "/src/variables.css";
 
 @media only screen and (max-width: 999px) {
-  .header {
-    margin-top: 15%;
-    margin-bottom: 15%;
-  }
-  .smaLogo {
-    height: 25%;
-    width: 25%;
-  }
-  body {
-    margin: 0px 5% 5% 5%;
-  }
-  h1 {
-    margin-bottom: var(--containerGap);
-    font-size: 40px;
-  }
-  #gridContainer {
-    grid-template-columns: 1fr;
-    gap: var(--containerGap);
-  }
-  #loginPopUp {
-    margin: 10px;
-    padding: var(--largeMobilePadding);
-    box-shadow: var(--heavyMobileBoxShadow);
-    top: calc(25% - 80px);
-    right: calc(25% - 100px);
-  }
-  #announcePopUp{
-    padding: var(--largeMobilePadding);
-    box-shadow: var(--heavyMobileBoxShadow);
-  }
-  #announceContent{
-    max-height: 500px;
-  }
-  #cautionNote {
-    display: block;
-    text-align: center;
-    font-size: 13px;
-    border: solid rgb(240, 175, 175) 2px;
-    border-radius: var(--roundedCorners);
-    padding: 10px;
-    background-color: rgb(255, 218, 218, 10);
-    color: red;
-  }
-  .mobileErase,
-  .tagButton {
-    display: none;
-  }
-  .desktopErase {
-    display: block;
-  }
-  #createPost {
-    border-radius: var(--roundedCorners);
-    padding: var(--largeMobilePadding);
-    border: var(--mobileBorder);
-    box-shadow: var(--lightMobileBoxShadow);
-  }
-  #createPost input {
-    margin-bottom: 5px;
-  }
-  .gridObject > div {
-    margin: var(--largeMobilePadding) 0px var(--largeMobilePadding) 0px;
-  }
+	body {
+		margin: 0px 5% 5% 5%;
+	}
+	h1 {
+		margin-bottom: var(--containerGap);
+		font-size: 40px;
+	}
+	#gridContainer {
+		grid-template-columns: 1fr;
+		gap: var(--containerGap);
+	}
+	#loginPopUp {
+		margin: 10px;
+		padding: var(--largeMobilePadding);
+		box-shadow: var(--heavyMobileBoxShadow);
+		top: calc(25% - 80px);
+		right: calc(25% - 100px);
+	}
+	#announcePopUp {
+		padding: var(--largeMobilePadding);
+		box-shadow: var(--heavyMobileBoxShadow);
+	}
+	#announceContent {
+		max-height: 500px;
+	}
+	#cautionNote {
+		display: block;
+		text-align: center;
+		font-size: 13px;
+		border: solid rgb(240, 175, 175) 2px;
+		border-radius: var(--roundedCorners);
+		padding: 10px;
+		background-color: rgb(255, 218, 218, 10);
+		color: red;
+	}
+	.mobileErase,
+	.tagButton {
+		display: none;
+	}
+	.desktopErase {
+		display: block;
+	}
+	#createPost {
+		border-radius: var(--roundedCorners);
+		padding: var(--largeMobilePadding);
+		border: var(--mobileBorder);
+		box-shadow: var(--lightMobileBoxShadow);
+	}
+	#createPost input {
+		margin-bottom: 5px;
+	}
+	.gridObject > div {
+		margin: var(--largeMobilePadding) 0px var(--largeMobilePadding) 0px;
+	}
 
-  .casTag {
-    box-shadow: 0px -5px 4px var(--purple);
-  }
-  .saaTag {
-    box-shadow: 0px -5px 4px var(--orange);
-  }
-  .largeHr {
-    margin-bottom: 5em;
-    margin-top: 5em;
-  }
+	.casTag {
+		box-shadow: 0px -5px 4px var(--purple);
+	}
+	.saaTag {
+		box-shadow: 0px -5px 4px var(--orange);
+	}
+	.largeHr {
+		margin-bottom: 5em;
+		margin-top: 5em;
+	}
 
-  .duoGrid,.versionGrid {
-    grid-template-columns: 1fr;
-  }
+	.duoGrid,
+	.versionGrid {
+		grid-template-columns: 1fr;
+	}
 }

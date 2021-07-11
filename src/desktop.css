@@ -1,4 +1,4 @@
-/* @import '/public/src/variables.css'; */
+@import "/src/variables.css";
 
 /* .darkMode img {
   filter: invert(1) hue-rotate(180deg) brightness(115%); 
@@ -15,11 +15,42 @@
 	color: rgb(175, 0, 0);
 }
 
+header {
+	position: sticky;
+	background-color: white;
+	opacity: var(--popupOpacity);
+	border: var(--mobileBorder);
+	box-shadow: var(--boxShadow1);
+	width: 100%;
+	border-radius: var(--roundedCorners);
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+	z-index: 2;
+	padding: var(--padding) calc(var(--padding) * 2);
+	top: calc(var(--margin) * 2);
+	margin-bottom: calc(var(--margin) * 4);
+	box-sizing: border-box;
+}
+
 .header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0px;
+	padding: 0px;
 }
+
+.smaLogo {
+	height: 50px;
+	width: 50px;
+	margin-right: 2px;
+	user-select: none;
+}
+
 #gridContainer {
 	display: grid;
 	padding: none;
@@ -54,7 +85,7 @@
 }
 #announceObject {
 	border: var(--mobileBorder);
-	padding: var(--padding);
+	padding: calc(var(--padding) * 2);
 	background-color: white;
 	border-radius: var(--roundedCorners);
 	overflow-y: auto;
@@ -90,18 +121,6 @@
 	}
 }
 @media only screen and (min-width: 1000px) {
-	.header {
-		margin-top: 2%;
-		margin-bottom: 2%;
-	}
-	.smaLogo {
-		height: 70px;
-		width: 70px;
-		margin-right: 15px;
-		/* margin-top: 15px; */
-		float: left;
-		user-select: none;
-	}
 	body {
 		margin: 0px 5% 0px 5%;
 	}
@@ -117,7 +136,7 @@
 	#loginPopUp {
 		margin: none;
 		padding: var(--largeDesktopPadding);
-		box-shadow: var(--heavyDesktopBoxShadow);
+		box-shadow: var(--boxShadow3);
 		width: 50%;
 		top: calc(25% - 25px);
 		right: calc(25% - 25px);
@@ -125,7 +144,7 @@
 	#announcePopUp {
 		margin: none;
 		padding: var(--largeDesktopPadding);
-		box-shadow: var(--heavyDesktopBoxShadow);
+		box-shadow: var(--boxShadow3);
 	}
 	#announceObject {
 		height: 1000px;
@@ -143,8 +162,8 @@
 	#createPost {
 		border-radius: calc(var(--roundedCorners) * 1.5);
 		padding: var(--largeDesktopPadding);
-		border: var(--desktopBorder);
-		box-shadow: var(--lightDesktopBoxShadow);
+		border: var(--mobileBorder);
+		box-shadow: var(--boxShadow2);
 	}
 	.duoGrid {
 		grid-template-columns: 1fr 1fr;
@@ -268,8 +287,7 @@ button:focus {
 .post {
 	border-radius: var(--roundedCorners);
 	padding: var(--largeDesktopPadding);
-	/* background-color: var(--grey); */
-	/* box-shadow: var(--boxShadow); */
+	background-color: white;
 	border: var(--mobileBorder);
 	margin-bottom: var(--margin);
 }
@@ -279,16 +297,18 @@ button:focus {
 }
 .post .viewPostBtn,
 .post .likeBtn {
+	display: flex;
+	align-items: center;
 	opacity: 0;
 	font-weight: bold;
-	border-radius: var(--roundedCorners);
+	border-radius: calc(var(--roundedCorners) * 2);
 	background-color: var(--grey);
-	padding: 5px 8px 5px 8px;
+	padding: var(--miniBtnPadding);
 	border: none;
 }
 @keyframes likeAni {
 	0% {
-		background-color: blue;
+		background-color: rgb(255, 180, 202);
 		clip-path: circle(0% at 0% 100%);
 		opacity: 0%;
 	}
@@ -297,8 +317,8 @@ button:focus {
 		opacity: 100%;
 	}
 }
-.post:hover .viewPostBtn,
-.post:hover .likeBtn {
+#loggedIn .post:hover .viewPostBtn,
+#loggedIn .post:hover .likeBtn {
 	opacity: 1;
 }
 
@@ -310,12 +330,20 @@ button:focus {
 .post h3 {
 	margin-bottom: 5px;
 }
-.post h5 {
+.rankedPost h4 {
+	margin-top: 3px;
+	margin-bottom: 7px;
+}
+.post h5,
+.rankedPost h5 {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 .post h5::after {
 	content: "：作";
+}
+.rankedPost h5::after {
+	content: "さん、おめでとうこざいます！";
 }
 .post pre,
 #announcePosts > div > pre {
@@ -325,11 +353,21 @@ button:focus {
 	white-space: -o-pre-wrap; /* Opera 7 */
 	word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
+.post a {
+	padding: 1px 5px 1px 5px;
+	background-color: var(--grey);
+	top: 10px;
+	bottom: 10px;
+	border-radius: calc(var(--roundedCorners) * 0.5);
+	text-decoration: none;
+}
 
 .post .casMiniTag,
-.post .saaMiniTag {
+.post .saaMiniTag,
+.rankedPost .casMiniTag,
+.rankedPost .saaMiniTag {
 	padding: var(--postTagPadding);
-	border-radius: var(--roundedCorners);
+	border-radius: calc(var(--roundedCorners) / 2);
 	margin-left: 5px;
 }
 
@@ -337,7 +375,7 @@ time {
 	color: rgb(80, 80, 80);
 	background-color: var(--grey);
 	padding: var(--postTagPadding);
-	border-radius: var(--roundedCorners);
+	border-radius: calc(var(--roundedCorners) / 2);
 }
 a {
 	color: grey;
@@ -360,12 +398,26 @@ h5 {
 .sidebarBoxes > section {
 	margin-bottom: var(--containerGap);
 }
+.iconTitle {
+	margin: 0px;
+	display: flex;
+	align-items: center;
+}
+
+.iconTitle h4 {
+	width: fit-content;
+	margin: 2px;
+}
 .sidebarBox {
 	border-radius: var(--roundedCorners);
 	margin-bottom: var(--containerGap);
 	padding: var(--largeDesktopPadding);
 	background-color: white;
 	border: var(--mobileBorder);
+}
+.sidebarBox .iconTitle {
+	margin-top: 0px;
+	margin-bottom: calc(var(--margin) * 2);
 }
 
 /*TOGGLE*/
@@ -500,14 +552,17 @@ summary {
 	border-radius: var(--roundedCorners);
 	padding: var(--largeDesktopPadding);
 	background-color: white;
-	box-shadow: var(--boxShadow);
+	box-shadow: var(--boxShadow1);
 }
 
 #whenSignedIn img {
+	width: 40px;
+	height: 40px;
 	border-radius: calc(var(--roundedCorners) * 10);
-	margin-top: var(--margin);
 	border: solid white 2px;
-	box-shadow: var(--boxShadow);
+	margin: 0px;
+	margin-right: 10px;
+	box-shadow: var(--boxShadow1);
 }
 
 .darkMode #whenSignedIn img {
@@ -516,14 +571,6 @@ summary {
 }
 .darkMode iframe {
 	filter: invert(1) hue-rotate(180deg) brightness(115%);
-}
-
-#whenSignedIn small {
-	padding: var(--longBtnPadding);
-	background-color: var(--grey);
-	border-radius: var(--roundedCorners);
-	user-select: none;
-	font-size: 14px;
 }
 
 #addFeature {
@@ -539,6 +586,16 @@ summary {
 #addSite button {
 	padding: var(--largeDesktopPadding) 10px var(--largeDesktopPadding) 10px;
 	user-select: none;
+}
+
+#announcePlaceholder {
+	border-radius: var(--roundedCorners);
+	border: var(--mobileBorder);
+	padding: var(--padding);
+	height: fit-content;
+}
+#announcePlaceholder p {
+	padding: var(--padding);
 }
 
 .duoGrid {
@@ -573,7 +630,7 @@ summary {
 .iconHolder {
 	border-radius: var(--roundedCorners);
 	margin-right: var(--margin);
-	box-shadow: var(--boxShadow);
+	box-shadow: var(--boxShadow1);
 	background-color: white;
 	font-size: 30px;
 	padding: calc(var(--padding) / 2);
