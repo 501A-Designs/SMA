@@ -1,4 +1,4 @@
-@import "/src/variables.css";
+@import "./variables.css";
 
 /* .darkMode img {
   filter: invert(1) hue-rotate(180deg) brightness(115%); 
@@ -198,11 +198,12 @@ header {
 input[type="text"],
 input[type="date"],
 input[type="password"],
-textarea {
+textarea,
+.post .commentsContainer section input {
 	padding: var(--padding);
-	border-radius: var(--roundedCorners);
-	border: solid var(--grey) 2px;
-	background-color: var(--grey2);
+	border-radius: calc(var(--roundedCorners) / 1.5);
+	border: solid var(--grey2) 2px;
+	background-color: var(--grey);
 	transition: var(--clickTransition);
 	color: black;
 	white-space: pre-line;
@@ -211,14 +212,15 @@ textarea {
 input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="password"]:focus,
-textarea:focus {
+textarea:focus,
+.post .commentsContainer section input:focus {
 	border: solid var(--darkBlue) 2px;
 	background-color: white;
 	outline: none;
 }
 input[type="file"] {
 	padding: var(--padding);
-	border-radius: var(--roundedCorners);
+	border-radius: calc(var(--roundedCorners) / 1.5);
 	border: solid var(--grey) 2px;
 	background-color: var(--grey2);
 	transition: var(--clickTransition);
@@ -246,10 +248,13 @@ button:focus {
 	font-weight: bold;
 }
 #langButton {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	border-radius: calc(var(--roundedCorners) / 2);
 	background-color: var(--grey2);
+	padding: var(--miniBtnPadding);
 	border: none;
-	border-radius: calc(var(--roundedCorners) * 2);
-	padding: 5px 10px 2px 10px;
 }
 .tagButton {
 	border-radius: var(--roundedCorners);
@@ -296,16 +301,77 @@ button:focus {
 	background-color: var(--red);
 }
 .post .viewPostBtn,
-.post .likeBtn {
+.post .likeBtn,
+.post .commentBtn {
 	display: flex;
 	align-items: center;
 	opacity: 0;
 	font-weight: bold;
-	border-radius: calc(var(--roundedCorners) * 2);
-	background-color: var(--grey);
+	border-radius: calc(var(--roundedCorners) / 2);
+	background-color: var(--grey2);
 	padding: var(--miniBtnPadding);
 	border: none;
 }
+
+.commentSign {
+	color: green;
+	background-color: var(--green);
+}
+.post .commentsDisplay {
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+.post .commentsContainer {
+	margin-top: calc(var(--containerGap) * 2);
+}
+.post .commentsContainer div {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--containerGap) / 2);
+	box-shadow: var(--boxShadow1);
+	padding: var(--padding);
+	border-radius: calc(var(--roundedCorners) / 2);
+	margin: var(--containerGap) 0px;
+	animation: waveAni calc(var(--standardTransition) / 2) ease-in;
+}
+
+/* .post .commentsContainer div img {
+	width: 30px;
+	height: 30px;
+	border-radius: calc(var(--roundedCorners) * 10);
+	border: solid white 1px;
+	margin: 0px;
+	margin-right: 10px;
+	box-shadow: var(--boxShadow1);
+} */
+.post .commentsContainer section {
+	display: flex;
+	align-items: stretch;
+	gap: calc(var(--containerGap) / 2);
+}
+
+.post .commentsContainer section button {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	border-radius: calc(var(--roundedCorners) / 2);
+	color: green;
+	background-color: var(--green);
+	padding: var(--miniBtnPadding);
+	border: none;
+}
+/* .post .material-icons {
+	font-size: 16px;
+} */
+
+.post .postBtnContainer {
+	gap: calc(var(--containerGap) / 2);
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
 @keyframes likeAni {
 	0% {
 		background-color: rgb(255, 180, 202);
@@ -318,8 +384,15 @@ button:focus {
 	}
 }
 #loggedIn .post:hover .viewPostBtn,
-#loggedIn .post:hover .likeBtn {
+#loggedIn .post:hover .likeBtn,
+#loggedIn .post:hover .commentBtn {
 	opacity: 1;
+}
+.post .postBtnContainerDisplay {
+	display: none;
+}
+#loggedIn .post .postBtnContainerDisplay {
+	display: block;
 }
 
 .viewPostBtn {
@@ -390,7 +463,7 @@ h5 {
 .postBtnGrid {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	gap: 5px;
+	gap: var(--margin);
 	margin-bottom: 10px;
 }
 
@@ -569,6 +642,7 @@ summary {
 	border: solid black 2px;
 	filter: invert(1) hue-rotate(180deg) brightness(115%);
 }
+
 .darkMode iframe {
 	filter: invert(1) hue-rotate(180deg) brightness(115%);
 }

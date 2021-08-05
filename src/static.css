@@ -69,7 +69,7 @@ button {
 }
 button:hover {
 	transform: scale3d(1.05, 1.05, 1.05);
-	filter: brightness(0.95);
+	filter: brightness(102%);
 	cursor: pointer;
 }
 hr {

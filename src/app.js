@@ -48,7 +48,6 @@ const db = firebase.firestore();
 //parse post
 function createPost(doc) {
   let div = document.createElement("div");
-  let section = document.createElement("section");
   
   //div components
   let time = document.createElement("time");
@@ -57,17 +56,23 @@ function createPost(doc) {
   let h5 = document.createElement("h5");
   let hr = document.createElement("hr");
   let pre = document.createElement("pre");
-  let like = document.createElement("button");
   let view = document.createElement("button");
+
+  let postBtnContainerDisplay = document.createElement("section");
+  let postBtnContainer = document.createElement("span");
+  let like = document.createElement("button");
   let comment = document.createElement("button");
+
+  const postCommentArray = doc.data().postCommentArray;
 
   time.textContent = doc.data().createdAt;
   span.textContent = doc.data().postType;
   h3.textContent = doc.data().postName;
   h5.textContent = doc.data().postAuthor;
   pre.textContent = doc.data().postContent;
-  like.innerHTML = "<span class='material-icons' style='font-size:16px; margin-right:5px;'>thumb_up</span>" + doc.data().postLike;
+  like.innerHTML = "<span class='material-icons' style='margin-right:5px;'>thumb_up</span>" + doc.data().postLike;
   view.innerHTML = "<span class='material-icons'>sticky_note_2</span>";
+  comment.innerHTML = "<span class='material-icons' style='margin-right:5px;'>chat</span>" + postCommentArray.length;
 
   // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
 
@@ -86,6 +91,13 @@ function createPost(doc) {
 
   like.setAttribute("class", "likeBtn");
   view.setAttribute("class", "viewPostBtn");
+  comment.setAttribute("class", "commentBtn");
+
+  postBtnContainer.setAttribute("class", "postBtnContainer");
+  postBtnContainer.appendChild(like);
+  postBtnContainer.appendChild(comment);
+  postBtnContainerDisplay.setAttribute("class", "postBtnContainerDisplay");
+  postBtnContainerDisplay.appendChild(postBtnContainer);
 
   div.appendChild(time);
   div.appendChild(span);
@@ -94,8 +106,7 @@ function createPost(doc) {
   div.appendChild(h5);
   div.appendChild(hr);
   div.appendChild(pre);
-  div.appendChild(like);
-  div.appendChild(comment);
+  div.appendChild(postBtnContainerDisplay);
 
   view.onclick = () => {
     var newWindow = window.open("", "MsgWindow", "width=400,height=200");
@@ -112,8 +123,59 @@ function createPost(doc) {
       });
     
     div.setAttribute("style", "animation: likeAni 0.7s linear;")
-    like.innerHTML = "<span class='material-icons' style='font-size:16px; margin-right:5px;'>thumb_up</span><span class='material-icons' style='font-size:16px'>done</span>";
+    like.innerHTML = "<span class='material-icons' style='margin-right:5px;'>thumb_up</span><span class='material-icons'>done</span>";
     like.setAttribute("disabled", "");
+  };
+
+  comment.onclick = () => {
+    comment.setAttribute("disabled", "");
+    let commentsContainer = document.createElement("section");
+    commentsContainer.setAttribute("class", "commentsContainer")
+
+
+    console.log(postCommentArray);
+    postCommentArray.map(function(element){
+      const singleComment = document.createElement("div");
+      const comments = document.createElement("span");
+      comments.innerText = element;
+      // console.log(element.postComment);
+      singleComment.appendChild(comments);
+      commentsContainer.appendChild(singleComment);
+    });
+      
+      let commentForm = document.createElement("section");
+      // commentForm
+        const input = document.createElement("input");
+        const sendBtn = document.createElement("button");
+        sendBtn.innerHTML = "<span class='material-icons'>send</span>";
+
+        sendBtn.onclick = () => {
+          const commentInput = input.value;
+          if (commentInput === "") {
+                alert("コメント欄は空白です");
+          } else {
+            db.collection('posts')
+              .doc(doc.id)
+              .update({
+                postCommentArray: firebase.firestore.FieldValue.arrayUnion(commentInput)
+              })
+              .catch(function (error) {
+                  console.log("Error getting documents: ", error);
+              });
+          }
+
+          commentForm.style.display = "none";
+          const commentSign = document.createElement("div");
+          commentSign.setAttribute("class", "commentSign")
+          commentSign.innerHTML = "<span class='material-icons'>check_circle</span><span><strong>送信完了：</strong>コメントはページを更新すると閲覧できます</span>";
+          commentsContainer.appendChild(commentSign);
+        }
+    
+    commentForm.appendChild(input);
+    commentForm.appendChild(sendBtn);
+    commentsContainer.appendChild(commentForm);
+    div.appendChild(commentsContainer);
+
   };
 
 // make so that everytime post publish btn is clicked adds +1 to users document. Display added value to frontend
@@ -297,7 +359,8 @@ if (user) {
               postAuthor:postAuthor,
               postContent:postContent,
               postType: radioValueFunction(),
-              postLike:0
+              postLike: 0,
+              postCommentArray: []
           })
     }
     document.getElementById("createPost").hidden=true;
