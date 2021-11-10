@@ -74,8 +74,6 @@ function createPost(doc) {
   view.innerHTML = "<span class='material-icons'>sticky_note_2</span>";
   comment.innerHTML = "<span class='material-icons' style='margin-right:5px;'>chat</span>" + postCommentArray.length;
 
-  // REGEX : http://talkerscode.com/webtricks/convert-url-text-into-clickable-html-links-using-javascript.php
-
 	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>URLリンク↗</a>");
 	var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
@@ -121,7 +119,6 @@ function createPost(doc) {
       .catch(function (error) {
           console.log("Error getting documents: ", error);
       });
-    
     div.setAttribute("style", "animation: likeAni 0.7s linear;")
     like.innerHTML = "<span class='material-icons' style='margin-right:5px;'>thumb_up</span><span class='material-icons'>done</span>";
     like.setAttribute("disabled", "");
@@ -132,23 +129,19 @@ function createPost(doc) {
     let commentsContainer = document.createElement("section");
     commentsContainer.setAttribute("class", "commentsContainer")
 
-
     console.log(postCommentArray);
     postCommentArray.map(function(element){
       const singleComment = document.createElement("div");
       const comments = document.createElement("span");
       comments.innerText = element;
-      // console.log(element.postComment);
       singleComment.appendChild(comments);
       commentsContainer.appendChild(singleComment);
     });
       
       let commentForm = document.createElement("section");
-      // commentForm
         const input = document.createElement("input");
         const sendBtn = document.createElement("button");
         sendBtn.innerHTML = "<span class='material-icons'>send</span>";
-
         sendBtn.onclick = () => {
           const commentInput = input.value;
           if (commentInput === "") {
@@ -163,64 +156,49 @@ function createPost(doc) {
                   console.log("Error getting documents: ", error);
               });
           }
-
           commentForm.style.display = "none";
           const commentSign = document.createElement("div");
           commentSign.setAttribute("class", "commentSign")
           commentSign.innerHTML = "<span class='material-icons'>check_circle</span><span><strong>送信完了：</strong>コメントはページを更新すると閲覧できます</span>";
           commentsContainer.appendChild(commentSign);
         }
-    
     commentForm.appendChild(input);
     commentForm.appendChild(sendBtn);
     commentsContainer.appendChild(commentForm);
     div.appendChild(commentsContainer);
-
   };
-
-// make so that everytime post publish btn is clicked adds +1 to users document. Display added value to frontend
-  // dataRef.doc(user.uid).get().then((doc) => {
-  //         getSubjects(doc)
-  //         // console.log(doc.data().cells)
-  //     }).catch((error) => {
-  //         console.log("Error getting document:", error);
-  //     });
-
-
   postCollection.appendChild(div);
 }
 // parse announce
-function createAnnouncePost(aDoc) {
-  let div = document.createElement("div");
-  let time = document.createElement("time");
-  let h3 = document.createElement("h3");
-  let span = document.createElement("span");
-  let hr = document.createElement("hr");
-  let pre = document.createElement("pre");
+// function createAnnouncePost(aDoc) {
+//   let div = document.createElement("div");
+//   let time = document.createElement("time");
+//   let h3 = document.createElement("h3");
+//   let span = document.createElement("span");
+//   let hr = document.createElement("hr");
+//   let pre = document.createElement("pre");
 
-  time.textContent = "〜" + aDoc.data().aPostEnd + "まで";
-  h3.textContent = aDoc.data().aPostTitle;
-  span.textContent = "投稿日：" + aDoc.data().aPostStart;
-  pre.textContent = aDoc.data().aPostContent;
+//   time.textContent = "〜" + aDoc.data().aPostEnd + "まで";
+//   h3.textContent = aDoc.data().aPostTitle;
+//   span.textContent = "投稿日：" + aDoc.data().aPostStart;
+//   pre.textContent = aDoc.data().aPostContent;
 
-	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-	var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>$1</a>");
-	var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-  pre.innerHTML = text.replace(exp2, "$1<a target='_blank' href='http://$2'>$2</a>");
+// 	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+// 	var text = pre.textContent.replace(exp, "<a target='_blank' href='$1'>$1</a>");
+// 	var exp2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+//   pre.innerHTML = text.replace(exp2, "$1<a target='_blank' href='http://$2'>$2</a>");
 
-  div.appendChild(time);
-  div.appendChild(h3);
-  div.appendChild(span);
-  div.appendChild(hr);
-  div.appendChild(pre);
+//   div.appendChild(time);
+//   div.appendChild(h3);
+//   div.appendChild(span);
+//   div.appendChild(hr);
+//   div.appendChild(pre);
 
-  announcePostCollection.appendChild(div);
-}
+//   announcePostCollection.appendChild(div);
+// }
 
 function createTopPost(rDoc) {
   let div = document.createElement("div");
-
-  //div components
   let hr = document.createElement("hr");
   let like = document.createElement("p");
   let h4 = document.createElement("h4");
@@ -246,10 +224,10 @@ const loadMore = document.querySelector('#loadMore');
 // let latestDoc = null;
 const getPosts = async () => {
   db.collection("posts")
-    .orderBy("createdAt", "desc")
-    // .startAfter(latestDoc || 0)
-    .limit(limitValue)
-    .get()
+  // .orderBy("createdAt", "desc")
+  // .startAfter(latestDoc || 0)
+  // .limit(limitValue)
+  .get()
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
         createPost(doc);
@@ -258,19 +236,19 @@ const getPosts = async () => {
       console.log(err);
     });
 }
-const getAnnouncePosts = async () => {
-  db.collection("announce")
-    .limit(limitValue)
-    .orderBy("aPostEnd", "desc")
-    .get()
-    .then(snapshot => {
-      snapshot.docs.forEach(aDoc => {
-        createAnnouncePost(aDoc);
-      });
-    }).catch(aErr => {
-      console.log(aErr);
-    });
-}
+// const getAnnouncePosts = async () => {
+//   db.collection("announce")
+//     .limit(limitValue)
+//     .orderBy("aPostEnd", "desc")
+//     .get()
+//     .then(snapshot => {
+//       snapshot.docs.forEach(aDoc => {
+//         createAnnouncePost(aDoc);
+//       });
+//     }).catch(aErr => {
+//       console.log(aErr);
+//     });
+// }
 const getTopPosts = async () => {
   db.collection("posts")
     .orderBy("postLike", "desc")
@@ -346,7 +324,6 @@ if (user) {
         }
       }
     }
-
     if (postDate === "" ||
         postTitle === "" ||
         postAuthor === "" ||

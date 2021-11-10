@@ -247,15 +247,7 @@ button:focus {
 	border: none;
 	font-weight: bold;
 }
-#langButton {
-	display: flex;
-	align-items: center;
-	font-weight: bold;
-	border-radius: calc(var(--roundedCorners) / 2);
-	background-color: var(--grey2);
-	padding: var(--miniBtnPadding);
-	border: none;
-}
+
 .tagButton {
 	border-radius: var(--roundedCorners);
 	padding: var(--longBtnPadding);
@@ -267,15 +259,16 @@ button:focus {
 }
 
 /* SIDEBAR CSS */
-#additionalSites,
-.bigButtons {
+.sidebarBox section,
+.bigButtons,
+#addSite {
 	gap: var(--containerGap);
 	display: grid;
 	grid-template-columns: 1fr;
 	font-weight: bold;
 }
 
-#additionalSites > button {
+.sidebarBox section button {
 	padding: var(--padding);
 	border-radius: calc(var(--roundedCorners) / 2);
 	background-color: var(--grey);
@@ -505,6 +498,16 @@ h5 {
 	background-color: var(--grey);
 }
 
+#learning-outcomes-list button {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	border-radius: calc(var(--roundedCorners) / 2);
+	background-color: var(--grey2);
+	padding: var(--miniBtnPadding);
+	border: none;
+}
+
 #loENG,
 #loJPN {
 	max-width: 350px;
@@ -655,6 +658,7 @@ summary {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
+
 #postButtons button,
 #addFeature div button,
 #addSite button {

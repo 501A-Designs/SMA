@@ -5,32 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="SMA.png"/>
     <title>SMA</title>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
-    <!-- firebase auth -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
-    <!-- Cloud Firestore -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
 
     <link
     href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
     rel="stylesheet"
     />
-    <!-- CSS -->
-    <link rel="stylesheet" href="./css/color.min.css">
-    <link rel="stylesheet" href="./css/desktop.min.css">
-    <link rel="stylesheet" href="./css/mobile.min.css">
-    <link rel="stylesheet" href="./css/static.min.css">
-    <link rel="stylesheet" href="./css/variables.min.css">
+    <link rel="stylesheet" href="./css/color.css">
+    <link rel="stylesheet" href="./css/desktop.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+    <link rel="stylesheet" href="./css/static.css">
+    <link rel="stylesheet" href="./css/variables.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script src="app.min.js" defer></script>
-    <script src="functions.min.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="functions.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
   </head>
   <body>
     <section class="loadingAni">
@@ -46,13 +41,6 @@
         <button id="btnWebsiteVerify" class="standardButton greenBtn">認証</button>
       </form>
     </section>
-
-    <!-- Version alert pop up -->
-    <!-- <section id="versionNotify">
-      <button onclick="eraseVersionNotify()">✕</button>
-      
-      <p id="erasedDate"></p>
-    </section> -->
 
     <section id="loginPopUp" style="display: none;">
       <button class="close" onclick="loginPopUpFunction()"></button>
@@ -279,35 +267,18 @@
           </div>
         </section>
 
-        <details class="sidebarBox">
+        <details class="sidebarBox" close>
           <summary>7つの Learning Outcome</summary>
-          <div class="load-wave">
-            <ol id="loENG" style="display: none;">
-              <li>Identify your own strengths and develop areas for personal growth.
-              </li>
-              <li>Demonstrate challenges have been undertaken, developing new skills in the process.
-              </li>
-              <li>Demonstrate how to initate and plan a CAS experience.
-              </li>
-              <li>Show commitment to and perseverance in CAS experience.
-              </li>
-              <li>Demonstrate the skills and recognize the benfits of working collaboratively.
-              </li>
-              <li>Demonstrate engagement with issues of global significance.
-              </li>
-              <li>Recognize and consider the ethics of choices and actions.
-              </li>
+          <div class="load-wave" id="learning-outcomes-list">
+            <ol  id="loENG" style="display: none;">
+              <li v-for="engOutcome in engOutcomes">{{ engOutcome.text }}</li>
             </ol>
             <ol id="loJPN">
-              <li>自らの長所と成長すべき点を認識する。</li>
-              <li>課題に挑戦し、その過程で新しいスキルを習得している。</li>
-              <li>自らCASを計画し開始することができる。</li>
-              <li>CAS活動を継続し、やり遂げる粘り強さを示す。</li>
-              <li>自らのスキルを活かし、また他者と共に活動する意義を認識する。</li>
-              <li>グローバルな問題に取り組む。</li>
-              <li>選択と行動の倫理を認識し、考察する。</li>
+              <li v-for="jpnOutcome in jpnOutcomes">{{ jpnOutcome.text }}</li>
             </ol>
-            <button id="langButton" onclick="langFunction()"><span class="material-icons" style="font-size: 18px;">translate</span></button>
+            <button v-on:click="langFunction()">
+              <span class="material-icons" style="font-size: 18px;">translate</span>
+            </button>
           </div>
         </details>
 
@@ -315,25 +286,9 @@
           <summary>関連ウェブサイト</summary>
           <div  class="load-wave">
             <br>
-            <section id="additionalSites">
-              <button
-                id="kngedjp"
-                onclick="window.open('http://kng.ed.jp','_blank')"
-              >
-                開智日本橋学園
-              </button>
-              <button
-                id="mreader"
-                onclick="window.open('https://mreader.org/index.php','_blank')"
-              >
-                Mreader
-              </button>
-              <button
-                id="learngeo"
-                onclick="window.open('https://www.learngeowith.me/','_blank')"
-              >
-                LearnGeoWithMe
-              </button>
+            <section id="related-sites">
+              <button v-for="relatedSite in relatedSites" v-on:click="window.open(`${relatedSite.href}`,'_blank')"
+              >{{relatedSite.name}}</button>
             </section>
           </div>
         </details>
@@ -342,21 +297,14 @@
           <summary>生徒によるウェブサイト</summary>
           <div class="load-wave">
             <br>
-            <section id="additionalSites">
-              <button onclick="window.open('http://www.kngcan.info/','_blank')">
-                KNG Can Food Drive
-              </button>
-              <button
-                id="ibmanabu"
-                onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"
-              >
-                Orenohibi
-              </button>
-              <div id="addSite" hidden="true">
-                <small style="color: rgb(155, 101, 0);">自分が作成したサイトの提示をリクエストできます</small>
-                <button style="width: 100%; margin-top: 15px;" class="standardButton orangeBtn" onclick="window.open('https://forms.gle/FNXXS4YKYb6ySTmy5','_blank')"><span class="material-icons" style="font-size:30px">note_add</span><br>提示をリクエスト</button>
-              </div>
+            <section id="student-sites">
+              <button v-for="studentSite in studentSites" v-on:click="window.open(`${studentSite.href}`,'_blank')"
+              >{{studentSite.name}}</button>
             </section>
+            <div id="addSite" hidden="true">
+              <button style="width: 100%; margin-top: 15px;" class="standardButton orangeBtn" onclick="window.open('https://forms.gle/FNXXS4YKYb6ySTmy5','_blank')"><span class="material-icons" style="font-size:30px">note_add</span><br>提示をリクエスト</button>
+              <small style="color: rgb(155, 101, 0);">自分が作成したサイトの提示をリクエストできます</small>
+            </div>
           </div>
         </details>
 
@@ -378,7 +326,7 @@
             <symbol class="material-icons iconHolder">explore</symbol>
             <h4>Share My Activity</h4>
           </div>
-          <section id="additionalSites">
+          <section id="sma-sites">
             <button onclick="window.open('about.html#about','_blank')">SMAについて</button>
             <button onclick="window.open('about.html#howto','_blank')">SMAの使用法</button>
           </section>
