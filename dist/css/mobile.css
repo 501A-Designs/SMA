@@ -43,7 +43,8 @@
 	.desktopErase {
 		display: block;
 	}
-	#createPost {
+	#createPost,
+	#filter {
 		border-radius: var(--roundedCorners);
 		padding: var(--largeMobilePadding);
 		border: var(--mobileBorder);
@@ -54,13 +55,6 @@
 	}
 	.gridObject > div {
 		margin: var(--largeMobilePadding) 0px var(--largeMobilePadding) 0px;
-	}
-
-	.casTag {
-		box-shadow: 0px -5px 4px var(--purple);
-	}
-	.saaTag {
-		box-shadow: 0px -5px 4px var(--orange);
 	}
 	.largeHr {
 		margin-bottom: 5em;

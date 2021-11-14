@@ -1,0 +1,52 @@
+/* BUTTON COLORS */
+.greenBtn,
+.greenCard,
+.greenBtn.darkMode,
+.loTag {
+	color: green;
+	background-color: var(--green);
+}
+.blueBtn,
+.blueCard {
+	color: var(--darkBlue);
+	background-color: var(--blue);
+}
+.redBtn,
+.redCard {
+	color: red;
+	background-color: var(--red);
+}
+.saaMiniTag,
+.orangeBtn,
+.orangeCard,
+#filter .filterBtns button:last-child {
+	color: rgb(155, 101, 0);
+	background-color: var(--orange);
+}
+.casMiniTag,
+.purpleBtn,
+.purpleCard {
+	color: purple;
+	background-color: var(--purple);
+}
+.tealBtn,
+.tealCard {
+	color: rgb(0, 111, 111);
+	background-color: var(--teal);
+}
+
+.greenCard {
+	box-shadow: 0px 2px 12px green;
+}
+.blueCard {
+	box-shadow: 0px 2px 12px blue;
+}
+.redCard {
+	box-shadow: 0px 2px 12px red;
+}
+.orangeCard {
+	box-shadow: 0px 2px 12px rgb(155, 101, 0);
+}
+.purpleCard {
+	box-shadow: 0px 2px 12px purple;
+}

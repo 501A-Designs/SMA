@@ -5,26 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="SMA.png"/>
     <title>SMA</title>
-    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
-
     <link
     href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap"
     rel="stylesheet"
     />
-    <link rel="stylesheet" href="./css/color.css">
-    <link rel="stylesheet" href="./css/desktop.css">
-    <link rel="stylesheet" href="./css/mobile.css">
-    <link rel="stylesheet" href="./css/static.css">
-    <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="index.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <script src="app.js" defer></script>
-    <script src="functions.js" defer></script>
+    <script src="bundle.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 
   </head>
   <body>
@@ -59,27 +50,6 @@
       </div>
     </section>
 
-
-    <section id="announcePopUp" hidden="true">
-      <button class="close" onclick="announcePopUpFunction()"></button>
-      <div class="iconTitle">
-        <symbol class="material-icons iconHolder">announcement</symbol>
-        <h2>新しいアナウンス</h2>
-      </div>
-      新しいアナウンスを書き終え、［アナウンス →］ボタンを押すと投稿が SMA
-      のサイト上に誰もが閲覧できるようになります。<br /><br />
-      <input id="announceTitle" style="max-width: 500px;" type="text" placeholder="記事のタイトル" /><br /><br /><hr><br />
-      投稿日 <input id="announceStartDate" type="date" /><br />
-      締切日 <input id="announceEndDate" type="date" /><br /><br />
-      <textarea id="announceContent"
-                cols="30"
-                rows="8"
-                placeholder="アナウンスの内容"
-                style="width: 85%; resize: vertical;"></textarea>
-      <br><br>
-      <input id="publishAnnounce" type="submit" value="アナウンス →" class="standardButton greenBtn"></input>
-    </section>
-
     <header>
       <div class="header">
         <img src="SMA.png" class="smaLogo" alt="No Logo">
@@ -110,14 +80,10 @@
       </div>
     </header>
 
-    <!-- <section id="filter">
-      <button class="tagButton" id="allPosts" style="background-color: var(--grey); display: none;" onclick="window.location.reload();">全ての投稿</button>
-      <button class="tagButton" id="casFilter" style="background-color: var(--purple);">CAS Activities</button>
-      <button class="tagButton" id="saaFilter" style="background-color: var(--orange);">S&A Activities</button>
-    </section> -->
-
     <p id="cautionNote">
-      ！！ 注意 ！！<br />スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
+      <strong>！！ 注意 ！！</strong>
+      <br />
+      スマートフォンまた小さいディスプレイご利用の場合は、投稿されている活動のフィルター等はできないです。ご了承ください。
     </p>
 
     <div id="gridContainer">
@@ -136,22 +102,18 @@
           <br>
           SMAについては<a href="about.html">こちら</a>から。
           <br>
-          SMA製作者については<a href="501a.netlify.app">こちら</a>から。
+          SMA製作者については<a href="https://501a.netlify.app/">こちら</a>から。
         </p>
       </section>
 
-      <section id="announceObject" hidden="true">
-        <div class="iconTitle" style="margin-bottom: calc(var(--margin)*2);">
-          <symbol class="material-icons iconHolder">announcement</symbol>
-          <h4>アナウンス</h4>
+      <section id="leftPannelObject" hidden="true">
+        <div>
+          <div class="iconTitle" style="margin-bottom: 20px;">
+            <symbol class="material-icons iconHolder">swap_vert</symbol>
+            <h4>いいね数 Top 5</h4>
+          </div>
+          <div id="topPosts"></div>
         </div>
-        <div class="bigButtons">
-          <button class="standardButton greenBtn" id="announcePostButton" onclick="announcePopUpFunction()"><span style="font-size:30px">＋</span><br>アナウンスを追加</button>
-        </div>
-
-        <section id="announcePosts">
-        </section>
-        <p>ここから先アナウンスはありません</p>
       </section>
 
       <section class="gridObject">
@@ -161,33 +123,73 @@
               class="standardButton greenBtn"
               onclick="blockDisplay(1)"
             >
-              <span style="font-size:30px">＋</span><br>記事追加
+              <span style="font-size:30px">＋</span><br>新しい記事を追加
             </button>
             <button class="standardButton redBtn"
             onclick="window.location.href='https://forms.gle/Y3G1jXno3mKPgZHp6';">
-              <span class="material-icons" style="font-size:30px">delete_outline</span><br>記事消去をリクエスト
+              <span class="material-icons" style="font-size:30px">delete_outline</span><br>記事の消去をリクエスト
             </button>
+            <button
+              class="standardButton orangeBtn"
+              onclick="blockFilterBar(1)"
+              >
+              <span class="material-icons"  style="font-size:30px">filter_alt</span><br>記事をフィルター
             <button class="standardButton blueBtn"
             onclick="window.location.reload();">
-              <span style="font-size:30px">⭯</span><br>ページを更新
+              <span style="font-size:30px">⭯</span><br>本ページを更新
             </button>
           </div>
         </section>
 
+        <section id="filter" hidden="true" class="load-wave">
+          <button class="close" onclick="blockFilterBar()"></button>
+          <div class="iconTitle">
+            <symbol class="material-icons iconHolder">filter_alt</symbol>
+            <h2>投稿をフィルター</h2>
+          </div>
+          <p>SMAは最も最近の30投稿しか表示しません。フィルターする際はこのページに表示されている投稿のみがフィルターされるのでご了承下さい。</p>
+          <div class="filterBtns">
+            <button id="casFilterBtn">CAS</button>
+            <button id="saaFilterBtn">S&A</button>
+            <button id="lo1FilterBtn">LO:1</button>
+            <button id="lo2FilterBtn">LO:2</button>
+            <button id="lo3FilterBtn">LO:3</button>
+            <button id="lo4FilterBtn">LO:4</button>
+            <button id="lo5FilterBtn">LO:5</button>
+            <button id="lo6FilterBtn">LO:6</button>
+            <button id="lo7FilterBtn">LO:7</button>
+            <button id="clearFilterBtn">リセット</button>
+          </div>
+          <p>状態：<span id="filterJotai"></span></p>
+        </section>
         <section id="createPost" hidden="true" class="load-wave"> 
           <!-- add this above (in section tag)  id="createPost" hidden="true" -->
           <button class="close" onclick="blockDisplay()"></button>
           <div class="iconTitle">
             <symbol class="material-icons iconHolder">build</symbol>
-            <h2>新しい活動：</h2>
+            <h2>新しい活動</h2>
           </div>
-          新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
-          のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。<br /><br /><hr><br>
+          <p>
+            新しい活動を書き終え、［記事完了］ボタンを押すと投稿が SMA
+            のサイト上に誰もが閲覧できるようになります。パスワードや個人情報等は投稿しないよう注意をお願いします。また、一度完了を押すと記事は編集することができないです。なお、日程は今現在（本日）を選び、記事作成の際には全ての欄を記入する必要があります。
+          </p>
+          <hr><br>
           <form>
-          活動種類を選んでください：
-            <input type="radio" name="activityType" id="casLabel" value="CAS">CAS活動</input>
-            <input type="radio" name="activityType" id="saaLabel" value="S&A">S&A活動</input>
+            <label>活動種類を選んでください：</label>
+            <input type="radio" name="activityType" value="CAS">CAS活動</input>
+            <input type="radio" name="activityType" value="S&A">S&A活動</input>
           </form>
+          <form>
+            <label>ラーニングアウトカムを選んでください：</label>
+            <input type="radio" name="loType" value="1">1</input>
+            <input type="radio" name="loType" value="2">2</input>
+            <input type="radio" name="loType" value="3">3</input>
+            <input type="radio" name="loType" value="4">4</input>
+            <input type="radio" name="loType" value="5">5</input>
+            <input type="radio" name="loType" value="6">6</input>
+            <input type="radio" name="loType" value="7">7</input>
+          </form>
+          <p>※ラーニングアウトカムが複数ある場合は活動と最もつながるアウトカムを一つ選んで下さい。</p>
           <br>
           <input id="postTitle" style="max-width: 350px;" type="text" placeholder="記事のタイトル" />
           <input id="postAuthor" type="text" placeholder="学年・組・イニシャル" />
@@ -197,7 +199,7 @@
             name="bruh"
             cols="30"
             rows="8"
-            placeholder="記事内容"
+            placeholder="✏️ 記事内容（右下の角を下に引っ張るとテキストボックスの大きさが調節できるよ！）"
             style="width: 85%; resize: vertical;"
           ></textarea>
           <br />
@@ -221,9 +223,9 @@
         </section>
         
         <div id="postCollection"></div>
-        <div style="display:flex; justify-content: center;">
+        <!-- <div style="display:flex; justify-content: center;">
           <button id="loadMore" class="standardButton orangeBtn"><span class="material-icons" style="font-size:30px">cached</span><br>もっと表示</button>
-        </div>
+        </div> -->
         <br>
       </section>
 
@@ -234,16 +236,23 @@
             <symbol class="material-icons iconHolder">face</symbol>
             <h3>Others</h3>
           </div>
-          <!-- LOGIN SECTION GOES HERE -->
         </section>
 
-        <div class="sidebarBox">
-          <div class="iconTitle">
-            <symbol class="material-icons iconHolder">swap_vert</symbol>
-            <h4>いいね数 Top 3</h4>
+        <details class="sidebarBox" open>
+          <summary>7つの Learning Outcome</summary>
+          <div class="load-wave" id="learning-outcomes-list">
+            <ol  id="loENG" style="display: none;">
+              <li v-for="engOutcome in engOutcomes">{{ engOutcome.text }}</li>
+            </ol>
+            <ol id="loJPN">
+              <li v-for="jpnOutcome in jpnOutcomes">{{ jpnOutcome.text }}</li>
+            </ol>
+            <button v-on:click="langFunction()">
+              <span class="material-icons" style="font-size: 18px;">translate</span>
+            </button>
           </div>
-          <div id="topPosts"></div>
-        </div>
+        </details>
+
 
         <!-- OTHERS CONTAINER -->
         <section id="addFeature" hidden="true">
@@ -260,27 +269,13 @@
             <h4>便利なツール</h4>
           </div>
           <div class="bigButtons">
-            <button class="standardButton blueBtn" onclick="window.open('https://schedule-creator-site.firebaseapp.com/','_blank')"><span class="material-icons" style="font-size:30px">calendar_today</span><br>時間割作成サイト（DEIZU）</button>
-            <button class="standardButton blueBtn" id="ibmanabu"
+            <button class="standardButton blueBtn" onclick="window.open('https://deizu-site.firebaseapp.com/','_blank')"><span class="material-icons" style="font-size:30px">calendar_today</span><br>時間割作成サイト（DEIZU）</button>
+            <!-- <button class="standardButton blueBtn" id="ibmanabu"
             onclick="window.open('https://501a-designs.github.io/ib-manabu/','_blank')"><span class="material-icons" style="font-size:30px">public</span><br>IBmanabu</button>
+             -->
             <small style="color: var(--darkBlue);">SMAとは関係無いです</small>
           </div>
         </section>
-
-        <details class="sidebarBox" close>
-          <summary>7つの Learning Outcome</summary>
-          <div class="load-wave" id="learning-outcomes-list">
-            <ol  id="loENG" style="display: none;">
-              <li v-for="engOutcome in engOutcomes">{{ engOutcome.text }}</li>
-            </ol>
-            <ol id="loJPN">
-              <li v-for="jpnOutcome in jpnOutcomes">{{ jpnOutcome.text }}</li>
-            </ol>
-            <button v-on:click="langFunction()">
-              <span class="material-icons" style="font-size: 18px;">translate</span>
-            </button>
-          </div>
-        </details>
 
         <details class="sidebarBox" close>
           <summary>関連ウェブサイト</summary>
@@ -340,3 +335,164 @@
     </div>
   </body>
 </html>
+
+<script>
+  var learningOutcomesList = new Vue({
+    el: '#learning-outcomes-list',
+    data: {
+        engOutcomes: [
+            { text: 'Identify your own strengths and develop areas for personal growth.' },
+            { text: 'Demonstrate challenges have been undertaken, developing new skills in the process.' },
+            { text: 'Demonstrate how to initate and plan a CAS experience.' },
+            { text: 'Show commitment to and perseverance in CAS experience.' },
+            { text: 'Demonstrate the skills and recognize the benfits of working collaboratively.' },
+            { text: 'Demonstrate engagement with issues of global significance.' },
+            { text: 'Recognize and consider the ethics of choices and actions.' },
+        ],
+        jpnOutcomes: [
+            { text: '自らの長所と成長すべき点を認識する。' },
+            { text: '課題に挑戦し、その過程で新しいスキルを習得している。' },
+            { text: '自らCASを計画し開始することができる。' },
+            { text: 'CAS活動を継続し、やり遂げる粘り強さを示す。' },
+            { text: '自らのスキルを活かし、また他者と共に活動する意義を認識する。' },
+            { text: 'グローバルな問題に取り組む。' },
+            { text: '選択と行動の倫理を認識し、考察する。' },
+      ]
+    },
+    methods: {
+        langFunction: function () {
+            const jpn = document.getElementById("loJPN");
+            const eng = document.getElementById("loENG");
+            
+            if (eng.style.display === "none") {
+                jpn.style.display="none";
+                eng.style.display="block";
+            } else {
+                jpn.style.display="block";
+                eng.style.display="none";
+            }
+        }
+    }
+})
+
+// Sites related to school list data
+var relatedSites = new Vue({
+    el: '#related-sites',
+    data: {
+        relatedSites: [
+            {
+                name: '開智日本橋学園',
+                href: 'http://kng.ed.jp',
+            },
+            {
+                name: 'Mreader',
+                href: 'https://mreader.org/index.php',
+            },
+            {
+                name: 'LearnGeoWithMe',
+                href: 'https://www.learngeowith.me/',
+            },
+        ]
+    }
+})
+
+// Sites by students list data
+var studentSites = new Vue({
+    el: '#student-sites',
+    data: {
+        studentSites: [
+            {
+                name: 'KNG Can Food Drive',
+                href: 'http://www.kngcan.info/',
+            },
+        ],
+    }
+})
+
+// SMA pages list data
+var smaSites = new Vue({
+    el: '#sma-sites',
+    data: {
+        smaSites: [
+            {
+                name: 'KNG Can Food Drive',
+                href: 'http://www.kngcan.info/',
+            },
+            {
+                name: 'Orenohibi',
+                href: '',
+            }
+        ],
+    }
+})
+
+//Version alert pop up
+//ERASING THE POP UP ON CLICK
+function eraseVersionNotify(){
+    document.getElementById("versionNotify").style.display="none";
+}
+
+//Darkmode variablenames
+const LD = document.getElementById('LtoD');
+const DL = document.getElementById('DtoL');
+
+//Darkmode toggle
+function LtoD() {
+    document.documentElement.classList.toggle('darkMode', false);
+    // img.toggle('darkMode', false);
+    LD.style.display="block";
+    DL.style.display="none";
+}
+function DtoL() {
+    document.documentElement.classList.toggle('darkMode', true);
+    // img.toggle('darkMode', false);
+    LD.style.display="none";
+    DL.style.display="block";
+}
+
+//Darkmode time
+var h = new Date().getHours();
+if (h > 19) {
+    DtoL();
+}else{
+    LtoD();
+}
+
+//erasing stuff
+function loginPopUpFunction(){
+    const loginPopUp = document.getElementById("loginPopUp");
+    if (loginPopUp.style.display === "none") {
+        loginPopUp.style.display = "block";
+    } else {
+        loginPopUp.style.display = "none";
+    }
+}
+function announcePopUpFunction(){
+    const announcePopUp = document.getElementById("announcePopUp");
+    if (announcePopUp.hidden === true) {
+        announcePopUp.hidden = false;
+    } else {
+        announcePopUp.hidden = true;
+    }
+}
+function blockFilterBar(value) {
+    const filter = document.getElementById("filter");
+    if (value === 1) {
+        filter.hidden=false;
+    }else{
+      filter.hidden=true;
+    }
+}
+function blockDisplay(value) {
+    const createPost = document.getElementById("createPost");
+    if (value === 1) {
+        createPost.hidden=false;
+    }else{
+        createPost.hidden=true;
+    }
+}
+function confirmPrompt() {
+    document.getElementById("confirmDiv").style.display="block";
+    document.getElementById("firstSubmit").style.display="none";
+}
+</script>
